@@ -35,7 +35,6 @@ MonoBehaviour:
     - Cinemachine
     - Edgar.Unity
     - Edgar.Unity.Examples
-    - Pools
     showAdvancedSettings: 0
   addMgrToSceneAutomatically: 0
   autoUpdateReferences: 1
