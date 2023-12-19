@@ -32,6 +32,8 @@ MonoBehaviour:
     assemblyNames:
     - Assembly-CSharp-firstpass
     - Cinemachine
+    - Edgar.Unity
+    - Edgar.Unity.Examples
     - Pools
     showAdvancedSettings: 0
   addMgrToSceneAutomatically: 0
