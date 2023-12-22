@@ -9,6 +9,7 @@ public class BulletController : MonoBehaviour
 
     void Update()
     {
+      
         MousePosition();
         BulletInstantiate();
     }
