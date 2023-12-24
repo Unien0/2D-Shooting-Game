@@ -62,6 +62,7 @@ public class BulletController : MonoBehaviour
 
             // 设置子弹的速度和方向
             bullet.GetComponent<Rigidbody2D>().velocity = bulletDirection * bulletSpeed;
+
         }
 
     }
