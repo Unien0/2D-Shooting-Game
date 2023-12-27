@@ -10,9 +10,15 @@ public class PlayerBullet_SO : ScriptableObject
     [Header("_伤害")]
     public int playerBulletDamage;//基础力量
     [Header("_子弹冷却时间")]
-    public float linerBulletCoolDownTime;//基础
+    public float bulletCoolDownTime;//基础
     [Header("_存在时间")]
-    public float linerBulletExistenceTime;//存在时间
+    public float bulletExistenceTime;//存在时间
+    [Header("_弹匣子弹量")]
+    public int magazineBulletCount;
+    [Header("_装填所需时间")]
+    public float bulletFillingTime;
+    [Header("_装填启动时间")]
+    public float bulletLoadingStartTime;
 
 
     [Header("直线子弹")]

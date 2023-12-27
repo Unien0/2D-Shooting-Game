@@ -16,8 +16,10 @@ MonoBehaviour:
   playerIcon: {fileID: 0}
   playerOnWorldSprite: {fileID: 0}
   playerDescription: 
-  playerMaxHP: 0
-  playerHP: 0
+  playerMaxHP: 100
+  playerHP: 100
+  playerReplyTime: 3
+  playerReplyVolume: 2
   playerLucky: 0
   playerBaseSpeed: 0
   playerCurrentSpeed: 0

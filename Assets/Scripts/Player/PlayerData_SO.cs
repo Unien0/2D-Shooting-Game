@@ -16,6 +16,8 @@ public class PlayerData_SO : ScriptableObject
     [Header("玩家属性")]
     public int playerMaxHP;//最大血量
     public int playerHP;//当前血量
+    public float playerReplyTime;//血量回复时间
+    public int playerReplyVolume;//回复量
     public int playerLucky;
     [Header("_移动速度相关")]
     public float playerBaseSpeed;//基础速度

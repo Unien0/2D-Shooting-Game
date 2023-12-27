@@ -4,9 +4,44 @@ using UnityEngine;
 
 public class BulletController : MonoBehaviour
 {
+    public PlayerBullet_SO playerBulletData;
+    public float bulletCoolDownTime//CD
+    {
+        get { if (playerBulletData != null) return playerBulletData.bulletCoolDownTime; else return 0; }
+    }
+    public float bulletExistenceTime//存在时间
+    {
+        get { if (playerBulletData != null) return playerBulletData.bulletExistenceTime; else return 0; }
+    }
+    public int magazineBulletCount//子弹量
+    {
+        get { if (playerBulletData != null) return playerBulletData.magazineBulletCount; else return 0; }
+    }
+    public float bulletFillingTime//填装时间
+    {
+        get { if (playerBulletData != null) return playerBulletData.bulletFillingTime; else return 0; }
+    }
+    public float bulletLoadingStartTime//填装启动时间
+    {
+        get { if (playerBulletData != null) return playerBulletData.bulletLoadingStartTime; else return 0; }
+    }
+    [SerializeField][ReadOnly]
+    private float bulletTime;//当前射击冷却
+    [SerializeField][ReadOnly]//用于私有只读
+    private int currentMagazineBulletCount;//当前子弹量
+    [SerializeField][ReadOnly]
+    private float fillingTimeCD;//当前装填冷却时间，不会进入状态状态
+    [SerializeField][ReadOnly]
+    private bool isLoadBullets;//强制装填状态
+
     public GameObject bulletPrefab;
     public float bulletSpeed;
-    public float fireThreshold = 0.5f;
+    public float fireThreshold = 0.5f;//死区
+
+    private void Start()
+    {
+        currentMagazineBulletCount = magazineBulletCount;//弹匣装满
+    }
 
     void Update()
     {
@@ -54,17 +89,55 @@ public class BulletController : MonoBehaviour
 
         if (Mathf.Abs(horizontalInput) > fireThreshold || Mathf.Abs(verticalInput) > fireThreshold)//设置死区（在一定值范围内不会射击，防止误触）
         {
-            // 计算子弹的方向
-            Vector2 bulletDirection = new Vector2(horizontalInput, verticalInput).normalized;
+            bulletTime += Time.deltaTime;
+            //条件：子弹数大于0，且子弹发射CD转好，且不处于强制填装状态
+            if (currentMagazineBulletCount >0 && bulletTime >= bulletCoolDownTime && !isLoadBullets)
+            {
+                //子弹大于0时生成子弹
+                // 计算子弹的方向
+                Vector2 bulletDirection = new Vector2(horizontalInput, verticalInput).normalized;
 
-            // 创建子弹实例
-            GameObject bullet = Instantiate(bulletPrefab, transform.position, Quaternion.identity);
+                // 创建子弹实例
+                GameObject bullet = Instantiate(bulletPrefab, transform.position, Quaternion.identity);
 
-            // 设置子弹的速度和方向
-            bullet.GetComponent<Rigidbody2D>().velocity = bulletDirection * bulletSpeed;
-
+                // 设置子弹的速度和方向
+                bullet.GetComponent<Rigidbody2D>().velocity = bulletDirection * bulletSpeed;
+                currentMagazineBulletCount--;
+            }
+            else
+            {
+                //否则强行装填子弹
+                LoadBullets();
+                isLoadBullets = true;//启动强制状态状态
+            }
         }
+        else
+        {
+            if (!isLoadBullets && currentMagazineBulletCount < magazineBulletCount)
+            {
+                fillingTimeCD += Time.deltaTime;
+                if (fillingTimeCD >= bulletLoadingStartTime)
+                {
+                    LoadBullets();
+                    fillingTimeCD = 0;
+                }
+            }            
+        }
+    }
 
+    void LoadBullets()
+    {
+        if (isLoadBullets)//出于装填状态下
+        {
+            float time = 0f;
+            time += Time.deltaTime;
+            if (time >= bulletFillingTime)
+            {
+                currentMagazineBulletCount = magazineBulletCount;
+                time = 0;
+                isLoadBullets = false;
+            }
+        }
     }
 
 }
