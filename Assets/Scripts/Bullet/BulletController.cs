@@ -34,19 +34,22 @@ public class BulletController : MonoBehaviour
     [SerializeField][ReadOnly]
     private bool isLoadBullets;//强制装填状态
 
-    public GameObject bulletPrefab;
+    //public GameObject bulletPrefab;
     public float bulletSpeed;
     public float fireThreshold = 0.5f;//死区
+
+    private BulletPool bulletPool;
 
     private void Start()
     {
         currentMagazineBulletCount = magazineBulletCount;//弹匣装满
+        bulletPool = FindObjectOfType<BulletPool>();
     }
 
     void Update()
     {
-        //MousePosition();
-        //BulletInstantiate();
+        MousePosition();
+        BulletInstantiate();
         InputPosition();
     }
 
@@ -73,9 +76,13 @@ public class BulletController : MonoBehaviour
         if (Input.GetMouseButtonDown(0))
         {
             // 实例化子弹并设置位置和旋转
-            FindObjectOfType<BulletPool>().GetExplosion(this.transform.position, transform.rotation, bulletSpeed);
+            //FindObjectOfType<BulletPool>().GetExplosion(this.transform.position, transform.rotation, bulletSpeed);
             //GameObject bullet = Instantiate(bulletPrefab, transform.position, transform.rotation);
             //bullet.GetComponent<Rigidbody2D>().velocity = bulletSpeed * transform.right;
+            var bullet = bulletPool.Get();
+            bullet.transform.position = this.transform.position;
+            bullet.transform.rotation = this.transform.rotation;
+            bullet.GetComponent<Rigidbody2D>().velocity = bulletSpeed * transform.right;
         }
     }
 
@@ -98,10 +105,13 @@ public class BulletController : MonoBehaviour
                 Vector2 bulletDirection = new Vector2(horizontalInput, verticalInput).normalized;
 
                 // 创建子弹实例
-                GameObject bullet = Instantiate(bulletPrefab, transform.position, Quaternion.identity);
+                //GameObject bullet = Instantiate(bulletPrefab, transform.position, Quaternion.identity);
+                var bulletInput = bulletPool.Get();
+                bulletInput.transform.position = this.transform.position;
+                bulletInput.transform.rotation = Quaternion.identity;
 
                 // 设置子弹的速度和方向
-                bullet.GetComponent<Rigidbody2D>().velocity = bulletDirection * bulletSpeed;
+                bulletInput.GetComponent<Rigidbody2D>().velocity = bulletDirection * bulletSpeed;
                 currentMagazineBulletCount--;
             }
             else

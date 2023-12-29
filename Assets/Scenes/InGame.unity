@@ -158,7 +158,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchoredPosition: {x: -382, y: 243}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &24901536
@@ -1269,8 +1269,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   objPrefab: {fileID: 6333394782734306046, guid: b4aacaa918c4cc444af31ffc0952cf2e, type: 3}
-  defaultSize: 10
-  maxSize: 50
+  defaultSize: 100
+  maxSize: 1000
 --- !u!1 &1655100314
 GameObject:
   m_ObjectHideFlags: 0
@@ -1727,7 +1727,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3b790e4be951bfc47a08524ce5368c05, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bulletPrefab: {fileID: 6916413337689440384, guid: b4aacaa918c4cc444af31ffc0952cf2e, type: 3}
+  playerBulletData: {fileID: 11400000, guid: 360117664f2412349b151dd783737ad2, type: 2}
+  bulletTime: 0
+  currentMagazineBulletCount: 0
+  fillingTimeCD: 0
+  isLoadBullets: 0
   bulletSpeed: 10
   fireThreshold: 0.5
 --- !u!1 &2126305014

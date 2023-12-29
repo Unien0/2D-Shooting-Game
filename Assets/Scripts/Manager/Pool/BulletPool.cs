@@ -16,12 +16,12 @@ public class BulletPool : BasePool<Bullet>
 
     }
 
-    public void GetExplosion(Vector3 pos, Quaternion rotation, float BulletSpeed)
+    public void GetExplosion()
     {
         var temp = Get();
-        temp.transform.position = pos;
-        temp.transform.rotation = rotation;
-        temp.GetComponent<Rigidbody2D>().velocity = BulletSpeed * transform.right;
+        //temp.transform.position = pos;
+        //temp.transform.rotation = rotation;
+        //temp.GetComponent<Rigidbody2D>().velocity = BulletSpeed * transform.right;
 
     }
 
