@@ -4,7 +4,12 @@ using UnityEngine;
 
 public class EnemyMovement : MonoBehaviour
 {
-    public float speed = 5f; // 移动速度
+    public EnemyData_SO enemyData;
+
+    public float enmeySpeed//移动速度
+    {
+        get { if (enemyData != null) return enemyData.enemySpeed; else return 0; }
+    }
     private Transform player;
     // Start is called before the first frame update
     void Start()
@@ -26,7 +31,7 @@ public class EnemyMovement : MonoBehaviour
     {
         Vector2 direction = player.position - transform.position;
         direction.Normalize();//斜角标准化
-        transform.Translate(direction * speed * Time.deltaTime);
+        transform.Translate(direction * enmeySpeed * Time.deltaTime);
 
     }
 }
