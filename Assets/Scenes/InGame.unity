@@ -3702,14 +3702,6 @@ CompositeCollider2D:
       - X: 320000000
         Y: 310000000
       - X: 320000000
-        Y: 40000000
-      - X: 300000000
-        Y: 40000000
-      - X: 300000000
-        Y: 30000000
-      - X: 320000000
-        Y: 30000000
-      - X: 320000000
         Y: -300000000
   m_CompositePaths:
     m_Paths:
@@ -3721,10 +3713,6 @@ CompositeCollider2D:
       - {x: -31, y: -29.999971}
       - {x: -30.999971, y: 31}
       - {x: 32, y: 30.999971}
-      - {x: 31.999971, y: 4}
-      - {x: 30, y: 3.999971}
-      - {x: 30.000029, y: 3}
-      - {x: 32, y: 2.9999707}
   m_VertexDistance: 0.0005
   m_OffsetDistance: 0.00005
 --- !u!50 &812081675
@@ -3872,7 +3860,7 @@ MonoBehaviour:
   m_Priority: 10
   m_StandbyUpdate: 2
   m_LookAt: {fileID: 0}
-  m_Follow: {fileID: 0}
+  m_Follow: {fileID: 27160309}
   m_Lens:
     FieldOfView: 60
     OrthographicSize: 5
@@ -3899,7 +3887,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1269700114}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -20}
+  m_LocalPosition: {x: 0, y: 0, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -45468,7 +45456,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1685348653}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -20}
+  m_LocalPosition: {x: 0, y: 0, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -45853,7 +45841,9 @@ MonoBehaviour:
   bulletTime: 0
   currentMagazineBulletCount: 0
   fillingTimeCD: 0
+  fillingTime: 0
   isLoadBullets: 0
+  isFillingTime: 0
   bulletSpeed: 10
   fireThreshold: 0.5
 --- !u!1 &2126305014
@@ -45941,13 +45931,9 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 941279739348309506, guid: 0803c8b82f70b9d4c947d0518b5ca8d1, type: 3}
-      propertyPath: EnemyData
-      value: 
-      objectReference: {fileID: 11400000, guid: 0e62bc1c4bcda2646b53ae58640cee11, type: 2}
-    - target: {fileID: 941279739348309506, guid: 0803c8b82f70b9d4c947d0518b5ca8d1, type: 3}
-      propertyPath: enemyData
-      value: 
-      objectReference: {fileID: 11400000, guid: 0e62bc1c4bcda2646b53ae58640cee11, type: 2}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 941279739348309509, guid: 0803c8b82f70b9d4c947d0518b5ca8d1, type: 3}
       propertyPath: m_Name
       value: Enmey

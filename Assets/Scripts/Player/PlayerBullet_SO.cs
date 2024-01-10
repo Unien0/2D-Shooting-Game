@@ -9,6 +9,8 @@ public class PlayerBullet_SO : ScriptableObject
     [Header("基础属性")]
     [Header("_伤害")]
     public int playerBulletDamage;//基础力量
+    [Header("_伤害倍率（Buff用）")]
+    public float bulletDamageMultipler;
     [Header("_子弹冷却时间")]
     public float bulletCoolDownTime;//基础
     [Header("_存在时间")]
@@ -25,11 +27,10 @@ public class PlayerBullet_SO : ScriptableObject
     [Header("_速度")]
     public float linerBulletSpeed;//基础
     //public float linerBulletCurrentSpeed;//当前
-    [Header("_伤害倍率")]
-    public int linerBulletDamageMultipler;//子弹倍率
-    //public int linerBulletCurrentDamage;//当前
     [Header("_穿透")]
     public int linerBulletPenetrationCount;//穿透次数
+    [Header("_存在时间")]
+    public float linerBulletExistenceTime;
 
 
     [Header("追踪子弹")]

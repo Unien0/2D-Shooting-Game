@@ -136,5 +136,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fe71290a7b52c1647a5182cf96325e61, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  existenceTime: 3
+  bulletData: {fileID: 11400000, guid: 360117664f2412349b151dd783737ad2, type: 2}
+  linerBulletCurrentSpeed: 1
+  playerBulletCurrentDamage: 1
+  linerBulletCurrentDamageMultipler: 1
+  linerBulletCurrentPenetrationCount: 1
   newTime: 0

@@ -9,11 +9,7 @@ public class BulletController : MonoBehaviour
     {
         get { if (playerBulletData != null) return playerBulletData.bulletCoolDownTime; else return 0; }
     }
-    public float bulletExistenceTime//存在时间
-    {
-        get { if (playerBulletData != null) return playerBulletData.bulletExistenceTime; else return 0; }
-    }
-    public int magazineBulletCount//子弹量
+    public int magazineBulletCount//弹匣子弹量
     {
         get { if (playerBulletData != null) return playerBulletData.magazineBulletCount; else return 0; }
     }
@@ -32,7 +28,11 @@ public class BulletController : MonoBehaviour
     [SerializeField][ReadOnly]
     private float fillingTimeCD;//当前装填冷却时间，不会进入状态状态
     [SerializeField][ReadOnly]
+    private float fillingTime;//填装计时器
+    [SerializeField][ReadOnly]
     private bool isLoadBullets;//强制装填状态
+    [SerializeField][ReadOnly]
+    private bool isFillingTime;
 
     //public GameObject bulletPrefab;
     public float bulletSpeed;
@@ -48,9 +48,12 @@ public class BulletController : MonoBehaviour
 
     void Update()
     {
-        MousePosition();
-        BulletInstantiate();
-        InputPosition();
+        bulletTime += Time.deltaTime;
+        MousePosition();//鼠标平面坐标
+
+         BulletInstantiate();
+         //InputPosition();
+            
     }
 
     /// <summary>
@@ -73,16 +76,44 @@ public class BulletController : MonoBehaviour
         Vector3 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         float angle = Mathf.Atan2(mousePosition.y - transform.position.y, mousePosition.x - transform.position.x) * Mathf.Rad2Deg;
         transform.rotation = Quaternion.Euler(new Vector3(0, 0, angle));
-        if (Input.GetMouseButtonDown(0))
+
+        //按下鼠标左键，如果松开一段时间则判定子弹是否装满，没装满则填装
+        if (Input.GetMouseButton(0) )
         {
-            // 实例化子弹并设置位置和旋转
-            //FindObjectOfType<BulletPool>().GetExplosion(this.transform.position, transform.rotation, bulletSpeed);
-            //GameObject bullet = Instantiate(bulletPrefab, transform.position, transform.rotation);
-            //bullet.GetComponent<Rigidbody2D>().velocity = bulletSpeed * transform.right;
-            var bullet = bulletPool.Get();
-            bullet.transform.position = this.transform.position;
-            bullet.transform.rotation = this.transform.rotation;
-            bullet.GetComponent<Rigidbody2D>().velocity = bulletSpeed * transform.right;
+            //条件：子弹数大于0，且子弹发射CD转好，且不处于强制填装状态
+            if (currentMagazineBulletCount > 0  && !isLoadBullets)
+            {
+                if ( bulletTime >= bulletCoolDownTime)
+                {
+                    // 实例化子弹并设置位置和旋转
+                    var bullet = bulletPool.Get();
+                    bullet.transform.position = this.transform.position;
+                    bullet.transform.rotation = this.transform.rotation;
+                    bullet.GetComponent<Rigidbody2D>().velocity = bulletSpeed * transform.right;
+                    bulletTime = 0;//CD还原
+                    currentMagazineBulletCount--;//子弹数量减少
+                }
+            }
+            else if(currentMagazineBulletCount == 0)
+            {
+                //否则强行装填子弹
+                isFillingTime = true;
+                LoadBullets();
+                //isLoadBullets = true;//启动强制状态状态
+                //！！！！！！此处有bug
+            }
+        }//如果不处于强制填装状态，且子弹数少于弹匣容量，并且在过了一段时间后就会进入填装状态
+        else if(currentMagazineBulletCount < magazineBulletCount)
+        {
+            //计时器，如果fillingTimeCD 大于等于填装启动时间，则进入填装状态
+            fillingTimeCD += Time.deltaTime;
+            if (fillingTimeCD >= bulletLoadingStartTime)
+            {
+                //由于不是强制填装状态，所以玩家可以随时退出填装
+                isFillingTime = true;
+                LoadBullets();
+                fillingTimeCD = 0;
+            }
         }
     }
 
@@ -91,12 +122,12 @@ public class BulletController : MonoBehaviour
     /// </summary>
     void InputPosition()
     {
+        
         float horizontalInput = Input.GetAxis("RightStickHorizontal");
         float verticalInput = Input.GetAxis("RightStickVertical");
 
         if (Mathf.Abs(horizontalInput) > fireThreshold || Mathf.Abs(verticalInput) > fireThreshold)//设置死区（在一定值范围内不会射击，防止误触）
         {
-            bulletTime += Time.deltaTime;
             //条件：子弹数大于0，且子弹发射CD转好，且不处于强制填装状态
             if (currentMagazineBulletCount >0 && bulletTime >= bulletCoolDownTime && !isLoadBullets)
             {
@@ -112,42 +143,44 @@ public class BulletController : MonoBehaviour
 
                 // 设置子弹的速度和方向
                 bulletInput.GetComponent<Rigidbody2D>().velocity = bulletDirection * bulletSpeed;
+                bulletTime -= bulletCoolDownTime;//CD还原
                 currentMagazineBulletCount--;
             }
-            else
+            else if(currentMagazineBulletCount == 0)
             {
+                isFillingTime = true;
                 //否则强行装填子弹
                 LoadBullets();
-                isLoadBullets = true;//启动强制状态状态
+                //isLoadBullets = true;//启动强制状态状态
             }
         }
-        else
+        else if (currentMagazineBulletCount < magazineBulletCount)
         {
-            if (!isLoadBullets && currentMagazineBulletCount < magazineBulletCount)
+            //计时器，如果fillingTimeCD 大于等于填装启动时间，则进入填装状态
+            fillingTimeCD += Time.deltaTime;
+            if (fillingTimeCD >= bulletLoadingStartTime)
             {
-                fillingTimeCD += Time.deltaTime;
-                if (fillingTimeCD >= bulletLoadingStartTime)
-                {
-                    LoadBullets();
-                    fillingTimeCD = 0;
-                }
-            }            
+                //由于不是强制填装状态，所以玩家可以随时退出填装
+                isFillingTime = true;
+                LoadBullets();
+                fillingTimeCD = 0;
+            }
         }
     }
 
+    //强制填装，在填装结束后退出强制填装状态
     void LoadBullets()
     {
-        if (isLoadBullets)//出于装填状态下
+        if (isFillingTime)
         {
-            float time = 0f;
-            time += Time.deltaTime;
-            if (time >= bulletFillingTime)
+            fillingTime += Time.deltaTime;
+            if (fillingTime >= bulletFillingTime)
             {
                 currentMagazineBulletCount = magazineBulletCount;
-                time = 0;
+                fillingTime = 0;
                 isLoadBullets = false;
+                isFillingTime = false;
             }
         }
     }
-
 }
