@@ -34,10 +34,10 @@ MonoBehaviour:
     soundPitchMax: 1
     soundVolume: 0.5
   - soundName: 8
-    soundClip: {fileID: 8300000, guid: 5e562007d7bf3c843944fec48b3160b7, type: 3}
-    soundPitchMin: 1
-    soundPitchMax: 1
-    soundVolume: 0.5
+    soundClip: {fileID: 8300000, guid: c58a5ed4b7de6ab479e826380c8ebb2c, type: 3}
+    soundPitchMin: 0.6
+    soundPitchMax: 0.85
+    soundVolume: 0.6
   - soundName: 9
     soundClip: {fileID: 8300000, guid: f8e1964ee2410ad449d18cddbe7c309e, type: 3}
     soundPitchMin: 1

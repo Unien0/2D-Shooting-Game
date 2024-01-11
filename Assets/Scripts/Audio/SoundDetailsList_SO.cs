@@ -30,13 +30,16 @@ public class SoundDetails
 public enum SoundName
 {
     none,
-    Slash,Shoot,
-    //チョップ，しゃげき
-    MusicCalm,
-    //BGM1
-    Square, Triangle, Rhombus, Star,
-    //魔法SE
-    EnemyAttack1, EnemyAttack2, EnemyAttack3,
-    //敵の行動
-    Explosion1, Explosion12,
+    Button1, Button2, Button3,
+    //按钮1，按钮2，按钮3
+    Slash, Shoot,
+    //挥砍，射击
+    MusicCalm, MenuMusic,
+    //BGM1，菜单音乐
+
+    //环境音
+    ExperienceGem, HealthPotion,
+    //经验球,治疗瓶
+    Injured01
+    //受伤01
 }
