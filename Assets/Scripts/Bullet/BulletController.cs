@@ -85,8 +85,8 @@ public class BulletController : MonoBehaviour
         //按下鼠标左键，如果松开一段时间则判定子弹是否装满，没装满则填装
         if (Input.GetMouseButton(0) && !isLoadBullets)
         {
-            fillingTimeCD = 0;  //只要进入射击状态，就会打断脱战自动装填的CD
-
+            fillingTimeCD = 0;  //只要进入射击状态，就会打断脱战自动装填的CD,以及装填进度
+            fillingTime = 0;
             bulletTime += Time.deltaTime;
             if ( bulletTime >= bulletCoolDownTime)
             {
