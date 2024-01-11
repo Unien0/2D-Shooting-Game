@@ -5,19 +5,19 @@ using UnityEngine;
 public class BulletController : MonoBehaviour
 {
     public PlayerBullet_SO playerBulletData;
-    public float bulletCoolDownTime//CD
+    private float bulletCoolDownTime//CD
     {
         get { if (playerBulletData != null) return playerBulletData.bulletCoolDownTime; else return 0; }
     }
-    public int magazineBulletCount//弹匣子弹量
+    private int magazineBulletCount//弹匣子弹量
     {
         get { if (playerBulletData != null) return playerBulletData.magazineBulletCount; else return 0; }
     }
-    public float bulletFillingTime//填装时间
+    private float bulletFillingTime//填装时间
     {
         get { if (playerBulletData != null) return playerBulletData.bulletFillingTime; else return 0; }
     }
-    public float bulletLoadingStartTime//填装启动时间
+    private float bulletLoadingStartTime//填装启动时间
     {
         get { if (playerBulletData != null) return playerBulletData.bulletLoadingStartTime; else return 0; }
     }
