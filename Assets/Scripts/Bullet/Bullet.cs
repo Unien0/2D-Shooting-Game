@@ -81,12 +81,17 @@ public class Bullet : MonoBehaviour
         //伤害传输
         //SpaceArtPublishState spaceArtPublishState = collision.gameObject.GetComponent<SpaceArtPublishState>();
         EnemyState enemyStats = enemy.GetComponent<EnemyState>();
+        TestEnemyState testEnemyState = enemy.GetComponent<TestEnemyState>();
         int damage = (int)(playerBulletCurrentDamage * linerBulletCurrentDamageMultipler);
         Debug.Log(damage);
         //spaceArtPublishState.TakeDamage(damage);
         if (enemyStats != null)
         {
             enemyStats.TakeDamage(damage);
+        }
+        if (testEnemyState != null)
+        {
+            testEnemyState.TakeDamage(damage);
         }
     }
 

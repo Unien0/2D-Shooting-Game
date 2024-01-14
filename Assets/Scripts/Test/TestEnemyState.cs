@@ -5,6 +5,7 @@ using UnityEngine;
 public class TestEnemyState : MonoBehaviour
 {
     //敌人基本属性
+    public GameObject deadEffect;   // 子弹预制体
     public float currentMoveSpeed;
     public int currentHealth = 10;
     public int currentDamage;
@@ -40,6 +41,7 @@ public class TestEnemyState : MonoBehaviour
     /// </summary>
     public void Kill()
     {
+        Instantiate(deadEffect, transform.position, transform.rotation);
         Destroy(gameObject);
     }
 }

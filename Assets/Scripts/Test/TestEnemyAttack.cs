@@ -9,7 +9,7 @@ public class TestEnemyAttack : MonoBehaviour
     public Transform bulletSpawnPoint; // 子弹生成点
     public float bulletForce = 10f;    // 子弹的推力
     public float shootInterval = 0.5f;   // 射击间隔时间
-    public float detectionDistance = 5f; // 检测玩家距离
+    public float detectionDistance = 10f; // 检测玩家距离
 
     void Start()
     {

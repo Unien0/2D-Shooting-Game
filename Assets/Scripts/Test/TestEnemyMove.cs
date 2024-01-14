@@ -13,11 +13,13 @@ public class TestEnemyMove : MonoBehaviour
     public float stopDuration = 2f; // 时间间隔，停顿一段时间后再次判定左移还是右移
     private bool isRandomMoving = false;
     private Rigidbody2D rb;
+    bool isDead;
 
     private void Start()
     {
         player = FindObjectOfType<PlayerState>().transform;
         rb = GetComponent<Rigidbody2D>();
+        isDead = GetComponent<TestEnemyMove>().isDead;
         //环绕移动
         StartCoroutine(RandomMoveCoroutine());
     }
@@ -25,7 +27,7 @@ public class TestEnemyMove : MonoBehaviour
 
     void Update()
     {
-        if (player != null)
+        if (player != null &&!isDead)
         {
             float distanceToPlayer = Vector2.Distance(transform.position, player.position);
 
