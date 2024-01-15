@@ -4,6 +4,10 @@ using UnityEngine;
 
 public class TestPlayerMaOState : MonoBehaviour
 {
+    public GameObject gun1;
+    public GameObject gun2;
+
+
     private Vector3 initialScale;
     private Vector3 targetScale;
 
@@ -21,6 +25,16 @@ public class TestPlayerMaOState : MonoBehaviour
         {
             // 切换协程，根据当前缩放状态选择逆向缩放或正向缩放
             StartCoroutine(IsScaled() ? ScaleOverTime(initialScale) : ScaleOverTime(targetScale));
+        }
+        if (Input.GetKeyDown(KeyCode.J))
+        {
+            gun1.SetActive(true);
+            gun2.SetActive(true);
+        }
+        if (Input.GetKeyDown(KeyCode.K))
+        {
+            gun1.SetActive(false);
+            gun2.SetActive(false);
         }
     }
 

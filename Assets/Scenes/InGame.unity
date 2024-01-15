@@ -328,6 +328,8 @@ Transform:
   - {fileID: 2086173465}
   - {fileID: 1215517574}
   - {fileID: 1708276293}
+  - {fileID: 973445518}
+  - {fileID: 1881071049}
   m_Father: {fileID: 0}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -567,6 +569,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 74aa66d735f55fe429157e00ce7407eb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  gun1: {fileID: 973445517}
+  gun2: {fileID: 1881071048}
   scaleChangeSpeed: 1
 --- !u!1 &255461064
 GameObject:
@@ -732,7 +736,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &433853298
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3941,6 +3945,59 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
+--- !u!1 &973445517
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 973445518}
+  - component: {fileID: 973445519}
+  m_Layer: 7
+  m_Name: BulletController (1)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!4 &973445518
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 973445517}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0.368, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 27160309}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &973445519
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 973445517}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3b790e4be951bfc47a08524ce5368c05, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerBulletData: {fileID: 11400000, guid: 360117664f2412349b151dd783737ad2, type: 2}
+  bulletTime: 0
+  currentMagazineBulletCount: 0
+  fillingTimeCD: 0
+  fillingTime: 0
+  isLoadBullets: 0
+  isFillingTime: 0
+  bulletSpeed: 10
+  fireThreshold: 0.5
 --- !u!1 &1019857262
 GameObject:
   m_ObjectHideFlags: 3
@@ -4050,7 +4107,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1073646225
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -45794,7 +45851,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1664992151
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -46544,6 +46601,59 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!1 &1881071048
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1881071049}
+  - component: {fileID: 1881071050}
+  m_Layer: 7
+  m_Name: BulletController (2)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!4 &1881071049
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1881071048}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: -0.311, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 27160309}
+  m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1881071050
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1881071048}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3b790e4be951bfc47a08524ce5368c05, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerBulletData: {fileID: 11400000, guid: 360117664f2412349b151dd783737ad2, type: 2}
+  bulletTime: 0
+  currentMagazineBulletCount: 0
+  fillingTimeCD: 0
+  fillingTime: 0
+  isLoadBullets: 0
+  isFillingTime: 0
+  bulletSpeed: 10
+  fireThreshold: 0.5
 --- !u!1 &1931610708
 GameObject:
   m_ObjectHideFlags: 0
