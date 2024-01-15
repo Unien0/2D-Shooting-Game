@@ -33,6 +33,7 @@ public class PlayerMovement : NetworkBehaviour
         rigidbody.MovePosition(rigidbody.position + movement.normalized * MoveSpeed * Time.fixedDeltaTime);
     }
 
+
     void LookAt()
     {
         movement.x = Input.GetAxis("Horizontal"); 
