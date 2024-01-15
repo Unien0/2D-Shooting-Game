@@ -1,8 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Mirror;
 
-public class PlayerMovement : MonoBehaviour
+public class PlayerMovement : NetworkBehaviour
 {
     public float MoveSpeed = 5f;
     public bool isDead = false;
@@ -27,6 +28,8 @@ public class PlayerMovement : MonoBehaviour
     }
     public void FixedUpdate()
     {
+        if (!isLocalPlayer) return;
+
         rigidbody.MovePosition(rigidbody.position + movement.normalized * MoveSpeed * Time.fixedDeltaTime);
     }
 
@@ -36,10 +39,13 @@ public class PlayerMovement : MonoBehaviour
         movement.y = Input.GetAxis("Vertical");
 
         // Flip sprite if needed
-        var flipSprite = spriteRenderer.flipX ? movement.x > 0.01f : movement.x < -0.01f;
-        if (flipSprite)
+        if (movement.x > 0.01f)
         {
-            spriteRenderer.flipX = !spriteRenderer.flipX;
+            transform.localScale = new Vector3(1f, 1f, 1f);
+        }
+        else if (movement.x < -0.01f)
+        {
+            transform.localScale = new Vector3(-1f, 1f, 1f);
         }
     }
 }
