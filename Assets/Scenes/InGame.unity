@@ -158,7 +158,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -307, y: 218.46027}
+  m_AnchoredPosition: {x: -393, y: 355}
   m_SizeDelta: {x: 408.3197, y: 50.9205}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &24901536
@@ -4163,7 +4163,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 215}
+  m_AnchoredPosition: {x: -86, y: 351.53973}
   m_SizeDelta: {x: 100, y: 44}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &1410667110
@@ -46737,6 +46737,7 @@ MonoBehaviour:
   playerSpawnMethod: 0
   spawnPrefabs:
   - {fileID: 941279739348309509, guid: 0803c8b82f70b9d4c947d0518b5ca8d1, type: 3}
+  - {fileID: 6916413337689440384, guid: b4aacaa918c4cc444af31ffc0952cf2e, type: 3}
   exceptionsDisconnect: 1
   snapshotSettings:
     bufferTimeMultiplier: 2

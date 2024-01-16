@@ -44,6 +44,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3b790e4be951bfc47a08524ce5368c05, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  syncDirection: 0
+  syncMode: 0
+  syncInterval: 0
   playerBulletData: {fileID: 11400000, guid: 360117664f2412349b151dd783737ad2, type: 2}
   bulletTime: 0
   currentMagazineBulletCount: 0
@@ -53,6 +56,7 @@ MonoBehaviour:
   isFillingTime: 0
   bulletSpeed: 10
   fireThreshold: 0.5
+  bulletPrefab: {fileID: 0}
 --- !u!1 &2843107405343368551
 GameObject:
   m_ObjectHideFlags: 0
@@ -409,7 +413,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &2843107405943435734
 Transform:
   m_ObjectHideFlags: 0
@@ -487,6 +491,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2843107406051815562}
   - component: {fileID: 2843107406051815561}
+  - component: {fileID: 7392048397352806140}
   m_Layer: 7
   m_Name: BulletController
   m_TagString: Untagged
@@ -521,6 +526,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3b790e4be951bfc47a08524ce5368c05, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  syncDirection: 0
+  syncMode: 0
+  syncInterval: 0
   playerBulletData: {fileID: 11400000, guid: 360117664f2412349b151dd783737ad2, type: 2}
   bulletTime: 0
   currentMagazineBulletCount: 0
@@ -530,6 +538,41 @@ MonoBehaviour:
   isFillingTime: 0
   bulletSpeed: 10
   fireThreshold: 0.5
+  bulletPrefab: {fileID: 6916413337689440384, guid: b4aacaa918c4cc444af31ffc0952cf2e, type: 3}
+--- !u!114 &7392048397352806140
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2843107406051815563}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a553cb17010b2403e8523b558bffbc14, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  syncDirection: 1
+  syncMode: 0
+  syncInterval: 0
+  target: {fileID: 2843107406051815562}
+  syncPosition: 1
+  syncRotation: 1
+  syncScale: 0
+  interpolatePosition: 1
+  interpolateRotation: 1
+  interpolateScale: 1
+  coordinateSpace: 0
+  sendIntervalMultiplier: 1
+  timelineOffset: 0
+  showGizmos: 0
+  showOverlay: 0
+  overlayColor: {r: 0, g: 0, b: 0, a: 0.5}
+  onlySyncOnChange: 1
+  compressRotation: 1
+  bufferResetMultiplier: 3
+  positionSensitivity: 0.01
+  rotationSensitivity: 0.01
+  scaleSensitivity: 0.01
 --- !u!1 &2843107406123538011
 GameObject:
   m_ObjectHideFlags: 0
@@ -574,6 +617,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3b790e4be951bfc47a08524ce5368c05, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  syncDirection: 0
+  syncMode: 0
+  syncInterval: 0
   playerBulletData: {fileID: 11400000, guid: 360117664f2412349b151dd783737ad2, type: 2}
   bulletTime: 0
   currentMagazineBulletCount: 0
@@ -583,6 +629,7 @@ MonoBehaviour:
   isFillingTime: 0
   bulletSpeed: 10
   fireThreshold: 0.5
+  bulletPrefab: {fileID: 0}
 --- !u!1 &2843107406255953942
 GameObject:
   m_ObjectHideFlags: 0

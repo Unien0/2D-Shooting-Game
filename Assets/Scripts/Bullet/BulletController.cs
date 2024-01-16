@@ -1,8 +1,9 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Mirror;
 
-public class BulletController : MonoBehaviour
+public class BulletController : NetworkBehaviour
 {
     public PlayerBullet_SO playerBulletData;
     private float bulletCoolDownTime//CD
@@ -40,6 +41,7 @@ public class BulletController : MonoBehaviour
 
     private BulletPool bulletPool;
 
+    public GameObject bulletPrefab;
     private void Start()
     {
         currentMagazineBulletCount = magazineBulletCount;//弹匣装满
@@ -48,13 +50,20 @@ public class BulletController : MonoBehaviour
 
     void Update()
     {
-       
+        if (!isLocalPlayer)
+        {
+            return;
+        }
+
+        Vector3 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        float angle = Mathf.Atan2(mousePosition.y - transform.position.y, mousePosition.x - transform.position.x) * Mathf.Rad2Deg;
+        transform.rotation = Quaternion.Euler(new Vector3(0, 0, angle));
+
+        BulletMouseSync();
 
         //MousePosition();//鼠标平面坐标
+        //InputPosition();
 
-         BulletMouse();
-         //InputPosition();
-            
     }
 
     /// <summary>
@@ -71,7 +80,28 @@ public class BulletController : MonoBehaviour
         // 输出世界坐标
         //Debug.Log("Mouse Position in World Coordinates: " + mousePositionWorld);
     }
+    [Command]
+    void Init()
+    {
+        // 实例化子弹并设置位置和旋转
+        GameObject bullet = Instantiate(bulletPrefab, transform.position, transform.rotation);
+        NetworkServer.Spawn(bullet);
+        Destroy(bullet, 1.5f);
+    }
+    void BulletMouseSync()
+    {
+        //按下鼠标左键，如果松开一段时间则判定子弹是否装满，没装满则填装
+        if (Input.GetMouseButton(0))
+        {
+            bulletTime += Time.deltaTime;
+            if (bulletTime >= bulletCoolDownTime)
+            {
+                Init();
 
+                bulletTime -= bulletCoolDownTime;
+            }
+        }
+    }
     /// <summary>
     /// 鼠标射击模式
     /// 2024.1.11 孟：修改了换弹逻辑，满足设计需求

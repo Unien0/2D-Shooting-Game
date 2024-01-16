@@ -10,17 +10,17 @@ public class PlayerMovement : NetworkBehaviour
 
     private Vector2 movement;
     private new Rigidbody2D rigidbody;
-    private SpriteRenderer spriteRenderer;
     // Start is called before the first frame update
     void Start()
     {
-        spriteRenderer = GetComponent<SpriteRenderer>();
         rigidbody = GetComponent<Rigidbody2D>();
     }
 
     // Update is called once per frame
     void Update()
     {
+        if (!isLocalPlayer) return;
+
         if (!isDead)
         {
             LookAt();
