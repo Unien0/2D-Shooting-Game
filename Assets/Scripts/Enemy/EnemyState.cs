@@ -37,8 +37,8 @@ public class EnemyState : MonoBehaviour
 
     void Start()
     {
-        player = FindObjectOfType<PlayerState>().transform;
-        parentPool = FindObjectOfType<EnemyPool>();
+        //player = FindObjectOfType<PlayerState>().transform;
+        //parentPool = FindObjectOfType<EnemyPool>();
     }
 
     void Update()

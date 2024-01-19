@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Mirror;
-
+using Cinemachine;
 public class PlayerMovement : NetworkBehaviour
 {
     public float MoveSpeed = 5f;
@@ -14,6 +14,8 @@ public class PlayerMovement : NetworkBehaviour
     void Start()
     {
         rigidbody = GetComponent<Rigidbody2D>();
+
+        FindObjectOfType<CinemachineVirtualCamera>().Follow = this.transform;
     }
 
     // Update is called once per frame
