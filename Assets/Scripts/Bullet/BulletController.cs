@@ -41,6 +41,7 @@ public class BulletController : NetworkBehaviour
 
     private BulletPool bulletPool;
 
+    //1.14孟：现行版本，因无法同时兼容对象池的正常使用，因此暂时将对象池化的子弹改为传统的生成·销毁方法
     public GameObject bulletPrefab;
     private void Start()
     {
@@ -55,9 +56,7 @@ public class BulletController : NetworkBehaviour
             return;
         }
 
-        Vector3 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-        float angle = Mathf.Atan2(mousePosition.y - transform.position.y, mousePosition.x - transform.position.x) * Mathf.Rad2Deg;
-        transform.rotation = Quaternion.Euler(new Vector3(0, 0, angle));
+        ChangeRotation();
 
         BulletMouseSync();
 
@@ -69,16 +68,16 @@ public class BulletController : NetworkBehaviour
     /// <summary>
     /// 鼠标定位
     /// </summary>
-    void MousePosition()
+    void ChangeRotation()
     {
-        // 获取鼠标在屏幕上的位置
-        Vector3 mousePositionScreen = Input.mousePosition;
+        //获得鼠标的实际坐标
+        Vector3 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        //找到鼠标和玩家之间的夹角，并转化为角度角
+        float angle = Mathf.Atan2(mousePosition.y - transform.position.y, mousePosition.x - transform.position.x) * Mathf.Rad2Deg;
 
-        // 将屏幕坐标转换为世界坐标
-        Vector3 mousePositionWorld = Camera.main.ScreenToWorldPoint(mousePositionScreen);
+        //改变枪gameobject的角度
+        transform.rotation = Quaternion.Euler(new Vector3(0, 0, angle));
 
-        // 输出世界坐标
-        //Debug.Log("Mouse Position in World Coordinates: " + mousePositionWorld);
     }
     [Command]
     void Init()
@@ -86,7 +85,6 @@ public class BulletController : NetworkBehaviour
         // 实例化子弹并设置位置和旋转
         GameObject bullet = Instantiate(bulletPrefab, transform.position, transform.rotation);
         NetworkServer.Spawn(bullet);
-        Destroy(bullet, 1.5f);
     }
     void BulletMouseSync()
     {

@@ -1,8 +1,9 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Mirror;
 
-public class EnemyState : MonoBehaviour
+public class EnemyState : NetworkBehaviour
 {
 
     //敌人状态
@@ -21,7 +22,7 @@ public class EnemyState : MonoBehaviour
     [HideInInspector]
     public int currentDamage;
 
-    public bool isDead;
+    public bool isDead = false;
 
     Transform player;
     EnemyPool parentPool;
@@ -43,14 +44,21 @@ public class EnemyState : MonoBehaviour
 
     void Update()
     {
-
+        if(isServer)
+        {
+            if(isDead)
+            {
+                Kill();
+            }
+        }
+        Debug.Log("生命值是："+ currentHealth);
     }
 
     /// <summary>
     /// 敌方个体受伤
     /// </summary>
     /// <param name="dmg"></param>
-    public void TakeDamage(int dmg)
+   /* public void TakeDamage(int dmg)
     {
         currentHealth -= dmg;
 
@@ -62,14 +70,41 @@ public class EnemyState : MonoBehaviour
             //anim.SetBool("Dead", true);
             Kill();
         }
-    }
+    }*/
 
     /// <summary>
     /// 敌人个体死亡
+    /// 孟1.20：更新为网络方法
     /// </summary>
-    public void Kill()
+     void Kill()
     {
-        Destroy(gameObject);
-    }
+        if (isServer)
+        {
+            NetworkServer.Destroy(gameObject);
+        }
+     }
 
+    /// <summary>
+    /// 孟1.19：敌人受伤和死亡的网络同步代码
+    /// 在原有代码基础上，做出修改，可能会损失一些功能，需要再检查点和杨对接
+    /// </summary>
+    /// <param name="dmg"></param> 
+    [Server]
+    public void TakeDamage(int dmg)
+    {
+        Debug.Log(111);
+        if (!isDead)
+        {
+            currentHealth -= dmg;
+            Debug.Log(currentHealth);
+            if (currentHealth <= 0)
+            {
+                //改变个体Layer至敌人尸体栏
+                gameObject.layer = 9;
+                isDead = true;
+                //anim.SetBool("Dead", true);
+
+            }
+        }
+    }
 }

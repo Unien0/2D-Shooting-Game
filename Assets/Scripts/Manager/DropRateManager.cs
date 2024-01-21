@@ -13,7 +13,7 @@ public class DropRateManager : MonoBehaviour
     }
     public List<Drops> drops;
 
-    private void OnDestroy()
+   /* private void OnDestroy()
     {
         if (!gameObject.scene.isLoaded)
         {
@@ -34,6 +34,6 @@ public class DropRateManager : MonoBehaviour
             Drops drops = possibleDrops[UnityEngine.Random.Range(0, possibleDrops.Count)];
             Instantiate(drops.itemPrefab, transform.position, Quaternion.identity);
         }
-    }
+    }*/
 
 }

@@ -162,6 +162,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ecbc95437619eb846bf57f25de44afc9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  syncDirection: 0
+  syncMode: 0
+  syncInterval: 0
   enemyData: {fileID: 11400000, guid: 0e62bc1c4bcda2646b53ae58640cee11, type: 2}
   currentMoveSpeed: 0
   currentHealth: 1

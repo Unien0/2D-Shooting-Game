@@ -1,8 +1,9 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Mirror;
 
-public class Bullet : MonoBehaviour
+public class Bullet : NetworkBehaviour
 {
     public PlayerBullet_SO bulletData;
 
@@ -43,7 +44,7 @@ public class Bullet : MonoBehaviour
     //组件获取
     private Rigidbody2D rb2D;
     private Collider2D col2d;
-    private BulletPool parentPool;
+    //private BulletPool parentPool;
 
     private void Awake()
     {
@@ -57,33 +58,50 @@ public class Bullet : MonoBehaviour
     {
         rb2D = gameObject.GetComponent<Rigidbody2D>();
         col2d = gameObject.GetComponent<Collider2D>();
-        parentPool = FindObjectOfType<BulletPool>();
+        //parentPool = FindObjectOfType<BulletPool>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        Existence();
+        if(isServer)
+        {
+            Existence();
+        } 
     }
 
+    /// <summary>
+    /// 1.21孟：子弹自动消失的代码
+    /// 一段时间后若是谁也没碰到就销毁
+    /// </summary>
     void Existence()
     {
         newTime += Time.deltaTime;
         if (newTime >= linerBulletExistenceTime)
         {
             newTime = 0f;
-            parentPool.ReleaseExplosion(this);
+            DestoryBullet();
+            //parentPool.ReleaseExplosion(this);
         }
     }
 
+    void DestoryBullet()
+    {
+        if(isServer)
+        {
+            NetworkServer.Destroy(this.gameObject);
+        }
+    }
     void DealDamage(GameObject enemy)
     {
         //伤害传输
         //SpaceArtPublishState spaceArtPublishState = collision.gameObject.GetComponent<SpaceArtPublishState>();
         EnemyState enemyStats = enemy.GetComponent<EnemyState>();
         TestEnemyState testEnemyState = enemy.GetComponent<TestEnemyState>();
+
         int damage = (int)(playerBulletCurrentDamage * linerBulletCurrentDamageMultipler);
         Debug.Log(damage);
+
         //spaceArtPublishState.TakeDamage(damage);
         if (enemyStats != null)
         {
@@ -105,7 +123,8 @@ public class Bullet : MonoBehaviour
             linerBulletCurrentPenetrationCount--;
             if (linerBulletCurrentPenetrationCount <= 0)
             {
-                parentPool.ReleaseExplosion(this);
+                DestoryBullet();
+                //parentPool.ReleaseExplosion(this);
             }
         }
     }

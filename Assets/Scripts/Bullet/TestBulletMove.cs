@@ -13,6 +13,4 @@ public class TestBulletMove : MonoBehaviour
         rb2d = GetComponent<Rigidbody2D>();
         rb2d.velocity = transform.right * speed;
     }
-
-   
 }

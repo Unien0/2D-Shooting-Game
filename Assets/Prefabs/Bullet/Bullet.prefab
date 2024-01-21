@@ -134,11 +134,14 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6916413337689440384}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fe71290a7b52c1647a5182cf96325e61, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  syncDirection: 0
+  syncMode: 0
+  syncInterval: 0
   bulletData: {fileID: 11400000, guid: 360117664f2412349b151dd783737ad2, type: 2}
   playerBulletCurrentDamage: 1
   linerBulletCurrentDamageMultipler: 1
