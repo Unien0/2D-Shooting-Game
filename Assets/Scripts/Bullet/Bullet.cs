@@ -127,6 +127,18 @@ public class Bullet : NetworkBehaviour
                 //parentPool.ReleaseExplosion(this);
             }
         }
+
+        if (other.CompareTag("PlayerDmg"))
+        {
+            //回收
+            linerBulletCurrentPenetrationCount--;
+            if (linerBulletCurrentPenetrationCount <= 0)
+            {
+                DestoryBullet();
+                //parentPool.ReleaseExplosion(this);
+            }
+        }
     }
+
 
 }

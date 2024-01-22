@@ -1,10 +1,14 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Mirror;
 
-public class PlayerState : MonoBehaviour
+public class PlayerState : NetworkBehaviour
 {
     public PlayerData_SO playerData;
+
+    [SerializeField]
+    private int bulletDmg = 10;
 
     #region SO数据获取
     //获取血量相关
@@ -50,7 +54,8 @@ public class PlayerState : MonoBehaviour
     }
 
     /// <summary>
-    /// 恢复血量（呼吸回血
+    /// 恢复血量（呼吸回血）
+    /// TODO:呼吸回血应该也是一个网络方法
     /// </summary>
     void Reply()
     {
@@ -68,21 +73,6 @@ public class PlayerState : MonoBehaviour
         }
     }
 
-    /// <summary>
-    /// 玩家受伤脚本
-    /// </summary>
-    /// <param name="damage"></param>
-    public void TakeDamage(int damage)
-    {
-        playerHP -= damage;
-
-        // 处理玩家死亡或其他逻辑
-        if (playerHP <= 0)
-        {
-            Die();
-        }
-    }
-
     void Die()
     {
         // 处理玩家死亡的逻辑，例如显示游戏结束画面、重新开始游戏等
@@ -93,4 +83,34 @@ public class PlayerState : MonoBehaviour
         // 例如，你可以在这里重新加载场景
         // SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
+
+    [ServerCallback]
+    private void OnTriggerEnter2D(Collider2D other)
+    {
+        if(other.gameObject.tag.Equals("Bullet"))
+        {
+            Debug.Log("玩家确实读到了子弹的碰撞信息。");
+            //令所有客户端的该角色同步受到伤害
+            TakeDamage(bulletDmg);
+        }
+    }
+    
+    /// <summary>
+    /// 玩家受伤脚本
+    /// 孟1.22：修改该方法为局域网通信方法
+    /// </summary>
+    /// <param name="damage"></param>
+    [ClientRpc]
+    public void TakeDamage(int damage)
+    {
+        Debug.Log("确实进入了受伤的代码");
+        playerHP -= damage;
+        Debug.Log("玩家当前生命值：" + playerHP);
+        // 处理玩家死亡或其他逻辑
+        if (playerHP <= 0)
+        {
+            NetworkServer.Destroy(gameObject);
+        }
+    }
+
 }

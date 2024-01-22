@@ -27,7 +27,7 @@ public class PlayerMovement : NetworkBehaviour
         if (!isDead)
         {
             //LookAt();
-            PlayerDirection();
+            //PlayerDirection();
 
         }
     }

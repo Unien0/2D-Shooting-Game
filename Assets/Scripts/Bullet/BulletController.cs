@@ -41,6 +41,8 @@ public class BulletController : NetworkBehaviour
 
     private BulletPool bulletPool;
 
+    public Transform firePos;
+
     //1.14孟：现行版本，因无法同时兼容对象池的正常使用，因此暂时将对象池化的子弹改为传统的生成·销毁方法
     public GameObject bulletPrefab;
     private void Start()
@@ -83,9 +85,13 @@ public class BulletController : NetworkBehaviour
     void Init()
     {
         // 实例化子弹并设置位置和旋转
-        GameObject bullet = Instantiate(bulletPrefab, transform.position, transform.rotation);
+        GameObject bullet = Instantiate(bulletPrefab, firePos.position, transform.rotation);
         NetworkServer.Spawn(bullet);
     }
+    /// <summary>
+    /// 鼠标射击模式
+    /// 2024.1.22 孟：给网络通信的子弹发射方法加上注释，免得找不到
+    /// </summary>
     void BulletMouseSync()
     {
         //按下鼠标左键，如果松开一段时间则判定子弹是否装满，没装满则填装
