@@ -536,7 +536,7 @@ MonoBehaviour:
   syncDirection: 0
   syncMode: 0
   syncInterval: 0
-  MoveSpeed: 5
+  MoveSpeed: 3
   isDead: 0
 --- !u!114 &2843107405343368553
 MonoBehaviour:
