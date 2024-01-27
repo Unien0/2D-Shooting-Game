@@ -302,6 +302,7 @@ GameObject:
   - component: {fileID: 2843107405343368555}
   - component: {fileID: 2843107405343368553}
   - component: {fileID: 2843107405343368552}
+  - component: {fileID: -4453197076123434818}
   - component: {fileID: 2843107405343368558}
   - component: {fileID: -2977623002451271746}
   - component: {fileID: 5572962260789380560}
@@ -508,7 +509,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: -0.0043911487, y: 0}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -519,7 +520,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 0.556496, y: 1}
   m_EdgeRadius: 0
 --- !u!114 &2843107405343368555
 MonoBehaviour:
@@ -567,7 +568,8 @@ MonoBehaviour:
   syncInterval: 0
   playerData: {fileID: 11400000, guid: 02b9a3c14e30e7f4580bc11956ad0089, type: 2}
   bulletDmg: 10
---- !u!114 &2843107405343368558
+  invincibilityDuration: 0
+--- !u!114 &-4453197076123434818
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -575,6 +577,30 @@ MonoBehaviour:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2843107405343368551}
   m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1839625dcdc0d2f4f99aac7a8eb831ad, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  experience: 0
+  level: 1
+  experienceCap: 0
+  levelRanges:
+  - startLevel: 0
+    endLevel: 2
+    experienceCapIncrease: 100
+  - startLevel: 3
+    endLevel: 5
+    experienceCapIncrease: 300
+  expBar: {fileID: 0}
+  levelText: {fileID: 0}
+--- !u!114 &2843107405343368558
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2843107405343368551}
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 74aa66d735f55fe429157e00ce7407eb, type: 3}
   m_Name: 

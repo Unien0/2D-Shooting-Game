@@ -1,7 +1,9 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Mirror;
+using UnityEngine.UI;
+using TMPro;
 
 public class PlayerState : NetworkBehaviour
 {
@@ -29,28 +31,43 @@ public class PlayerState : NetworkBehaviour
     {
         get { if (playerData != null) return playerData.playerReplyTime; else return 0; }
     }
-
     //是否死亡
     public bool isDead
     {
         get { if (playerData != null) return playerData.isDead; else return true; }
         set { playerData.isDead = value; }
     }
-
     #endregion
 
     float replytime;
 
-    // Start is called before the first frame update
+    [Header("I-Frames")]
+    public float invincibilityDuration;//无敌时间
+    float invincibilityTimer;//无敌倒计时
+    bool isInvincible;//是否无敌
+
+    [Header("死亡处理相关")]
+    public float rebirthTime;//重生时间（可变动
+    float resurrectionTimer;//复活计时器
+    public TMP_Text rebirthTimeDisplay;//重生时间显示
+
+    [Header("组件获取")]
+    SpriteRenderer spriteRenderer;
+
     void Start()
     {
+        //血量重置
         playerHP = playerMaxHP;
+
+        //组件获取
+        spriteRenderer = GetComponent<SpriteRenderer>();
+
     }
 
-    // Update is called once per frame
     void Update()
     {
         Reply();
+        Die();
     }
 
     /// <summary>
@@ -75,13 +92,23 @@ public class PlayerState : NetworkBehaviour
 
     void Die()
     {
-        // 处理玩家死亡的逻辑，例如显示游戏结束画面、重新开始游戏等
-        // 在这里你可以根据游戏需要添加其他逻辑
-        Debug.Log("Player has died!");
-        Destroy(this.gameObject);
-        //isDead = true;
-        // 例如，你可以在这里重新加载场景
-        // SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        if (isDead)
+        {
+            //玩家透明化，并且将其无法移动
+            spriteRenderer.color = new Color(1, 1, 1, 0);
+            //进行转移与经验值清空处理
+            //跳转至：PlayerMovement、PlayerLevel
+            EventCenter.Broadcast(EventType.isDead);
+            resurrectionTimer += Time.deltaTime;
+            if (resurrectionTimer >= rebirthTime)
+            {
+                //复原
+                spriteRenderer.color = new Color(1, 1, 1, 1);
+                //重生后处理
+                isDead = false;
+                resurrectionTimer = 0f;
+            }
+        }
     }
 
     [ServerCallback]
@@ -109,7 +136,8 @@ public class PlayerState : NetworkBehaviour
         // 处理玩家死亡或其他逻辑
         if (playerHP <= 0)
         {
-            NetworkServer.Destroy(gameObject);
+            isDead = true;
+            //NetworkServer.Destroy(gameObject);
         }
     }
 

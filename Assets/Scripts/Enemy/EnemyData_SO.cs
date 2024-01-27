@@ -1,4 +1,4 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -17,6 +17,7 @@ public class EnemyData_SO : ScriptableObject
     public int enemyHp;
     public float enemySpeed;
     public int enemyDamage;
+    public int enemyPoint;
 
     [Header("独立开关")]
     public bool isDead;//是否死亡

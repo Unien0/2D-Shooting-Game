@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Pickup : MonoBehaviour
 {
-    //Eæ“¹‹ï“IŠî–{Á‰Ê
+    //æ‹¾å–é“å…·çš„åŸºæœ¬æ•ˆæœ
     public  bool hasBeenCollected = false;
     public virtual void Collect()
     {
@@ -14,6 +14,7 @@ public class Pickup : MonoBehaviour
     {
         if (col.CompareTag("Player"))
         {
+
             Destroy(gameObject);
         }
     }

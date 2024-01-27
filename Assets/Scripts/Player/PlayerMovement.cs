@@ -5,45 +5,65 @@ using Mirror;
 using Cinemachine;
 public class PlayerMovement : NetworkBehaviour
 {
+    public PlayerData_SO playerData;
+
+    private bool isDead
+    {
+        get { if (playerData != null) return playerData.isDead; else return true; }
+    }
+
     public float MoveSpeed = 5f;
-    public bool isDead = false;
 
     private Vector2 movement;
     private new Rigidbody2D rigidbody;
     private SpriteRenderer sr;
-    // Start is called before the first frame update
-    void Start()
+    private PlayerState playerState;
+    private Transform playerTransform;
+
+    private void Awake()
     {
-        rigidbody = GetComponent<Rigidbody2D>();
-        sr = GetComponent<SpriteRenderer>();
+        EventCenter.AddListener(EventType.isDead, ResurrectionMovement);
     }
 
-    // Update is called once per frame
+    private void OnDestroy()
+    {
+        EventCenter.RemoveListener(EventType.isDead, ResurrectionMovement);
+    }
+
+    void Start()
+    {
+        playerTransform = GetComponent<Transform>();
+        rigidbody = GetComponent<Rigidbody2D>();
+        sr = GetComponent<SpriteRenderer>();
+        playerState = GetComponent<PlayerState>();
+    }
+
     void Update()
     {
         if (!isLocalPlayer) return;
 
         FindObjectOfType<CinemachineVirtualCamera>().Follow = this.transform;
-        if (!isDead)
-        {
-            //LookAt();
-            //PlayerDirection();
 
-        }
+        //LookAt();
+        //PlayerDirection();
+
     }
     public void FixedUpdate()
     {
         if (!isLocalPlayer) return;
 
-        movement.x = Input.GetAxisRaw("Horizontal");
-        movement.y = Input.GetAxisRaw("Vertical");
+        if (!isDead)//ç©å®¶æ­»äº¡åæ— æ³•ç§»åŠ¨
+        {
+            movement.x = Input.GetAxisRaw("Horizontal");
+            movement.y = Input.GetAxisRaw("Vertical");
 
-        //rigidbody.MovePosition(rigidbody.position + movement.normalized * MoveSpeed * Time.fixedDeltaTime);
-        rigidbody.velocity = movement.normalized * MoveSpeed;
+            //rigidbody.MovePosition(rigidbody.position + movement.normalized * MoveSpeed * Time.fixedDeltaTime);
+            rigidbody.velocity = movement.normalized * MoveSpeed;
+        }
     }
 
     /// <summary>
-    /// ÃÏ1.21£ºÔİÊ±È¡ÏûÁËÒÆ¶¯¼ü¿ØÖÆÍæ¼Ò³¯Ïò£¬¸ÄÎªÓÉÊó±ê·½Ïò¿ØÖÆ
+    /// ç©å®¶æœå‘
     /// </summary>
     void LookAt()
     {
@@ -62,10 +82,10 @@ public class PlayerMovement : NetworkBehaviour
     void PlayerDirection()
     {
       
-        // »ñÈ¡Êó±êÔÚÆÁÄ»ÉÏµÄÎ»ÖÃ
+        // é¼ æ ‡ä½ç½®è·å–
         Vector3 mousePositionScreen = Input.mousePosition;
 
-        // ½«ÆÁÄ»×ø±ê×ª»»ÎªÊÀ½ç×ø±ê
+        // é¼ æ ‡ä¸–ç•Œåæ ‡
         Vector3 mousePosition = Camera.main.ScreenToWorldPoint(mousePositionScreen);
 
         float angle = Mathf.Atan2(mousePosition.y - transform.position.y, mousePosition.x - transform.position.x) * Mathf.Rad2Deg;
@@ -100,5 +120,14 @@ public class PlayerMovement : NetworkBehaviour
         {
             sr.flipX = false;
         }
+    }
+
+    /// <summary>
+    /// é‡ç”Ÿä½ç½®ä¿®æ”¹,å°†å…¶ä¼ é€åˆ°éšæœºçš„ä¸€ä¸ªç‚¹ä¸Š
+    /// </summary>
+    void ResurrectionMovement()
+    {
+        int PointsCount = GameManager.Instance.relativeSpawnPoints.Count;
+        playerTransform.position = GameManager.Instance.relativeSpawnPoints[Random.Range(0, PointsCount)].position;
     }
 }

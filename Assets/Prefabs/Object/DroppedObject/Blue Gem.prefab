@@ -138,7 +138,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   hasBeenCollected: 0
-  experienceGranted: 0
+  experienceGranted: 20
 --- !u!114 &1898078589354562488
 MonoBehaviour:
   m_ObjectHideFlags: 0
