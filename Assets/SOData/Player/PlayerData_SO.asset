@@ -23,6 +23,8 @@ MonoBehaviour:
   playerLucky: 0
   playerBaseSpeed: 0
   playerCurrentSpeed: 0
+  playerPoint: 0
+  playerLevel: 0
   isDead: 0
   moveable: 0
   controllable: 0

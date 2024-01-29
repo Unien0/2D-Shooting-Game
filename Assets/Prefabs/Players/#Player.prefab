@@ -299,8 +299,8 @@ GameObject:
   - component: {fileID: 2843107405343368548}
   - component: {fileID: 2843107405343368554}
   - component: {fileID: 2843107405343368559}
-  - component: {fileID: 2843107405343368555}
   - component: {fileID: 2843107405343368553}
+  - component: {fileID: 2843107405343368555}
   - component: {fileID: 2843107405343368552}
   - component: {fileID: -4453197076123434818}
   - component: {fileID: 2843107405343368558}
@@ -522,6 +522,18 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.556496, y: 1}
   m_EdgeRadius: 0
+--- !u!114 &2843107405343368553
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2843107405343368551}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cadbe387d4389eb4588386afca574828, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &2843107405343368555
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -539,18 +551,6 @@ MonoBehaviour:
   syncInterval: 0
   playerData: {fileID: 11400000, guid: 02b9a3c14e30e7f4580bc11956ad0089, type: 2}
   MoveSpeed: 3
---- !u!114 &2843107405343368553
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2843107405343368551}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cadbe387d4389eb4588386afca574828, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &2843107405343368552
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -67,7 +67,6 @@ public class PlayerState : NetworkBehaviour
     void Update()
     {
         Reply();
-        Die();
     }
 
     /// <summary>
@@ -90,6 +89,9 @@ public class PlayerState : NetworkBehaviour
         }
     }
 
+    /// <summary>
+    /// 玩家死亡的本地做法，实现网络方法后暂时注释掉
+    /// </summary>
     void Die()
     {
         if (isDead)
@@ -114,7 +116,7 @@ public class PlayerState : NetworkBehaviour
     [ServerCallback]
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if(other.gameObject.tag.Equals("Bullet"))
+        if(other.CompareTag("Bullet"))
         {
             Debug.Log("玩家确实读到了子弹的碰撞信息。");
             //令所有客户端的该角色同步受到伤害
@@ -136,8 +138,16 @@ public class PlayerState : NetworkBehaviour
         if (playerHP <= 0)
         {
             isDead = true;
-            //NetworkServer.Destroy(gameObject);
+            //延迟0.1秒后发送销毁玩家预制体的指令给服务器
+            Invoke("CmdPlayerDied", 0.1f);
         }
+    }
+
+    [Command]
+    void CmdPlayerDied()
+    {
+        NetworkServer.Destroy(gameObject);
+        GameManager.Instance.isPlayerRespawn = true;
     }
 
 }

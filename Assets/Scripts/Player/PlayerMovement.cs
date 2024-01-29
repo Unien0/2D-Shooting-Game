@@ -20,7 +20,7 @@ public class PlayerMovement : NetworkBehaviour
     private PlayerState playerState;
     private Transform playerTransform;
 
-    private void Awake()
+    /*private void Awake()
     {
         EventCenter.AddListener(EventType.isDead, ResurrectionMovement);
     }
@@ -28,7 +28,7 @@ public class PlayerMovement : NetworkBehaviour
     private void OnDestroy()
     {
         EventCenter.RemoveListener(EventType.isDead, ResurrectionMovement);
-    }
+    }*/
 
     void Start()
     {
@@ -125,11 +125,11 @@ public class PlayerMovement : NetworkBehaviour
     /// <summary>
     /// 重生位置修改,将其传送到随机的一个点上
     /// </summary>
-    void ResurrectionMovement()
+    /*void ResurrectionMovement()
     {
         int PointsCount = GameManager.Instance.relativeSpawnPoints.Count;
         playerTransform.position = GameManager.Instance.relativeSpawnPoints[Random.Range(0, PointsCount)].position;
-    }
+    }*/
 
     private void OnTriggerEnter2D(Collider2D other)
     {

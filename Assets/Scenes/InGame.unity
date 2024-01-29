@@ -909,6 +909,7 @@ MonoBehaviour:
   - {fileID: 1027703251}
   - {fileID: 881665429}
   - {fileID: 1657555081}
+  isPlayerRespawn: 0
 --- !u!114 &255461067
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -12245,6 +12246,7 @@ GameObject:
   m_Component:
   - component: {fileID: 881665429}
   - component: {fileID: 881665430}
+  - component: {fileID: 881665431}
   m_Layer: 0
   m_Name: RevivalPoint (4)
   m_TagString: Untagged
@@ -12319,6 +12321,18 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &881665431
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 881665428}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 41f84591ce72545258ea98cb7518d8b9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &894627933
 GameObject:
   m_ObjectHideFlags: 0
@@ -12719,6 +12733,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1012010447}
   - component: {fileID: 1012010448}
+  - component: {fileID: 1012010449}
   m_Layer: 0
   m_Name: RevivalPoint
   m_TagString: Untagged
@@ -12793,6 +12808,18 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &1012010449
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1012010446}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 41f84591ce72545258ea98cb7518d8b9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1019857262
 GameObject:
   m_ObjectHideFlags: 3
@@ -12957,6 +12984,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1027703251}
   - component: {fileID: 1027703252}
+  - component: {fileID: 1027703253}
   m_Layer: 0
   m_Name: RevivalPoint (3)
   m_TagString: Untagged
@@ -13031,6 +13059,18 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &1027703253
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1027703250}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 41f84591ce72545258ea98cb7518d8b9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1030874277
 GameObject:
   m_ObjectHideFlags: 0
@@ -16005,6 +16045,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1630414331}
   - component: {fileID: 1630414332}
+  - component: {fileID: 1630414333}
   m_Layer: 0
   m_Name: RevivalPoint (1)
   m_TagString: Untagged
@@ -16079,6 +16120,18 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &1630414333
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1630414330}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 41f84591ce72545258ea98cb7518d8b9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1638312270
 GameObject:
   m_ObjectHideFlags: 0
@@ -16089,6 +16142,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1638312271}
   - component: {fileID: 1638312272}
+  - component: {fileID: 1638312273}
   m_Layer: 0
   m_Name: RevivalPoint (2)
   m_TagString: Untagged
@@ -16163,6 +16217,18 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &1638312273
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1638312270}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 41f84591ce72545258ea98cb7518d8b9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1655100314
 GameObject:
   m_ObjectHideFlags: 0
@@ -57405,6 +57471,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1657555081}
   - component: {fileID: 1657555082}
+  - component: {fileID: 1657555083}
   m_Layer: 0
   m_Name: RevivalPoint (5)
   m_TagString: Untagged
@@ -57479,6 +57546,18 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &1657555083
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1657555080}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 41f84591ce72545258ea98cb7518d8b9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1659406099
 GameObject:
   m_ObjectHideFlags: 0
