@@ -130,4 +130,26 @@ public class PlayerMovement : NetworkBehaviour
         int PointsCount = GameManager.Instance.relativeSpawnPoints.Count;
         playerTransform.position = GameManager.Instance.relativeSpawnPoints[Random.Range(0, PointsCount)].position;
     }
+
+    private void OnTriggerEnter2D(Collider2D other)
+    {
+        if(other.CompareTag("Grass"))
+        {
+            if(isLocalPlayer)
+            {
+                other.GetComponent<GrassVisibility>().FadeOut();
+            }
+        }
+    }
+
+    private void OnTriggerExit2D(Collider2D other)
+    {
+        if (other.CompareTag("Grass"))
+        {
+            if (isLocalPlayer)
+            {
+                other.GetComponent<GrassVisibility>().FadeIn();
+            }
+        }
+    }
 }

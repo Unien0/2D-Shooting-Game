@@ -121,7 +121,6 @@ public class PlayerState : NetworkBehaviour
             TakeDamage(bulletDmg);
         }
     }
-    
     /// <summary>
     /// 玩家受伤脚本
     /// 孟1.22：修改该方法为局域网通信方法

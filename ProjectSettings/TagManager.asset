@@ -7,6 +7,9 @@ TagManager:
   - Enemy
   - Bullet
   - PlayerDmg
+  - ExpBar
+  - Level
+  - Grass
   layers:
   - Default
   - TransparentFX
@@ -19,7 +22,7 @@ TagManager:
   - Enemy
   - EnemyDead
   - EnemyBullet
-  - 
+  - Grass
   - 
   - 
   - 

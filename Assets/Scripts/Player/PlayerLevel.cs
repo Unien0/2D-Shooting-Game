@@ -23,8 +23,8 @@ public class PlayerLevel : MonoBehaviour
 
 
     [Header("UI")]
-    public Image expBar;
-    public TMP_Text levelText;
+    private Image expBar;
+    private TMP_Text levelText;
 
     private void Awake()
     {
@@ -39,11 +39,14 @@ public class PlayerLevel : MonoBehaviour
     void Start()
     {
         experienceCap = levelRanges[0].experienceCapIncrease;
+
+        expBar = GameObject.FindGameObjectWithTag("ExpBar").GetComponent<Image>();
+        levelText = GameObject.FindGameObjectWithTag("Level").GetComponent<TMP_Text>();
     }
 
     void Update()
     {
-        UpdateExpBar();
+        //UpdateExpBar();
         UpdateLevelText();
     }
 
@@ -97,7 +100,7 @@ public class PlayerLevel : MonoBehaviour
 
     void UpdateLevelText()//等级UI显示
     {
-        levelText.text = "Lv" + level.ToString();
+        levelText.text = level.ToString();
     }
 
 

@@ -537,8 +537,8 @@ MonoBehaviour:
   syncDirection: 0
   syncMode: 0
   syncInterval: 0
+  playerData: {fileID: 11400000, guid: 02b9a3c14e30e7f4580bc11956ad0089, type: 2}
   MoveSpeed: 3
-  isDead: 0
 --- !u!114 &2843107405343368553
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -569,6 +569,8 @@ MonoBehaviour:
   playerData: {fileID: 11400000, guid: 02b9a3c14e30e7f4580bc11956ad0089, type: 2}
   bulletDmg: 10
   invincibilityDuration: 0
+  rebirthTime: 0
+  rebirthTimeDisplay: {fileID: 0}
 --- !u!114 &-4453197076123434818
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -591,8 +593,6 @@ MonoBehaviour:
   - startLevel: 3
     endLevel: 5
     experienceCapIncrease: 300
-  expBar: {fileID: 0}
-  levelText: {fileID: 0}
 --- !u!114 &2843107405343368558
 MonoBehaviour:
   m_ObjectHideFlags: 0
