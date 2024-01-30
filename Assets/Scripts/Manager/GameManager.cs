@@ -20,7 +20,7 @@ public class GameManager : Singleton<GameManager>//设置为单例
     // Update is called once per frame
     void Update()
     {
-        if(isPlayerRespawn)
+        if(Input.GetKeyDown(KeyCode.R) && isPlayerRespawn)
         {
             NetworkClient.AddPlayer();
             isPlayerRespawn = false;

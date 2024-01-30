@@ -140,6 +140,8 @@ public class PlayerState : NetworkBehaviour
             isDead = true;
             //延迟0.1秒后发送销毁玩家预制体的指令给服务器
             Invoke("CmdPlayerDied", 0.1f);
+            //延迟0.5秒后发送再次生成玩家预制体的指令，在各个客户端上
+            GameManager.Instance.isPlayerRespawn = true;
         }
     }
 
@@ -147,7 +149,10 @@ public class PlayerState : NetworkBehaviour
     void CmdPlayerDied()
     {
         NetworkServer.Destroy(gameObject);
-        GameManager.Instance.isPlayerRespawn = true;
     }
 
+    void RespawnCheckOn()
+    {
+        GameManager.Instance.isPlayerRespawn = true;
+    }
 }
