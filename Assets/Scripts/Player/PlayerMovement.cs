@@ -17,6 +17,9 @@ public class PlayerMovement : NetworkBehaviour
     private PlayerState playerState;
     private Transform playerTransform;
 
+    //1.30：进入草丛隐藏UI试做
+    public Canvas playerUICanvas;
+
     /*private void Awake()
     {
         EventCenter.AddListener(EventType.isDead, ResurrectionMovement);
@@ -139,6 +142,10 @@ public class PlayerMovement : NetworkBehaviour
             {
                 other.GetComponent<GrassVisibility>().FadeOut();
             }
+            else
+            {
+                playerUICanvas.enabled = false;
+            }
         }
     }
 
@@ -149,6 +156,10 @@ public class PlayerMovement : NetworkBehaviour
             if (isLocalPlayer)
             {
                 other.GetComponent<GrassVisibility>().FadeIn();
+            }
+            else
+            {
+                playerUICanvas.enabled = true;
             }
         }
     }
