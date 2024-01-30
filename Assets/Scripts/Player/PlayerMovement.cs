@@ -9,7 +9,7 @@ public class PlayerMovement : NetworkBehaviour
 
     private bool isDead;
 
-    public float MoveSpeed = 5f;
+    public float currentMoveSpeed;
 
     private Vector2 movement;
     private new Rigidbody2D rigidbody;
@@ -29,6 +29,7 @@ public class PlayerMovement : NetworkBehaviour
 
     void Start()
     {
+        currentMoveSpeed = playerData.playerBaseSpeed;
         playerTransform = GetComponent<Transform>();
         rigidbody = GetComponent<Rigidbody2D>();
         sr = GetComponent<SpriteRenderer>();
@@ -57,7 +58,7 @@ public class PlayerMovement : NetworkBehaviour
             movement.y = Input.GetAxisRaw("Vertical");
 
             //rigidbody.MovePosition(rigidbody.position + movement.normalized * MoveSpeed * Time.fixedDeltaTime);
-            rigidbody.velocity = movement.normalized * MoveSpeed;
+            rigidbody.velocity = movement.normalized * currentMoveSpeed;
         }
     }
 

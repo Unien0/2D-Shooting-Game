@@ -21,8 +21,8 @@ MonoBehaviour:
   playerReplyTime: 3
   playerReplyVolume: 2
   playerLucky: 0
-  playerBaseSpeed: 0
-  playerCurrentSpeed: 0
+  playerBaseSpeed: 5
+  playerCurrentSpeed: 5
   playerPoint: 0
   playerLevel: 0
   isDead: 0

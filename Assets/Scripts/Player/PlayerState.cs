@@ -31,11 +31,19 @@ public class PlayerState : NetworkBehaviour
         get { if (playerData != null) return playerData.playerReplyTime; else return 0; }
     }
     #endregion
+    [ReadOnly]
     public int currentMaxHp;
+    [ReadOnly]
+    public int currentHp;
+    [ReadOnly]
+    public int currentReplyVolume;
+    [ReadOnly]
+    public float currentReplyTime;
+    float replytime;
 
     public bool isDead;
 
-    float replytime;
+    
 
     [Header("I-Frames")]
     public float invincibilityDuration;//无敌时间
@@ -54,10 +62,13 @@ public class PlayerState : NetworkBehaviour
     {
         //初始化各项玩家的Parameter，从SO中读取初值
         currentMaxHp = playerData.playerMaxHP;
+        currentHp = playerData.playerHP;
+        currentReplyVolume = playerData.playerReplyVolume;
+        currentReplyTime = playerData.playerReplyTime;
         isDead = playerData.isDead;
 
         //血量重置
-        playerHP = currentMaxHp;
+        currentHp = currentMaxHp;
 
         //组件获取
         spriteRenderer = GetComponent<SpriteRenderer>();
@@ -75,12 +86,12 @@ public class PlayerState : NetworkBehaviour
     /// </summary>
     void Reply()
     {
-        if (playerHP < currentMaxHp)
+        if (currentHp < currentMaxHp)
         {
             replytime += Time.deltaTime;
-            if (replytime >= playerReplyTime)
+            if (replytime >= currentReplyTime)
             {
-                playerHP += playerReplyVolume;
+                currentHp += currentReplyVolume;
             }
         }
         else
@@ -132,10 +143,10 @@ public class PlayerState : NetworkBehaviour
     public void TakeDamage(int damage)
     {
         Debug.Log("确实进入了受伤的代码");
-        playerHP -= damage;
-        Debug.Log("玩家当前生命值：" + playerHP);
+        currentHp -= damage;
+        Debug.Log("玩家当前生命值：" + currentHp);
         // 处理玩家死亡或其他逻辑
-        if (playerHP <= 0)
+        if (currentHp <= 0)
         {
             isDead = true;
             //延迟0.1秒后发送销毁玩家预制体的指令给服务器

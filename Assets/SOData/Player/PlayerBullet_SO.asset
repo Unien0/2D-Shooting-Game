@@ -14,12 +14,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerBulletDamage: 2
   bulletDamageMultipler: 1
-  bulletCoolDownTime: 0.15
+  bulletCoolDownTime: 0.2
   bulletExistenceTime: 0
   magazineBulletCount: 30
   bulletFillingTime: 2
   bulletLoadingStartTime: 2
-  linerBulletSpeed: 2.37
+  linerBulletSpeed: 2
   linerBulletPenetrationCount: 1
-  linerBulletExistenceTime: 3
+  linerBulletExistenceTime: 0.7
   trackingBulletSpeed: 0
