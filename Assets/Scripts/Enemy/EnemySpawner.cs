@@ -40,7 +40,7 @@ public class EnemySpawner : MonoBehaviour
     public int currentWaveCount;
     
     [Header("基础数值")]
-    [Header("时间间隔，可变")]
+    [Header("波次时间间隔，可变")]
     public float waveInterval;
     [Header("场上敌人幸存数")]
     public int enemiesAlive;
@@ -56,10 +56,11 @@ public class EnemySpawner : MonoBehaviour
     public float enemyGenerationRange;
 
     [Header("敌人生成点")]
-    public List<Transform> relativeSpawnPoints;
+    private Transform thisTransform;
 
     void Start()
     {
+        thisTransform = GetComponent<Transform>();
         CalculateWaveQuota();
     }
 
@@ -114,7 +115,7 @@ public class EnemySpawner : MonoBehaviour
                     float spawnX = Random.Range(-enemyGenerationRange, enemyGenerationRange);
                     float spawnY = Random.Range(-enemyGenerationRange, enemyGenerationRange);
                     Vector3 spawnPosition = new Vector3(spawnX, spawnY,0);
-                    Instantiate(enemyGroup.enemyPrefab, spawnPosition + relativeSpawnPoints[Random.Range(0, relativeSpawnPoints.Count)].position, Quaternion.identity);
+                    Instantiate(enemyGroup.enemyPrefab, spawnPosition + thisTransform.position, Quaternion.identity);
                     //Vector2 spawnPosition = new Vector2(player.transform.position.x + Random.Range(-10f, 10f), player.transform.position.y + Random.Range(-10f, 10f));
                     //Instantiate(enemyGroup.enemyPrefab, spawnPosition, Quaternion.identity);
                     enemyGroup.enemyCount++;
