@@ -10,6 +10,7 @@ TagManager:
   - ExpBar
   - Level
   - Grass
+  - Obstacle
   layers:
   - Default
   - TransparentFX
@@ -64,6 +65,9 @@ TagManager:
     locked: 0
   - name: Effect
     uniqueID: 318872577
+    locked: 0
+  - name: OnWell
+    uniqueID: 1025007507
     locked: 0
   - name: Grass
     uniqueID: 164809693

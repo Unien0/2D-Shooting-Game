@@ -7,7 +7,9 @@ using TMPro;
 
 public class PlayerState : NetworkBehaviour
 {
+    [Header("SO获取")]
     public PlayerData_SO playerData;
+    public DevilData_SO devilData;
 
     [SerializeField]
     private int bulletDmg = 10;
@@ -40,9 +42,13 @@ public class PlayerState : NetworkBehaviour
     [ReadOnly]
     public float currentReplyTime;
     float replytime;
+    [ReadOnly]
+    public float currentFraction;//玩家当前分数
 
     public bool isDead;
-
+    //我自己变成魔王化
+    public bool myDivel;
+    //如果检测到全场进入魔王时间段根据分数是否是第一选择是否开启
     
 
     [Header("I-Frames")]
@@ -122,6 +128,15 @@ public class PlayerState : NetworkBehaviour
                 resurrectionTimer = 0f;
             }
         }
+    }
+
+    /// <summary>
+    /// 获取分数（关联到根据分数来修改是否是魔王）
+    /// </summary>
+    /// <param name="amount"></param>
+    public void GetPoint(int amount)
+    {
+        currentFraction += amount;
     }
 
     [ServerCallback]

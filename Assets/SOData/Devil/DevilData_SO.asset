@@ -1,0 +1,26 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 29e8af0ee21556742aab25da3d9f08a5, type: 3}
+  m_Name: DevilData_SO
+  m_EditorClassIdentifier: 
+  isDevil: 0
+  devilTime: 0
+  devilMaxHp: 0
+  bloodLossSpeed: 0
+  devilDamage: 0
+  devilSpeed: 0
+  devilReplyTime: 0
+  devilReplyVolume: 0
+  devilCoolDownTime: 0
+  devilbulletFillingTime: 0
+  magnificationRate: 0
+  killBounty: 0

@@ -1,4 +1,4 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Mirror;
@@ -137,6 +137,12 @@ public class Bullet : NetworkBehaviour
                 DestoryBullet();
                 //parentPool.ReleaseExplosion(this);
             }
+        }
+
+        //子弹撞墙后直接销毁
+        if (other.CompareTag("Obstacle"))
+        {
+            DestoryBullet();
         }
     }
 

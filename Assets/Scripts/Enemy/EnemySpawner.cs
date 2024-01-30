@@ -14,6 +14,9 @@ public class EnemySpawner : MonoBehaviour
         public int waveQuota;
         [Header("时间间隔，可变")]
         public float spawnInterval;
+        [Header("时间间隔差值浮动时间，敌人会有+-x的差值生成时间")]
+        [Range(0, 2f)]
+        public float differenceTimeInterval;
         [Header("当前数")]
         public int spawnCount;
 
@@ -73,8 +76,11 @@ public class EnemySpawner : MonoBehaviour
 
         spawnTimer += Time.deltaTime;
 
-        if (spawnTimer >= waves[currentWaveCount].spawnInterval)
+        //在生成时会有差值
+        float defferentTime = Random.Range(-waves[currentWaveCount].differenceTimeInterval, waves[currentWaveCount].differenceTimeInterval);
+        if (spawnTimer >= waves[currentWaveCount].spawnInterval + defferentTime)
         {
+            //如果到时间了，就将时间归零，并生成
             spawnTimer = 0f;
             SpawnEnemies();
         }
