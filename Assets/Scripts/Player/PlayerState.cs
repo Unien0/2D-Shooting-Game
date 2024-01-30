@@ -13,11 +13,10 @@ public class PlayerState : NetworkBehaviour
     private int bulletDmg = 10;
 
     #region SO数据获取
+    /// <summary>
+    /// TODO:后期更新获取数据的方式
+    /// </summary>
     //获取血量相关
-    public int playerMaxHP//最高血量
-    {
-        get { if (playerData != null) return playerData.playerMaxHP; else return 0; }
-    }
     public int playerHP//当前血量
     {
         get { if (playerData != null) return playerData.playerHP; else return 0; }
@@ -31,13 +30,10 @@ public class PlayerState : NetworkBehaviour
     {
         get { if (playerData != null) return playerData.playerReplyTime; else return 0; }
     }
-    //是否死亡
-    public bool isDead
-    {
-        get { if (playerData != null) return playerData.isDead; else return true; }
-        set { playerData.isDead = value; }
-    }
     #endregion
+    public int currentMaxHp;
+
+    public bool isDead;
 
     float replytime;
 
@@ -50,14 +46,18 @@ public class PlayerState : NetworkBehaviour
     public float rebirthTime;//重生时间（可变动
     float resurrectionTimer;//复活计时器
     public TMP_Text rebirthTimeDisplay;//重生时间显示
-
+    
     [Header("组件获取")]
     SpriteRenderer spriteRenderer;
 
     void Start()
     {
+        //初始化各项玩家的Parameter，从SO中读取初值
+        currentMaxHp = playerData.playerMaxHP;
+        isDead = playerData.isDead;
+
         //血量重置
-        playerHP = playerMaxHP;
+        playerHP = currentMaxHp;
 
         //组件获取
         spriteRenderer = GetComponent<SpriteRenderer>();
@@ -75,7 +75,7 @@ public class PlayerState : NetworkBehaviour
     /// </summary>
     void Reply()
     {
-        if (playerHP<playerMaxHP)
+        if (playerHP < currentMaxHp)
         {
             replytime += Time.deltaTime;
             if (replytime >= playerReplyTime)
@@ -83,7 +83,7 @@ public class PlayerState : NetworkBehaviour
                 playerHP += playerReplyVolume;
             }
         }
-        else if (playerHP == playerMaxHP)
+        else
         {
             replytime = 0;
         }

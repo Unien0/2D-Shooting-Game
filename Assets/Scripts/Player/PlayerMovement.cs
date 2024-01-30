@@ -7,10 +7,7 @@ public class PlayerMovement : NetworkBehaviour
 {
     public PlayerData_SO playerData;
 
-    private bool isDead
-    {
-        get { if (playerData != null) return playerData.isDead; else return true; }
-    }
+    private bool isDead;
 
     public float MoveSpeed = 5f;
 
@@ -41,6 +38,8 @@ public class PlayerMovement : NetworkBehaviour
     void Update()
     {
         if (!isLocalPlayer) return;
+
+        isDead = GetComponent<PlayerState>().isDead;
 
         FindObjectOfType<CinemachineVirtualCamera>().Follow = this.transform;
 
