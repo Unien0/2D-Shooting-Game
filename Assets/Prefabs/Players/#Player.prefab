@@ -179,7 +179,7 @@ GameObject:
   - component: {fileID: 9112352833334242375}
   - component: {fileID: 1019369822794937022}
   m_Layer: 5
-  m_Name: "\u5E95\u90E8 (1)"
+  m_Name: "\u5E95\u90E8"
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -196,9 +196,10 @@ RectTransform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1.2254442, y: 1.2254442, z: 1.2254442}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 3417258812471605657}
   m_Father: {fileID: 1677032386026510099}
-  m_RootOrder: 1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -495,15 +496,15 @@ RectTransform:
   m_GameObject: {fileID: 2626251156024756766}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1.2254442, y: 1.2254442, z: 1.2254442}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 1677032386026510099}
-  m_RootOrder: 2
+  m_Father: {fileID: 116451123504496705}
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 230.10124, y: -34.2}
+  m_AnchoredPosition: {x: 25.000015, y: 25}
   m_SizeDelta: {x: 50, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &6969835604308665086
@@ -539,7 +540,7 @@ MonoBehaviour:
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 4
-  m_FillAmount: 0.564
+  m_FillAmount: 0
   m_FillClockwise: 1
   m_FillOrigin: 2
   m_UseSpriteMesh: 0
@@ -600,6 +601,9 @@ MonoBehaviour:
   isFillingTime: 0
   bulletSpeed: 10
   fireThreshold: 0.5
+  bulletBarDown: {fileID: 0}
+  bulletLoadingDisplay: {fileID: 0}
+  bulletCountDisplay: {fileID: 0}
   firePos: {fileID: 0}
   bulletPrefab: {fileID: 0}
 --- !u!1 &2843107405343368551
@@ -884,12 +888,15 @@ MonoBehaviour:
   syncMode: 0
   syncInterval: 0
   playerData: {fileID: 11400000, guid: 02b9a3c14e30e7f4580bc11956ad0089, type: 2}
+  devilData: {fileID: 11400000, guid: 73c8eb257fc69894a922bf802184148a, type: 2}
   bulletDmg: 10
   currentMaxHp: 0
   currentHp: 0
   currentReplyVolume: 0
   currentReplyTime: 0
+  currentFraction: 0
   isDead: 0
+  myDivel: 0
   invincibilityDuration: 0
   rebirthTime: 0
   rebirthTimeDisplay: {fileID: 0}
@@ -907,7 +914,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   experience: 0
   level: 1
-  experienceCap: 0
+  experienceCap: 100
   levelRanges:
   - startLevel: 0
     endLevel: 2
@@ -1147,6 +1154,9 @@ MonoBehaviour:
   isFillingTime: 0
   bulletSpeed: 10
   fireThreshold: 0.5
+  bulletBarDown: {fileID: 1019369822794937022}
+  bulletLoadingDisplay: {fileID: 2468482539398973354}
+  bulletCountDisplay: {fileID: 3682953904371993622}
   firePos: {fileID: 962094442821503277}
   bulletPrefab: {fileID: 6916413337689440384, guid: b4aacaa918c4cc444af31ffc0952cf2e, type: 3}
 --- !u!114 &7392048397352806140
@@ -1291,6 +1301,9 @@ MonoBehaviour:
   isFillingTime: 0
   bulletSpeed: 10
   fireThreshold: 0.5
+  bulletBarDown: {fileID: 0}
+  bulletLoadingDisplay: {fileID: 0}
+  bulletCountDisplay: {fileID: 0}
   firePos: {fileID: 0}
   bulletPrefab: {fileID: 0}
 --- !u!1 &2843107406255953942
@@ -1625,7 +1638,7 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1677032386026510099}
-  m_RootOrder: 3
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -1876,9 +1889,7 @@ RectTransform:
   m_LocalScale: {x: 0.0059782793, y: 0.0059782793, z: 0.0059782793}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 6291000788284302132}
   - {fileID: 116451123504496705}
-  - {fileID: 3417258812471605657}
   - {fileID: 460475811640028954}
   m_Father: {fileID: 7122845755060611635}
   m_RootOrder: 2
@@ -1938,8 +1949,8 @@ GameObject:
   - component: {fileID: 1370290165404965710}
   - component: {fileID: 823793267308930193}
   m_Layer: 5
-  m_Name: "\u8840\u6761"
-  m_TagString: Untagged
+  m_Name: minExpBar
+  m_TagString: minExpBar
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2457,79 +2468,3 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!1 &9211491086179726812
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 6291000788284302132}
-  - component: {fileID: 1312102702749111419}
-  - component: {fileID: 8477587387982337939}
-  m_Layer: 5
-  m_Name: "\u5916\u6846 (1)"
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 0
---- !u!224 &6291000788284302132
-RectTransform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 9211491086179726812}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 1677032386026510099}
-  m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 230.1, y: -24.8}
-  m_SizeDelta: {x: 0, y: 0}
-  m_Pivot: {x: 0.5, y: 0.5}
---- !u!222 &1312102702749111419
-CanvasRenderer:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 9211491086179726812}
-  m_CullTransparentMesh: 1
---- !u!114 &8477587387982337939
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 9211491086179726812}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_RaycastTarget: 1
-  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
-  m_Maskable: 1
-  m_OnCullStateChanged:
-    m_PersistentCalls:
-      m_Calls: []
-  m_Sprite: {fileID: 0}
-  m_Type: 0
-  m_PreserveAspect: 0
-  m_FillCenter: 1
-  m_FillMethod: 4
-  m_FillAmount: 1
-  m_FillClockwise: 1
-  m_FillOrigin: 0
-  m_UseSpriteMesh: 0
-  m_PixelsPerUnitMultiplier: 1

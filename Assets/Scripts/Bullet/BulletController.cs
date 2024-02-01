@@ -1,10 +1,14 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Mirror;
+using UnityEngine.UI;
+using TMPro;
+using DG.Tweening;
 
 public class BulletController : NetworkBehaviour
 {
+    [Header("SO获取")]
     public PlayerBullet_SO playerBulletData;
     private float bulletCoolDownTime//CD
     {
@@ -22,6 +26,7 @@ public class BulletController : NetworkBehaviour
     {
         get { if (playerBulletData != null) return playerBulletData.bulletLoadingStartTime; else return 0; }
     }
+    [Header("只读参数")]
     [SerializeField][ReadOnly]
     private float bulletTime;//当前射击冷却
     [SerializeField][ReadOnly]
@@ -39,6 +44,11 @@ public class BulletController : NetworkBehaviour
     public float bulletSpeed;
     public float fireThreshold = 0.5f;//死区
 
+    [Header("UI")]
+    public Image bulletBarDown;
+    public Image bulletLoadingDisplay;//装弹显示
+    public TMP_Text bulletCountDisplay;//子弹数量显示
+    //private Color initialColor;
     private BulletPool bulletPool;
 
     public Transform firePos;
@@ -49,6 +59,7 @@ public class BulletController : NetworkBehaviour
     {
         currentMagazineBulletCount = magazineBulletCount;//弹匣装满
         bulletPool = FindObjectOfType<BulletPool>();
+        //initialColor = bulletBarDown.color;
     }
 
     void Update()
@@ -57,14 +68,11 @@ public class BulletController : NetworkBehaviour
         {
             return;
         }
-
         ChangeRotation();
-
         BulletMouseSync();
-
         //MousePosition();//鼠标平面坐标
         //InputPosition();
-
+        UIBulletCount();//子弹数量显示
     }
 
     /// <summary>
@@ -94,15 +102,22 @@ public class BulletController : NetworkBehaviour
     /// </summary>
     void BulletMouseSync()
     {
-        //按下鼠标左键，如果松开一段时间则判定子弹是否装满，没装满则填装
+        //按下鼠标左键，射击
         if (Input.GetMouseButton(0))
         {
             bulletTime += Time.deltaTime;
+
+            //float fillAmount = bulletTime / bulletCoolDownTime;
+            //bulletLoadingDisplay.fillAmount = fillAmount;
+
             if (bulletTime >= bulletCoolDownTime)
             {
                 Init();
 
                 bulletTime -= bulletCoolDownTime;
+                //bulletLoadingDisplay.fillAmount = 1f;
+                //Color targetColor = new Color(1, 1, 1, 0f);
+                //bulletBarDown.DOColor(targetColor, 1f);
             }
         }
     }
@@ -213,8 +228,15 @@ public class BulletController : NetworkBehaviour
     //强制填装，在填装结束后退出强制填装状态
     void LoadBullets()
     {
+        //图标显示
+        Color targetColor = new Color(1, 1, 1, 1f);
+        bulletBarDown.DOColor(targetColor, 0.35f);
         if (isFillingTime)
         {
+            //UI变化
+            float fillAmount = bulletTime / bulletCoolDownTime;
+            bulletLoadingDisplay.fillAmount = fillAmount;
+
             fillingTime += Time.deltaTime;
             if (fillingTime >= bulletFillingTime)
             {
@@ -224,6 +246,11 @@ public class BulletController : NetworkBehaviour
                 isLoadBullets = false;
             }
         }
+    }
+
+    void UIBulletCount()
+    {
+        bulletCountDisplay.text = currentMagazineBulletCount + "/" + magazineBulletCount.ToString();
     }
 
     /// 2024.1.11旧版本的键鼠操作模式下的子弹模式代码
