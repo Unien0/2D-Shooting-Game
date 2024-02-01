@@ -134,7 +134,7 @@ public class PlayerMovement : NetworkBehaviour
         playerTransform.position = GameManager.Instance.relativeSpawnPoints[Random.Range(0, PointsCount)].position;
     }*/
 
-    private void OnTriggerEnter2D(Collider2D other)
+    private void OnTriggerStay2D(Collider2D other)
     {
         if(other.CompareTag("Grass"))
         {
