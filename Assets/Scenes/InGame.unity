@@ -909,6 +909,9 @@ MonoBehaviour:
   - {fileID: 881665429}
   - {fileID: 1657555081}
   isPlayerRespawn: 0
+  gameTime: 0
+  isDevilTime: 0
+  devilOpen: 0
 --- !u!114 &255461067
 MonoBehaviour:
   m_ObjectHideFlags: 0

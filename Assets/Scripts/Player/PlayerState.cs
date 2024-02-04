@@ -33,6 +33,7 @@ public class PlayerState : NetworkBehaviour
         get { if (playerData != null) return playerData.playerReplyTime; else return 0; }
     }
     #endregion
+    #region 当前变量
     [ReadOnly]
     public int currentMaxHp;
     [ReadOnly]
@@ -42,14 +43,16 @@ public class PlayerState : NetworkBehaviour
     [ReadOnly]
     public float currentReplyTime;
     float replytime;
+    #endregion
+    #region 魔王变量
+
+    #endregion
+
     [ReadOnly]
     public float currentFraction;//玩家当前分数
 
-    public bool isDead;
-    //我自己变成魔王化
-    public bool myDivel;
-    //如果检测到全场进入魔王时间段根据分数是否是第一选择是否开启
-    
+    public bool isDead; 
+    public bool highestPoint;//玩家是否是分数最高的
 
     [Header("I-Frames")]
     public float invincibilityDuration;//无敌时间
@@ -63,6 +66,18 @@ public class PlayerState : NetworkBehaviour
     
     [Header("组件获取")]
     SpriteRenderer spriteRenderer;
+    Transform playerTransform;
+    DevilController devilController;
+
+    private void Awake()
+    {
+        EventCenter.AddListener<bool>(EventType.Demonization, BecomingDevil);
+    }
+
+    private void OnDestroy()
+    {
+        EventCenter.RemoveListener<bool>(EventType.Demonization, BecomingDevil);
+    }
 
     void Start()
     {
@@ -73,12 +88,15 @@ public class PlayerState : NetworkBehaviour
         currentReplyTime = playerData.playerReplyTime;
         isDead = playerData.isDead;
 
+
+
         //血量重置
         currentHp = currentMaxHp;
 
         //组件获取
         spriteRenderer = GetComponent<SpriteRenderer>();
-
+        playerTransform = GetComponent<Transform>();
+        devilController = GetComponent<DevilController>();
     }
 
     void Update()
@@ -139,6 +157,38 @@ public class PlayerState : NetworkBehaviour
         currentFraction += amount;
     }
 
+    /// <summary>
+    /// 玩家变成魔王
+    /// </summary>
+    private void BecomingDevil(bool demonization)
+    {
+        int svaeMaxHP = currentMaxHp;
+        if (demonization)
+        {
+            currentMaxHp += devilData.devilMaxHp;//血量加成
+            currentHp = currentMaxHp;//血量回复到最大
+
+            if (currentMaxHp >= svaeMaxHP)
+            {
+                InvokeRepeating("DecreaseHealth", 0f, devilData.maxHPLossFrequency);//在devilData.maxHPLossFrequency时间后调用减少最大血量的方法
+            }
+            else
+            {
+                devilController.demonization = false;//如果最高血量小于原本的一定值时，退出魔王状态
+            }
+        }
+        else
+        {
+            currentMaxHp = svaeMaxHP;//还原血量
+        }
+    }
+
+    void DecreaseHealth()
+    {
+        // 逐渐减少最大血量
+        currentMaxHp -= devilData.maxHPlossCount;
+    }
+
     [ServerCallback]
     private void OnTriggerEnter2D(Collider2D other)
     {
@@ -149,6 +199,7 @@ public class PlayerState : NetworkBehaviour
             TakeDamage(bulletDmg);
         }
     }
+
     /// <summary>
     /// 玩家受伤脚本
     /// 孟1.22：修改该方法为局域网通信方法

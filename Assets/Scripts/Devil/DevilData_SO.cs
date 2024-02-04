@@ -13,7 +13,8 @@ public class DevilData_SO : ScriptableObject
     [Header("血量加成")]
     public int devilMaxHp;//在魔王化后会有一次回血
     [Header("血量自动流失速度（x秒后掉y+1）")]
-    public float bloodLossSpeed;//掉血速度
+    public float maxHPLossFrequency;//掉血速度
+    public int maxHPlossCount;
     [Header("魔王化后的伤害加成")]
     public int devilDamage;//魔王化后加伤
     [Header("魔王化后的移动速度")]

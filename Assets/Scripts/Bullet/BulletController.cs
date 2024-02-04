@@ -10,6 +10,8 @@ public class BulletController : NetworkBehaviour
 {
     [Header("SO获取")]
     public PlayerBullet_SO playerBulletData;
+    public DevilData_SO devilData;
+
     private float bulletCoolDownTime//CD
     {
         get { if (playerBulletData != null) return playerBulletData.bulletCoolDownTime; else return 0; }
@@ -30,9 +32,11 @@ public class BulletController : NetworkBehaviour
     [SerializeField][ReadOnly]
     private float bulletTime;//当前射击冷却
     [SerializeField][ReadOnly]
+    private int currentMaxMagazineBulletCount;//当前弹匣最高子弹量
+    [SerializeField][ReadOnly]
     private int currentMagazineBulletCount;//当前子弹量
     [SerializeField][ReadOnly]
-    private float fillingTimeCD;//当前装填冷却时间，不会进入状态状态
+    private float fillingTimeCD;//当前装填冷却时间，不会进入状态
     [SerializeField][ReadOnly]
     private float fillingTime;//填装计时器
     [SerializeField][ReadOnly]
@@ -50,16 +54,30 @@ public class BulletController : NetworkBehaviour
     public TMP_Text bulletCountDisplay;//子弹数量显示
     //private Color initialColor;
     private BulletPool bulletPool;
-
+    public PlayerState playerState;
     public Transform firePos;
 
     //1.14孟：现行版本，因无法同时兼容对象池的正常使用，因此暂时将对象池化的子弹改为传统的生成·销毁方法
     public GameObject bulletPrefab;
+
+    private void Awake()
+    {
+        EventCenter.AddListener<bool>(EventType.Demonization, BecomingDevil);
+    }
+
+    private void OnDestroy()
+    {
+        EventCenter.RemoveListener<bool>(EventType.Demonization, BecomingDevil);
+    }
+
     private void Start()
     {
-        currentMagazineBulletCount = magazineBulletCount;//弹匣装满
+        currentMaxMagazineBulletCount = magazineBulletCount;
+
+        currentMagazineBulletCount = currentMaxMagazineBulletCount;//弹匣装满
         bulletPool = FindObjectOfType<BulletPool>();
         //initialColor = bulletBarDown.color;
+        playerState = GetComponentInParent<PlayerState>();//获取父物体上的组件
     }
 
     void Update()
@@ -74,6 +92,13 @@ public class BulletController : NetworkBehaviour
         //InputPosition();
         UIBulletCount();//子弹数量显示
     }
+
+    private void BecomingDevil(bool demonization)
+    {
+       
+    }
+
+
 
     /// <summary>
     /// 鼠标定位
@@ -149,7 +174,7 @@ public class BulletController : NetworkBehaviour
             }
         }
         //不按左键，视为脱战状态，如果此时子弹数少于弹匣容量，经过一段时间后自动装填
-        else if(currentMagazineBulletCount < magazineBulletCount)
+        else if(currentMagazineBulletCount < currentMaxMagazineBulletCount)
         {
             //计时器，如果fillingTimeCD 大于等于填装启动时间，则进入填装状态，此时如果发射子弹，则计时归0
             fillingTimeCD += Time.deltaTime;
@@ -161,7 +186,7 @@ public class BulletController : NetworkBehaviour
             }
         }
         //当前子弹数大于等于弹匣容量时，可判定换弹完成，计时器也清零
-        if(currentMagazineBulletCount >= magazineBulletCount)
+        if(currentMagazineBulletCount >= currentMaxMagazineBulletCount)
         {
             fillingTimeCD = 0;
         }
@@ -211,7 +236,7 @@ public class BulletController : NetworkBehaviour
                 //isLoadBullets = true;//启动强制状态状态
             }
         }
-        else if (currentMagazineBulletCount < magazineBulletCount)
+        else if (currentMagazineBulletCount < currentMaxMagazineBulletCount)
         {
             //计时器，如果fillingTimeCD 大于等于填装启动时间，则进入填装状态
             fillingTimeCD += Time.deltaTime;
@@ -240,7 +265,7 @@ public class BulletController : NetworkBehaviour
             fillingTime += Time.deltaTime;
             if (fillingTime >= bulletFillingTime)
             {
-                currentMagazineBulletCount = magazineBulletCount;
+                currentMagazineBulletCount = currentMaxMagazineBulletCount;
                 fillingTime = 0;
                 isFillingTime = false;
                 isLoadBullets = false;
@@ -250,7 +275,7 @@ public class BulletController : NetworkBehaviour
 
     void UIBulletCount()
     {
-        bulletCountDisplay.text = currentMagazineBulletCount + "/" + magazineBulletCount.ToString();
+        bulletCountDisplay.text = currentMagazineBulletCount + "/" + currentMaxMagazineBulletCount.ToString();
     }
 
     /// 2024.1.11旧版本的键鼠操作模式下的子弹模式代码

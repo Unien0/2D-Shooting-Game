@@ -6,6 +6,7 @@ using Cinemachine;
 public class PlayerMovement : NetworkBehaviour
 {
     public PlayerData_SO playerData;
+    public DevilData_SO devilData;
 
     private bool isDead;
 
@@ -20,15 +21,15 @@ public class PlayerMovement : NetworkBehaviour
     //1.30：进入草丛隐藏UI试做
     public Canvas playerUICanvas;
 
-    /*private void Awake()
+    private void Awake()
     {
-        EventCenter.AddListener(EventType.isDead, ResurrectionMovement);
+        EventCenter.AddListener<bool>(EventType.Demonization, BecomingDevil);
     }
 
     private void OnDestroy()
     {
-        EventCenter.RemoveListener(EventType.isDead, ResurrectionMovement);
-    }*/
+        EventCenter.RemoveListener<bool>(EventType.Demonization, BecomingDevil);
+    }
 
     void Start()
     {
@@ -95,6 +96,22 @@ public class PlayerMovement : NetworkBehaviour
         Debug.Log(angle);
 
         CmdFlip(angle);
+    }
+
+    /// <summary>
+    /// 魔王化后数值修改
+    /// </summary>
+    void BecomingDevil(bool demonization)
+    {
+        float svaeSpeed = currentMoveSpeed;
+        if (demonization)
+        {
+            currentMoveSpeed += devilData.devilSpeed;
+        }
+        else
+        {
+            currentMoveSpeed = svaeSpeed;//还原速度
+        }
     }
 
     [Command]

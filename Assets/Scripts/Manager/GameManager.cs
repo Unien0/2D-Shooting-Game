@@ -11,6 +11,16 @@ public class GameManager : Singleton<GameManager>//设置为单例
 
     public bool isPlayerRespawn = false;
 
+    //游戏时间进程
+    [ReadOnly]
+    public float gameTime;
+    //什么时候出现魔王
+    [ReadOnly]
+    public float isDevilTime;
+    //在魔王出现期间内开启
+    [ReadOnly]
+    public bool devilOpen;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -26,6 +36,16 @@ public class GameManager : Singleton<GameManager>//设置为单例
             isPlayerRespawn = false;
             FindObjectOfType<PlayerState>().isDead = false;
         }
-        
+
+        gameTime += Time.deltaTime;
+        DevilTime();
+    }
+
+    void DevilTime()
+    {
+        if (gameTime >= isDevilTime)
+        {
+            devilOpen = true;
+        }
     }
 }

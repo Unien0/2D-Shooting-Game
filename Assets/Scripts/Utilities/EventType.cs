@@ -5,4 +5,5 @@ public enum EventType
     command, SpaceArtPublishParticle,
     KillEnemy,
     isDead,
+    Demonization,
 }
