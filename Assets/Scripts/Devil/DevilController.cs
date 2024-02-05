@@ -19,18 +19,31 @@ public class DevilController : MonoBehaviour
     public bool demonization;//是否魔王化
     PlayerState playerState;
 
+    private void Awake()
+    {
+        EventCenter.AddListener(EventType.DevilTimeOpen, DevilCall);
+    }
+
+    private void OnDestroy()
+    {
+        EventCenter.RemoveListener(EventType.DevilTimeOpen, DevilCall);
+    }
+
     void Start()
     {
         //获取组件：判断是否是排名最高的
         playerState = GetComponent<PlayerState>();
     }
 
-    void Update()
+    /// <summary>
+    /// 接收到魔王时间的广播事件后开始广播自身属性修改
+    /// </summary>
+    void DevilCall()
     {
-        if (playerState.highestPoint && GameManager.Instance.devilOpen)
+        if (playerState.highestPoint)
         {
             demonization = true;
-            EventCenter.Broadcast<bool>(EventType.Demonization,demonization);//呼叫程序,传入bool值
+            EventCenter.Broadcast<bool>(EventType.Demonization, demonization);//呼叫程序,传入bool值
         }
     }
 }

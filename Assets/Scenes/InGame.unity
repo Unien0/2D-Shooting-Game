@@ -910,7 +910,8 @@ MonoBehaviour:
   - {fileID: 1657555081}
   isPlayerRespawn: 0
   gameTime: 0
-  isDevilTime: 0
+  isDevilTime1: 300
+  isDevilTime2: 600
   devilOpen: 0
 --- !u!114 &255461067
 MonoBehaviour:

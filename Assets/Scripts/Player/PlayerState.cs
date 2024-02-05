@@ -45,7 +45,10 @@ public class PlayerState : NetworkBehaviour
     float replytime;
     #endregion
     #region 魔王变量
-
+    //体积变大
+    private Vector3 initialScale;
+    private Vector3 targetScale;
+    public float scaleChangeSpeed = 1.0f;
     #endregion
 
     [ReadOnly]
@@ -88,8 +91,8 @@ public class PlayerState : NetworkBehaviour
         currentReplyTime = playerData.playerReplyTime;
         isDead = playerData.isDead;
 
-
-
+        //图像放大
+        targetScale = initialScale * 2.5f;
         //血量重置
         currentHp = currentMaxHp;
 
@@ -163,14 +166,17 @@ public class PlayerState : NetworkBehaviour
     private void BecomingDevil(bool demonization)
     {
         int svaeMaxHP = currentMaxHp;
+        
         if (demonization)
         {
+            StartCoroutine(ScaleOverTime(initialScale));
             currentMaxHp += devilData.devilMaxHp;//血量加成
             currentHp = currentMaxHp;//血量回复到最大
 
             if (currentMaxHp >= svaeMaxHP)
             {
-                InvokeRepeating("DecreaseHealth", 0f, devilData.maxHPLossFrequency);//在devilData.maxHPLossFrequency时间后调用减少最大血量的方法
+                //在devilData.maxHPLossFrequency时间后调用减少最大血量的方法，每隔一段时间自动触发
+                InvokeRepeating("DecreaseHealth", 0f, devilData.maxHPLossFrequency);
             }
             else
             {
@@ -179,6 +185,7 @@ public class PlayerState : NetworkBehaviour
         }
         else
         {
+            StartCoroutine(ScaleOverTime(targetScale));
             currentMaxHp = svaeMaxHP;//还原血量
         }
     }
@@ -187,6 +194,20 @@ public class PlayerState : NetworkBehaviour
     {
         // 逐渐减少最大血量
         currentMaxHp -= devilData.maxHPlossCount;
+    }
+
+    private System.Collections.IEnumerator ScaleOverTime(Vector3 target)
+    {
+        float startTime = Time.time;
+
+        while (Time.time - startTime < 1.0f)
+        {
+            transform.localScale = Vector3.Lerp(transform.localScale, target, (Time.time - startTime) * scaleChangeSpeed);
+            yield return null;
+        }
+
+        // 确保最终缩放值准确
+        transform.localScale = target;
     }
 
     [ServerCallback]

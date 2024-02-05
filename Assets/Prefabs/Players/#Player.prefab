@@ -595,6 +595,7 @@ MonoBehaviour:
   playerBulletData: {fileID: 11400000, guid: 360117664f2412349b151dd783737ad2, type: 2}
   devilData: {fileID: 0}
   bulletTime: 0
+  currentMaxMagazineBulletCount: 0
   currentMagazineBulletCount: 0
   fillingTimeCD: 0
   fillingTime: 0
@@ -873,6 +874,7 @@ MonoBehaviour:
   syncMode: 0
   syncInterval: 0
   playerData: {fileID: 11400000, guid: 02b9a3c14e30e7f4580bc11956ad0089, type: 2}
+  devilData: {fileID: 11400000, guid: 73c8eb257fc69894a922bf802184148a, type: 2}
   currentMoveSpeed: 0
   playerUICanvas: {fileID: 5272592095496580394}
 --- !u!114 &2843107405343368552
@@ -900,7 +902,6 @@ MonoBehaviour:
   currentFraction: 0
   isDead: 0
   highestPoint: 0
-  demonization: 0
   invincibilityDuration: 0
   rebirthTime: 0
   rebirthTimeDisplay: {fileID: 0}
@@ -938,6 +939,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6d094215e7349a44da425fcbbb5ef63c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  demonization: 0
 --- !u!114 &2843107405343368558
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1164,6 +1166,7 @@ MonoBehaviour:
   playerBulletData: {fileID: 11400000, guid: 360117664f2412349b151dd783737ad2, type: 2}
   devilData: {fileID: 0}
   bulletTime: 0
+  currentMaxMagazineBulletCount: 0
   currentMagazineBulletCount: 0
   fillingTimeCD: 0
   fillingTime: 0
@@ -1313,6 +1316,7 @@ MonoBehaviour:
   playerBulletData: {fileID: 11400000, guid: 360117664f2412349b151dd783737ad2, type: 2}
   devilData: {fileID: 0}
   bulletTime: 0
+  currentMaxMagazineBulletCount: 0
   currentMagazineBulletCount: 0
   fillingTimeCD: 0
   fillingTime: 0

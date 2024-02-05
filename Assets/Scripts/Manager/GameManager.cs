@@ -15,8 +15,8 @@ public class GameManager : Singleton<GameManager>//设置为单例
     [ReadOnly]
     public float gameTime;
     //什么时候出现魔王
-    [ReadOnly]
-    public float isDevilTime;
+    public float isDevilTime1;
+    public float isDevilTime2;
     //在魔王出现期间内开启
     [ReadOnly]
     public bool devilOpen;
@@ -43,9 +43,11 @@ public class GameManager : Singleton<GameManager>//设置为单例
 
     void DevilTime()
     {
-        if (gameTime >= isDevilTime)
+        if (gameTime >= isDevilTime1)
         {
-            devilOpen = true;
+            //时间到了后广播一次事件
+            EventCenter.Broadcast(EventType.DevilTimeOpen);
+            isDevilTime1 = isDevilTime2;
         }
     }
 }
