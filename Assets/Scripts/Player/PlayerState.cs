@@ -181,6 +181,7 @@ public class PlayerState : NetworkBehaviour
             else
             {
                 devilController.demonization = false;//如果最高血量小于原本的一定值时，退出魔王状态
+                EventCenter.Broadcast<bool>(EventType.Demonization, devilController.demonization);
             }
         }
         else
