@@ -609,6 +609,7 @@ MonoBehaviour:
   playerState: {fileID: 0}
   firePos: {fileID: 0}
   bulletPrefab: {fileID: 0}
+  devilBulletPrefab: {fileID: 0}
 --- !u!1 &2843107405343368551
 GameObject:
   m_ObjectHideFlags: 0
@@ -899,6 +900,7 @@ MonoBehaviour:
   currentHp: 0
   currentReplyVolume: 0
   currentReplyTime: 0
+  scaleChangeSpeed: 1
   currentFraction: 0
   isDead: 0
   highestPoint: 0
@@ -1164,7 +1166,7 @@ MonoBehaviour:
   syncMode: 0
   syncInterval: 0
   playerBulletData: {fileID: 11400000, guid: 360117664f2412349b151dd783737ad2, type: 2}
-  devilData: {fileID: 0}
+  devilData: {fileID: 11400000, guid: 73c8eb257fc69894a922bf802184148a, type: 2}
   bulletTime: 0
   currentMaxMagazineBulletCount: 0
   currentMagazineBulletCount: 0
@@ -1180,6 +1182,7 @@ MonoBehaviour:
   playerState: {fileID: 0}
   firePos: {fileID: 962094442821503277}
   bulletPrefab: {fileID: 6916413337689440384, guid: b4aacaa918c4cc444af31ffc0952cf2e, type: 3}
+  devilBulletPrefab: {fileID: 6916413337689440384, guid: 8443e8c01bee7c844ab4332ecd2b15e1, type: 3}
 --- !u!114 &7392048397352806140
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1330,6 +1333,7 @@ MonoBehaviour:
   playerState: {fileID: 0}
   firePos: {fileID: 0}
   bulletPrefab: {fileID: 0}
+  devilBulletPrefab: {fileID: 0}
 --- !u!1 &2843107406255953942
 GameObject:
   m_ObjectHideFlags: 0

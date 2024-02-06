@@ -54,11 +54,13 @@ public class BulletController : NetworkBehaviour
     public TMP_Text bulletCountDisplay;//子弹数量显示
     //private Color initialColor;
     private BulletPool bulletPool;
+    private DevilController devilController;
     public PlayerState playerState;
     public Transform firePos;
 
     //1.14孟：现行版本，因无法同时兼容对象池的正常使用，因此暂时将对象池化的子弹改为传统的生成·销毁方法
     public GameObject bulletPrefab;
+    public GameObject devilBulletPrefab;
 
     private void Awake()
     {
@@ -78,6 +80,7 @@ public class BulletController : NetworkBehaviour
         bulletPool = FindObjectOfType<BulletPool>();
         //initialColor = bulletBarDown.color;
         playerState = GetComponentInParent<PlayerState>();//获取父物体上的组件
+        devilController = GetComponentInParent<DevilController>();
     }
 
     void Update()
@@ -118,8 +121,18 @@ public class BulletController : NetworkBehaviour
     void Init()
     {
         // 实例化子弹并设置位置和旋转
-        GameObject bullet = Instantiate(bulletPrefab, firePos.position, transform.rotation);
-        NetworkServer.Spawn(bullet);
+        if (!devilController.demonization)
+        {
+            GameObject bullet = Instantiate(bulletPrefab, firePos.position, transform.rotation);
+            NetworkServer.Spawn(bullet);
+        }
+        else
+        {
+            GameObject bullet = Instantiate(devilBulletPrefab, firePos.position, transform.rotation);
+            NetworkServer.Spawn(bullet);
+        }
+        
+        
     }
     /// <summary>
     /// 鼠标射击模式
