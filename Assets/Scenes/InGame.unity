@@ -911,7 +911,9 @@ MonoBehaviour:
   isPlayerRespawn: 0
   gameTime: 0
   isDevilTime1: 300
+  endDevilTime1: 0
   isDevilTime2: 600
+  endDevilTime2: 0
   devilOpen: 0
 --- !u!114 &255461067
 MonoBehaviour:

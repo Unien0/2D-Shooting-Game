@@ -21,12 +21,12 @@ public class DevilController : MonoBehaviour
 
     private void Awake()
     {
-        EventCenter.AddListener(EventType.DevilTimeOpen, DevilCall);
+        EventCenter.AddListener<bool>(EventType.DevilTimeOpen, DevilCall);
     }
 
     private void OnDestroy()
     {
-        EventCenter.RemoveListener(EventType.DevilTimeOpen, DevilCall);
+        EventCenter.RemoveListener<bool>(EventType.DevilTimeOpen, DevilCall);
     }
 
     void Start()
@@ -38,12 +38,17 @@ public class DevilController : MonoBehaviour
     /// <summary>
     /// 接收到魔王时间的广播事件后开始广播自身属性修改
     /// </summary>
-    void DevilCall()
+    void DevilCall(bool devilOpen)
     {
-        if (playerState.highestPoint)
+        if (playerState.highestPoint && devilOpen)
         {
             demonization = true;
             EventCenter.Broadcast<bool>(EventType.Demonization, demonization);//呼叫程序,传入bool值
+        }
+        else if (!devilOpen)
+        {
+            demonization = false;
+            EventCenter.Broadcast<bool>(EventType.Demonization, demonization);
         }
     }
 }

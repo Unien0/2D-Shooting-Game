@@ -629,6 +629,7 @@ GameObject:
   - component: {fileID: -4453197076123434818}
   - component: {fileID: 7953095921510288402}
   - component: {fileID: 2843107405343368558}
+  - component: {fileID: 7653932541459367143}
   - component: {fileID: -2977623002451271746}
   - component: {fileID: 5572962260789380560}
   - component: {fileID: 5278982169228885513}
@@ -957,6 +958,24 @@ MonoBehaviour:
   gun1: {fileID: 2843107404950655518}
   gun2: {fileID: 2843107406123538011}
   scaleChangeSpeed: 1
+--- !u!114 &7653932541459367143
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2843107405343368551}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3833941b52b10754a960ea189fca155d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  positionOffsetRange: 1
+  drops:
+  - name: "\u7ECF\u9A8C\u5B9D\u77F3"
+    dropObjectID: 1
+    itemPrefab: {fileID: 1898078589354562489, guid: 27e4ff75c98194b43b9b8e320bf41cba, type: 3}
+    dropRate: 100
 --- !u!114 &-2977623002451271746
 MonoBehaviour:
   m_ObjectHideFlags: 0

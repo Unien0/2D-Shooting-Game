@@ -184,6 +184,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   drops:
   - name: "\u7ECF\u9A8C\u5B9D\u77F3"
+    dropObjectID: 1
     itemPrefab: {fileID: 1898078589354562489, guid: 27e4ff75c98194b43b9b8e320bf41cba, type: 3}
     dropRate: 100
 --- !u!114 &1905514311
