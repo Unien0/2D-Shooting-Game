@@ -46,7 +46,7 @@ public class PlayerState : NetworkBehaviour
     #endregion
     #region 魔王变量
     //体积变大
-    private Vector3 initialScale;
+    private Vector3 initialScale = new Vector3(1.0f,1.0f,1.0f);
     private Vector3 targetScale;
     public float scaleChangeSpeed = 1.0f;
     #endregion
@@ -98,6 +98,8 @@ public class PlayerState : NetworkBehaviour
         spriteRenderer = GetComponent<SpriteRenderer>();
         playerTransform = GetComponent<Transform>();
         devilController = GetComponent<DevilController>();
+
+        targetScale = initialScale * 2.0f;
     }
 
     void Update()
@@ -167,7 +169,7 @@ public class PlayerState : NetworkBehaviour
         
         if (demonization)
         {
-            //StartCoroutine(ScaleOverTime(initialScale));
+            StartCoroutine(ScaleOverTime(targetScale));
             currentMaxHp += devilData.devilMaxHp;//血量加成
             currentHp = currentMaxHp;//血量回复到最大
 
@@ -184,7 +186,7 @@ public class PlayerState : NetworkBehaviour
         }
         else
         {
-            //StartCoroutine(ScaleOverTime(targetScale));
+            StartCoroutine(ScaleOverTime(initialScale));
             currentMaxHp = svaeMaxHP;//还原血量
         }
     }
@@ -195,19 +197,19 @@ public class PlayerState : NetworkBehaviour
         currentMaxHp -= devilData.maxHPlossCount;
     }
 
-    //private IEnumerator ScaleOverTime(Vector3 target)
-    //{
-    //    float startTime = Time.time;
+    private IEnumerator ScaleOverTime(Vector3 target)
+    {
+        float startTime = Time.time;
 
-    //    while (Time.time - startTime < 1.0f)
-    //    {
-    //        transform.localScale = Vector3.Lerp(transform.localScale, target, (Time.time - startTime) * scaleChangeSpeed);
-    //        yield return null;
-    //    }
+        while (Time.time - startTime < 1.0f)
+        {
+            transform.localScale = Vector3.Lerp(transform.localScale, target, (Time.time - startTime) * scaleChangeSpeed);
+            yield return null;
+        }
 
-    //    // 确保最终缩放值准确
-    //    transform.localScale = target;
-    //}
+        // 确保最终缩放值准确
+        transform.localScale = target;
+    }
 
     [ServerCallback]
     private void OnTriggerEnter2D(Collider2D other)
