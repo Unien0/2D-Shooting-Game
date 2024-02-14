@@ -1173,7 +1173,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2843107406051815562}
-  - component: {fileID: 2843107406051815561}
   - component: {fileID: 217032411552482658}
   - component: {fileID: 7392048397352806140}
   - component: {fileID: 251764266191976910}
@@ -1205,39 +1204,6 @@ Transform:
   m_Father: {fileID: 2843107405343368550}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &2843107406051815561
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2843107406051815563}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3b790e4be951bfc47a08524ce5368c05, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  syncDirection: 0
-  syncMode: 0
-  syncInterval: 0
-  playerBulletData: {fileID: 11400000, guid: 360117664f2412349b151dd783737ad2, type: 2}
-  devilData: {fileID: 11400000, guid: 73c8eb257fc69894a922bf802184148a, type: 2}
-  bulletTime: 0
-  currentMaxMagazineBulletCount: 0
-  currentMagazineBulletCount: 0
-  fillingTimeCD: 0
-  fillingTime: 0
-  isLoadBullets: 0
-  isFillingTime: 0
-  bulletSpeed: 10
-  fireThreshold: 0.5
-  bulletBarDown: {fileID: 1019369822794937022}
-  bulletLoadingDisplay: {fileID: 2468482539398973354}
-  bulletCountDisplay: {fileID: 3682953904371993622}
-  playerState: {fileID: 0}
-  firePos: {fileID: 962094442821503277}
-  bulletPrefab: {fileID: 6916413337689440384, guid: b4aacaa918c4cc444af31ffc0952cf2e, type: 3}
-  devilBulletPrefab: {fileID: 6916413337689440384, guid: 8443e8c01bee7c844ab4332ecd2b15e1, type: 3}
 --- !u!114 &217032411552482658
 MonoBehaviour:
   m_ObjectHideFlags: 0
