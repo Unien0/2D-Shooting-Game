@@ -55,6 +55,9 @@ TagManager:
   - name: Object
     uniqueID: 1989007921
     locked: 0
+  - name: DownWell
+    uniqueID: 1111591057
+    locked: 0
   - name: Enemy
     uniqueID: 876185047
     locked: 0
@@ -67,11 +70,11 @@ TagManager:
   - name: Effect
     uniqueID: 318872577
     locked: 0
-  - name: OnWell
-    uniqueID: 1025007507
-    locked: 0
   - name: Grass
     uniqueID: 164809693
+    locked: 0
+  - name: OnWell
+    uniqueID: 1025007507
     locked: 0
   - name: UI
     uniqueID: 1528264133

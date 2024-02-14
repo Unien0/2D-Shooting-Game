@@ -63,11 +63,7 @@ public class ShotGunBulletController : NetworkBehaviour
     private BulletPool bulletPool;
     private DevilController devilController;
     public PlayerState playerState;
-    public Transform firePos1;
-    public Transform firePos2;
-    public Transform firePos3;
-    public Transform firePos4;
-    public Transform firePos5;
+    public Transform[] firePosArr;
 
     //1.14孟：现行版本，因无法同时兼容对象池的正常使用，因此暂时将对象池化的子弹改为传统的生成·销毁方法
     public GameObject bulletPrefab;
@@ -134,15 +130,21 @@ public class ShotGunBulletController : NetworkBehaviour
         // 实例化子弹并设置位置和旋转
         if (!devilController.demonization)
         {
-            GameObject bullet = Instantiate(bulletPrefab, firePos1.position, transform.rotation);
-
-            NetworkServer.Spawn(bullet);
+            for (int i = 0; i < firePosArr.Length; i++)
+            {
+                GameObject bullet = Instantiate(bulletPrefab, firePosArr[i].position, transform.rotation);
+                NetworkServer.Spawn(bullet);
+            }
+            
         }
         else
         {
-            GameObject bullet = Instantiate(devilBulletPrefab, firePos1.position, transform.rotation);
-
-            NetworkServer.Spawn(bullet);
+            for (int i = 0; i < firePosArr.Length; i++)
+            {
+                GameObject bullet = Instantiate(devilBulletPrefab, firePosArr[i].position, transform.rotation);
+                NetworkServer.Spawn(bullet);
+            }
+            
         }
 
 
