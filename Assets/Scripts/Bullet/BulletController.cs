@@ -52,12 +52,13 @@ public class BulletController : NetworkBehaviour
     public Image bulletBarDown;
     public Image bulletLoadingDisplay;//装弹显示
     public TMP_Text bulletCountDisplay;//子弹数量显示
-    //private Color initialColor;
+    private Color initColor = new Color(1, 1, 1, 0f);//换弹UI的初始透明度（α通道）为0，即平时不显示
+    private Color targetColor = new Color(1, 1, 1, 1f);//换弹UI的初始透明度（α通道）为1，即换挡时显示
+
     private BulletPool bulletPool;
     private DevilController devilController;
     public PlayerState playerState;
     public Transform firePos;
-
     //1.14孟：现行版本，因无法同时兼容对象池的正常使用，因此暂时将对象池化的子弹改为传统的生成·销毁方法
     public GameObject bulletPrefab;
     public GameObject devilBulletPrefab;
@@ -137,27 +138,64 @@ public class BulletController : NetworkBehaviour
     /// <summary>
     /// 鼠标射击模式
     /// 2024.1.22 孟：给网络通信的子弹发射方法加上注释，免得找不到
+    /// 2024.02.13 孟：完成了子弹UI同步显示和换弹UI同步显示
     /// </summary>
     void BulletMouseSync()
     {
         //按下鼠标左键，射击
-        if (Input.GetMouseButton(0))
+        if (Input.GetMouseButton(0) && !isLoadBullets)
         {
+            fillingTime = 0;
             bulletTime += Time.deltaTime;
-
-            //float fillAmount = bulletTime / bulletCoolDownTime;
-            //bulletLoadingDisplay.fillAmount = fillAmount;
 
             if (bulletTime >= bulletCoolDownTime)
             {
                 Init();
-
                 bulletTime -= bulletCoolDownTime;
-                //bulletLoadingDisplay.fillAmount = 1f;
-                //Color targetColor = new Color(1, 1, 1, 0f);
-                //bulletBarDown.DOColor(targetColor, 1f);
+                currentMagazineBulletCount--;
+
             }
         }
+        if (currentMagazineBulletCount >= currentMaxMagazineBulletCount)
+        {
+            fillingTimeCD = 0;
+        }
+
+        if (currentMagazineBulletCount <= 0)
+        {
+            isLoadBullets = true;
+            isFillingTime = true;
+            LoadBullets();
+        }
+    }
+
+    //强制填装，在填装结束后退出强制填装状态
+    void LoadBullets()
+    {
+        //图标显示
+        bulletBarDown.DOColor(targetColor, 0.25f);
+        if (isFillingTime)
+        {
+            fillingTime += Time.deltaTime;
+            //UI变化
+            float fillAmount = fillingTime / bulletFillingTime;
+            bulletLoadingDisplay.fillAmount = fillAmount;
+
+            if (fillingTime >= bulletFillingTime)
+            {
+                currentMagazineBulletCount = currentMaxMagazineBulletCount;
+                fillingTime = 0;
+                isFillingTime = false;
+                isLoadBullets = false;
+                //换弹结束后，换弹UI槽归零，同时UI不显示
+                bulletLoadingDisplay.fillAmount = 0;
+                bulletBarDown.DOColor(initColor, 0.25f);
+            }
+        }
+    }
+    void UIBulletCount()
+    {
+        bulletCountDisplay.text = currentMagazineBulletCount + "/" + currentMaxMagazineBulletCount.ToString();
     }
     /// <summary>
     /// 鼠标射击模式
@@ -263,33 +301,7 @@ public class BulletController : NetworkBehaviour
         }
     }
 
-    //强制填装，在填装结束后退出强制填装状态
-    void LoadBullets()
-    {
-        //图标显示
-        Color targetColor = new Color(1, 1, 1, 1f);
-        bulletBarDown.DOColor(targetColor, 0.35f);
-        if (isFillingTime)
-        {
-            //UI变化
-            float fillAmount = bulletTime / bulletCoolDownTime;
-            bulletLoadingDisplay.fillAmount = fillAmount;
-
-            fillingTime += Time.deltaTime;
-            if (fillingTime >= bulletFillingTime)
-            {
-                currentMagazineBulletCount = currentMaxMagazineBulletCount;
-                fillingTime = 0;
-                isFillingTime = false;
-                isLoadBullets = false;
-            }
-        }
-    }
-
-    void UIBulletCount()
-    {
-        bulletCountDisplay.text = currentMagazineBulletCount + "/" + currentMaxMagazineBulletCount.ToString();
-    }
+    
 
     /// 2024.1.11旧版本的键鼠操作模式下的子弹模式代码
     /// 已弃用，仅做存档，最终版本确定后删除
