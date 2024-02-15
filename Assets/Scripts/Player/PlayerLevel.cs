@@ -26,6 +26,7 @@ public class PlayerLevel : MonoBehaviour
     private Image minExpBar;
     private Image expBar;
     private TMP_Text levelText;
+    private TMP_Text expText;
 
     private void Awake()
     {
@@ -40,9 +41,15 @@ public class PlayerLevel : MonoBehaviour
     void Start()
     {
         experienceCap = levelRanges[0].experienceCapIncrease;
-        minExpBar = GameObject.FindGameObjectWithTag("minExpBar").GetComponent<Image>();
+        //各个UI显示=>大经验条，大经验条文字，等级，迷你经验条
+
         expBar = GameObject.FindGameObjectWithTag("ExpBar").GetComponent<Image>();
+        expText = GameObject.FindGameObjectWithTag("ExpText").GetComponent<TMP_Text>();
         levelText = GameObject.FindGameObjectWithTag("Level").GetComponent<TMP_Text>();
+        minExpBar = GameObject.FindGameObjectWithTag("minExpBar").GetComponent<Image>();
+
+        //首先初始化一次经验条
+        UpdateExpBar();
     }
 
     void Update()
@@ -98,6 +105,7 @@ public class PlayerLevel : MonoBehaviour
     {
         expBar.fillAmount = (float)experience / experienceCap;
         minExpBar.fillAmount = (float)experience / experienceCap;
+        expText.text = experience.ToString() + " / " + experienceCap.ToString();
     }
 
     void UpdateLevelText()//等级UI显示

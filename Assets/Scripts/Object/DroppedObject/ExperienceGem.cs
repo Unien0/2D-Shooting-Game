@@ -9,20 +9,24 @@ public class ExperienceGem : Pickup,Icollectible
 
     public override void Collect()
     {
+        //防止重复拾取
         if (hasBeenCollected)
         {
             return;
         }
         else
         {
-            base.Collect();
+            PlayerLevel player = FindObjectOfType<PlayerLevel>();
+            player.IncreaseExperience(experienceGranted);
+            PlayerState point = FindObjectOfType<PlayerState>();
+            point.GetPoint(experienceGranted);
+            //EventHandler.CallPlaySoundEvent(SoundName.ExperienceGem);
+            //Destroy(gameObject);
         }
-        PlayerLevel player = FindObjectOfType<PlayerLevel>();
-        player.IncreaseExperience(experienceGranted);
-        PlayerState point = FindObjectOfType<PlayerState>();
-        point.GetPoint(experienceGranted);
-        //EventHandler.CallPlaySoundEvent(SoundName.ExperienceGem);
-        //Destroy(gameObject);
     }
-    
+
+    private void OnDestroy()
+    {
+        Collect();
+    }
 }

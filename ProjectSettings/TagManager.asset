@@ -12,6 +12,7 @@ TagManager:
   - Grass
   - Obstacle
   - minExpBar
+  - ExpText
   layers:
   - Default
   - TransparentFX
