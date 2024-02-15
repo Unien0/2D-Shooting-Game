@@ -111,9 +111,9 @@ public class EnemyState : NetworkBehaviour
     /// <summary>
     /// 敌人死亡时调用，将其回收
     /// </summary>
-    private void OnDestroy()
-    {
-        EnemySpawner es = FindObjectOfType<EnemySpawner>();
-        es.OnEnemyKilled();
-    }
+    //private void OnDestroy()
+    //{
+    //    EnemySpawner es = FindObjectOfType<EnemySpawner>();
+    //    es.OnEnemyKilled();
+    //}
 }

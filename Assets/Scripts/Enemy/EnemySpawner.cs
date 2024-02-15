@@ -1,8 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
-public class EnemySpawner : MonoBehaviour
+using Mirror;
+public class EnemySpawner : NetworkBehaviour
 {
     [System.Serializable]
     public class Wave
@@ -84,6 +84,12 @@ public class EnemySpawner : MonoBehaviour
             spawnTimer = 0f;
             SpawnEnemies();
         }
+
+        enemiesAlive = this.transform.childCount;
+        if (enemiesAlive < maxEnemiesAllowed)
+        {
+            maxEnemiesReached = false;
+        }
     }
 
     IEnumerator BeginNextWave()
@@ -121,12 +127,12 @@ public class EnemySpawner : MonoBehaviour
                     float spawnX = Random.Range(-enemyGenerationRange, enemyGenerationRange);
                     float spawnY = Random.Range(-enemyGenerationRange, enemyGenerationRange);
                     Vector3 spawnPosition = new Vector3(spawnX, spawnY,0);
-                    Instantiate(enemyGroup.enemyPrefab, spawnPosition + thisTransform.position, Quaternion.identity);
+
+                    EnemyInstant(enemyGroup,spawnPosition);
                     //Vector2 spawnPosition = new Vector2(player.transform.position.x + Random.Range(-10f, 10f), player.transform.position.y + Random.Range(-10f, 10f));
                     //Instantiate(enemyGroup.enemyPrefab, spawnPosition, Quaternion.identity);
                     enemyGroup.enemyCount++;
                     waves[currentWaveCount].spawnCount++;
-                    enemiesAlive++;
 
                     if (enemiesAlive >= maxEnemiesAllowed)
                     {
@@ -138,12 +144,10 @@ public class EnemySpawner : MonoBehaviour
             }
         }
     }
-    public void OnEnemyKilled()
+
+    void EnemyInstant(EnemyGroup enemyGroup,Vector3 spawnPosition)
     {
-        enemiesAlive--;
-        if (enemiesAlive < maxEnemiesAllowed)
-        {
-            maxEnemiesReached = false;
-        }
+        var temp = Instantiate(enemyGroup.enemyPrefab, spawnPosition + thisTransform.position, Quaternion.identity,this.transform);
+        NetworkServer.Spawn(temp);
     }
 }
