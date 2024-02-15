@@ -19,6 +19,11 @@ public class GameManager : Singleton<GameManager>//设置为单例
     public float endDevilTime1;
     public float isDevilTime2;
     public float endDevilTime2;
+
+    public float deadTime;
+    public float gameOverTime;
+
+    public bool onDeadTime;
     //在魔王出现期间内开启
     [ReadOnly]
     public bool devilOpen;
@@ -41,6 +46,10 @@ public class GameManager : Singleton<GameManager>//设置为单例
 
         gameTime += Time.deltaTime;
         DevilTime();
+        if (gameTime >= deadTime)
+        {
+            onDeadTime = true;
+        }
     }
 
     void DevilTime()
