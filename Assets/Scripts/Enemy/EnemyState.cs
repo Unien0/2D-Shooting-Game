@@ -44,6 +44,7 @@ public class EnemyState : NetworkBehaviour
 
     void Update()
     {
+        //时刻检查是否死亡，且只在服务器上检测
         if(isServer)
         {
             if(isDead)
@@ -78,6 +79,7 @@ public class EnemyState : NetworkBehaviour
     /// </summary>
      void Kill()
     {
+        //只在服务器上销毁死去的敌人，并广播到各客户端
         if (isServer)
         {
             NetworkServer.Destroy(gameObject);
@@ -89,10 +91,12 @@ public class EnemyState : NetworkBehaviour
     /// 在原有代码基础上，做出修改，可能会损失一些功能，需要再检查点和杨对接
     /// </summary>
     /// <param name="dmg"></param> 
+    //Server关键字是只在服务器上运行的代码，并阻止其在客户端调用
+    //暂时不需要显示野怪的血量，因此无需考虑向各客户端同步野怪当前状态，只在服务器判定其死活并广播死活状态即可
     [Server]
     public void TakeDamage(int dmg)
     {
-        Debug.Log(111);
+        //Debug.Log(111);
         if (!isDead)
         {
             currentHealth -= dmg;

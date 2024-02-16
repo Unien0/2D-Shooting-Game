@@ -49,9 +49,11 @@ public class BulletController : NetworkBehaviour
     public float fireThreshold = 0.5f;//死区
 
     [Header("UI")]
-    public Image bulletBarDown;
-    public Image bulletLoadingDisplay;//装弹显示
+    public Image bulletBarDown;//换弹UI的背景
+    public Image bulletLoadingDisplay;//换弹进度显示
     public TMP_Text bulletCountDisplay;//子弹数量显示
+    public Image bulletCountIcon;//子弹数量的Icon
+
     private Color initColor = new Color(1, 1, 1, 0f);//换弹UI的初始透明度（α通道）为0，即平时不显示
     private Color targetColor = new Color(1, 1, 1, 1f);//换弹UI的初始透明度（α通道）为1，即换挡时显示
 
@@ -76,12 +78,17 @@ public class BulletController : NetworkBehaviour
     private void Start()
     {
         currentMaxMagazineBulletCount = magazineBulletCount;
-
         currentMagazineBulletCount = currentMaxMagazineBulletCount;//弹匣装满
         bulletPool = FindObjectOfType<BulletPool>();
-        //initialColor = bulletBarDown.color;
         playerState = GetComponentInParent<PlayerState>();//获取父物体上的组件
         devilController = GetComponentInParent<DevilController>();
+
+        //判断只有当前客户端的本地玩家，才显示子弹数量和提示图标
+        if(isLocalPlayer)
+        {
+            bulletCountDisplay.enabled = true;
+            bulletCountIcon.enabled = true;
+        }
     }
 
     void Update()
@@ -195,7 +202,10 @@ public class BulletController : NetworkBehaviour
     }
     void UIBulletCount()
     {
-        bulletCountDisplay.text = currentMagazineBulletCount + "/" + currentMaxMagazineBulletCount.ToString();
+        if(bulletCountDisplay.enabled)
+        {
+            bulletCountDisplay.text = currentMagazineBulletCount + "/" + currentMaxMagazineBulletCount.ToString();
+        }
     }
     /// <summary>
     /// 鼠标射击模式

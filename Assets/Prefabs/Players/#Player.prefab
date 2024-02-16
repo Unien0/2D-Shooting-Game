@@ -606,6 +606,7 @@ MonoBehaviour:
   bulletBarDown: {fileID: 0}
   bulletLoadingDisplay: {fileID: 0}
   bulletCountDisplay: {fileID: 0}
+  bulletCountIcon: {fileID: 0}
   playerState: {fileID: 0}
   firePos: {fileID: 0}
   bulletPrefab: {fileID: 0}
@@ -908,6 +909,7 @@ MonoBehaviour:
   invincibilityDuration: 0
   rebirthTime: 0
   rebirthTimeDisplay: {fileID: 0}
+  hpBarUI: {fileID: 6953001944056337891}
 --- !u!114 &-4453197076123434818
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -920,6 +922,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1839625dcdc0d2f4f99aac7a8eb831ad, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  syncDirection: 0
+  syncMode: 0
+  syncInterval: 0
   experience: 0
   level: 1
   experienceCap: 100
@@ -1198,6 +1203,7 @@ MonoBehaviour:
   bulletBarDown: {fileID: 1019369822794937022}
   bulletLoadingDisplay: {fileID: 2468482539398973354}
   bulletCountDisplay: {fileID: 3682953904371993622}
+  bulletCountIcon: {fileID: 328150549742030145}
   playerState: {fileID: 0}
   firePos: {fileID: 962094442821503277}
   bulletPrefab: {fileID: 6916413337689440384, guid: b4aacaa918c4cc444af31ffc0952cf2e, type: 3}
@@ -1349,6 +1355,7 @@ MonoBehaviour:
   bulletBarDown: {fileID: 0}
   bulletLoadingDisplay: {fileID: 0}
   bulletCountDisplay: {fileID: 0}
+  bulletCountIcon: {fileID: 0}
   playerState: {fileID: 0}
   firePos: {fileID: 0}
   bulletPrefab: {fileID: 0}
@@ -1575,9 +1582,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 24ba7c7f469460941ad1fb6457117cff, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerData: {fileID: 11400000, guid: 02b9a3c14e30e7f4580bc11956ad0089, type: 2}
-  playerMaxHP: 0
-  playerHP: 0
 --- !u!1 &4200401465714143809
 GameObject:
   m_ObjectHideFlags: 0
@@ -1707,7 +1711,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4374731978037999166}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
   m_Name: 
@@ -1720,7 +1724,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: '46/90
+  m_text: '30/30
 
 '
   m_isRightToLeft: 0
@@ -1961,7 +1965,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5187270510025139580}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
   m_Name: 

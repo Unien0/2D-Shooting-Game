@@ -147,7 +147,12 @@ public class EnemySpawner : NetworkBehaviour
 
     void EnemyInstant(EnemyGroup enemyGroup,Vector3 spawnPosition)
     {
-        var temp = Instantiate(enemyGroup.enemyPrefab, spawnPosition + thisTransform.position, Quaternion.identity,this.transform);
-        NetworkServer.Spawn(temp);
+        //只在服务器上生成敌人，然后广播到各客户端
+        if(isServer)
+        {
+            var temp = Instantiate(enemyGroup.enemyPrefab, spawnPosition + this.transform.position, Quaternion.identity);
+            NetworkServer.Spawn(temp);
+            temp.transform.parent = this.transform;
+        }
     }
 }

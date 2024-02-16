@@ -25,8 +25,4 @@ public class ExperienceGem : Pickup,Icollectible
         }
     }
 
-    private void OnDestroy()
-    {
-        Collect();
-    }
 }

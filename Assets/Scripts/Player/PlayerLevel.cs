@@ -3,8 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using Mirror;
 
-public class PlayerLevel : MonoBehaviour
+public class PlayerLevel : NetworkBehaviour
 {
     [Header("经验值/等级")]
     public int experience = 0;
@@ -60,11 +61,20 @@ public class PlayerLevel : MonoBehaviour
 
     public void IncreaseExperience(int amount)
     {
-        experience += amount;
+        IncreaseExpCRPC(amount);
 
         LevelUpChecker();
 
         UpdateExpBar();
+    }
+
+    [ClientRpc]
+    void IncreaseExpCRPC(int amount)
+    {
+        if(isServer)
+        {
+            experience += amount;
+        }
     }
 
     void LevelUpChecker()//升级鉴定

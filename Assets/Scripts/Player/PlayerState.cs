@@ -1,8 +1,6 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using Mirror;
-using UnityEngine.UI;
 using TMPro;
 
 public class PlayerState : NetworkBehaviour
@@ -36,7 +34,7 @@ public class PlayerState : NetworkBehaviour
     #region 当前变量
     [ReadOnly]
     public int currentMaxHp;
-    [ReadOnly]
+    [SyncVar(hook = nameof(OnChangeHpUI))]
     public int currentHp;
     [ReadOnly]
     public int currentReplyVolume;
@@ -71,6 +69,7 @@ public class PlayerState : NetworkBehaviour
     SpriteRenderer spriteRenderer;
     Transform playerTransform;
     DevilController devilController;
+    public PlayerHpBarUI hpBarUI;
 
     private void Awake()
     {
@@ -155,10 +154,12 @@ public class PlayerState : NetworkBehaviour
     /// 获取分数（关联到根据分数来修改是否是魔王）
     /// </summary>
     /// <param name="amount"></param>
+    [ClientRpc]
     public void GetPoint(int amount)
     {
         currentFraction += amount;
     }
+
 
     /// <summary>
     /// 玩家变成魔王
@@ -212,45 +213,42 @@ public class PlayerState : NetworkBehaviour
     }
 
     [ServerCallback]
-    private void OnTriggerEnter2D(Collider2D other)
+    private void OnTriggerEnter2D(Collider2D other) //只在服务器上执行玩家收到伤害相关
     {
-        if(other.CompareTag("Bullet"))
+        if(other.CompareTag("Bullet"))   //玩家和子弹碰撞受到伤害
         {
             Debug.Log("玩家确实读到了子弹的碰撞信息。");
             //令所有客户端的该角色同步受到伤害
-            TakeDamage(bulletDmg);
+            if(currentHp > 0)
+            {
+                currentHp -= bulletDmg;
+            }
+            else
+            {
+                isDead = true;
+                StartCoroutine(IEPlayerDied(0f,0.05f));
+            }
         }
     }
-
-    /// <summary>
-    /// 玩家受伤脚本
-    /// 孟1.22：修改该方法为局域网通信方法
-    /// </summary>
-    /// <param name="damage"></param>
-    [ClientRpc]
-    public void TakeDamage(int damage)
+    void OnChangeHpUI(int oldValue,int newValue)
     {
-        Debug.Log("确实进入了受伤的代码");
-        currentHp -= damage;
-        Debug.Log("玩家当前生命值：" + currentHp);
-        // 处理玩家死亡或其他逻辑
-        if (currentHp <= 0)
+        if(currentHp >= 0)
         {
-            isDead = true;
-            //延迟0.1秒后发送销毁玩家预制体的指令给服务器
-            Invoke("CmdPlayerDied", 0.1f);
-            //延迟0.5秒后发送再次生成玩家预制体的指令，在各个客户端上
-            GameManager.Instance.isPlayerRespawn = true;
+            hpBarUI.UpdateHpBar(currentHp, currentMaxHp);
         }
     }
 
-    [Command]
-    void CmdPlayerDied()
+    IEnumerator IEPlayerDied(float respawnDelay, float delay)
     {
+        yield return new WaitForSeconds(respawnDelay);
+        NetworkIdentity networkIdentity = GetComponent<NetworkIdentity>();
+        RespawnCheckOn(networkIdentity.connectionToClient);
+        yield return new WaitForSeconds(delay);
         NetworkServer.Destroy(gameObject);
     }
 
-    void RespawnCheckOn()
+    [TargetRpc]
+    void RespawnCheckOn(NetworkConnection connection )
     {
         GameManager.Instance.isPlayerRespawn = true;
     }

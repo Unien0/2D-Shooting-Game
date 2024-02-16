@@ -5,29 +5,15 @@ using UnityEngine.UI;
 
 public class PlayerHpBarUI : MonoBehaviour
 {
-    public PlayerData_SO playerData;
-
-    public int playerMaxHP;
-    public int playerHP;
-
-    private Image hpBarr;
+    private Image hpBar;
     // Start is called before the first frame update
     void Start()
     {
-        ShowHPUI();
-        hpBarr = gameObject.GetComponent<Image>();
+        hpBar = gameObject.GetComponent<Image>();
     }
 
-    // Update is called once per frame
-    void Update()
+    public void UpdateHpBar(int playerHp,int playerMaxHp)
     {
-        ShowHPUI();
-        hpBarr.fillAmount = (float)playerHP / playerMaxHP;
-    }
-
-    void ShowHPUI()
-    {
-        playerMaxHP = GetComponentInParent<PlayerState>().currentMaxHp;
-        playerHP = GetComponentInParent<PlayerState>().currentHp;
+        hpBar.fillAmount = (float)playerHp / playerMaxHp;
     }
 }
