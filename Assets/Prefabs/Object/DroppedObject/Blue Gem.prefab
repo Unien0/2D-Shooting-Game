@@ -17,7 +17,7 @@ GameObject:
   - component: {fileID: 3326334054068358877}
   m_Layer: 0
   m_Name: Blue Gem
-  m_TagString: Untagged
+  m_TagString: Gem
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -138,6 +138,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e7195c931e3bbcd478a2442780760fe0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  syncDirection: 0
+  syncMode: 0
+  syncInterval: 0
   hasBeenCollected: 0
   experienceGranted: 20
 --- !u!114 &1898078589354562488

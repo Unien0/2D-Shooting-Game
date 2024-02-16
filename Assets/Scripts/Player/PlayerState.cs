@@ -49,7 +49,7 @@ public class PlayerState : NetworkBehaviour
     public float scaleChangeSpeed = 1.0f;
     #endregion
 
-    [ReadOnly]
+    [SyncVar]
     public float currentFraction;//玩家当前分数
 
     public bool isDead; 
@@ -85,13 +85,12 @@ public class PlayerState : NetworkBehaviour
     {
         //初始化各项玩家的Parameter，从SO中读取初值
         currentMaxHp = playerData.playerMaxHP;
+        //血量重置
         currentHp = playerData.playerHP;
+
         currentReplyVolume = playerData.playerReplyVolume;
         currentReplyTime = playerData.playerReplyTime;
         isDead = playerData.isDead;
-
-        //血量重置
-        currentHp = currentMaxHp;
 
         //组件获取
         spriteRenderer = GetComponent<SpriteRenderer>();
@@ -103,7 +102,10 @@ public class PlayerState : NetworkBehaviour
 
     void Update()
     {
-        Reply();
+        if(isServer)
+        {
+            Reply();
+        }
     }
 
     /// <summary>
@@ -154,7 +156,6 @@ public class PlayerState : NetworkBehaviour
     /// 获取分数（关联到根据分数来修改是否是魔王）
     /// </summary>
     /// <param name="amount"></param>
-    [ClientRpc]
     public void GetPoint(int amount)
     {
         currentFraction += amount;

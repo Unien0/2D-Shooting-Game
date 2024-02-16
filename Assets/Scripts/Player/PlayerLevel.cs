@@ -8,8 +8,11 @@ using Mirror;
 public class PlayerLevel : NetworkBehaviour
 {
     [Header("经验值/等级")]
+    [SyncVar (hook = nameof(UpdateExpBar))]
     public int experience = 0;
+    [SyncVar]
     public int level = 1;
+    [SyncVar]
     public int experienceCap;
 
     [System.Serializable]
@@ -24,7 +27,7 @@ public class PlayerLevel : NetworkBehaviour
 
 
     [Header("UI")]
-    private Image minExpBar;
+    public Image minExpBar;
     private Image expBar;
     private TMP_Text levelText;
     private TMP_Text expText;
@@ -47,33 +50,27 @@ public class PlayerLevel : NetworkBehaviour
         expBar = GameObject.FindGameObjectWithTag("ExpBar").GetComponent<Image>();
         expText = GameObject.FindGameObjectWithTag("ExpText").GetComponent<TMP_Text>();
         levelText = GameObject.FindGameObjectWithTag("Level").GetComponent<TMP_Text>();
-        minExpBar = GameObject.FindGameObjectWithTag("minExpBar").GetComponent<Image>();
 
-        //首先初始化一次经验条
-        UpdateExpBar();
+        //首先初始化一次经验条和等级
+        InitExpBar();
+        levelText.text = level.ToString();
     }
 
-    void Update()
+    private void Update()
     {
-        //UpdateExpBar();
-        UpdateLevelText();
+        if (isLocalPlayer)
+        {
+            levelText.text = level.ToString();
+        }
     }
 
     public void IncreaseExperience(int amount)
     {
-        IncreaseExpCRPC(amount);
-
-        LevelUpChecker();
-
-        UpdateExpBar();
-    }
-
-    [ClientRpc]
-    void IncreaseExpCRPC(int amount)
-    {
-        if(isServer)
+        if (isServer)
         {
             experience += amount;
+
+            LevelUpChecker();
         }
     }
 
@@ -82,9 +79,8 @@ public class PlayerLevel : NetworkBehaviour
         if (experience >= experienceCap)
         {
             level++;
-            experience -= experienceCap;
-
             int experienceCapIncrease = 0;
+            int formerCap = experienceCap;
             foreach (LevelRange range in levelRanges)
             {
                 if (level >= range.startLevel && level <= range.endLevel)
@@ -95,7 +91,7 @@ public class PlayerLevel : NetworkBehaviour
                 }
             }
             experienceCap += experienceCapIncrease;
-            UpdateLevelText();
+            experience -= formerCap;
             //游戏状态调整（暂时没做）
             //GameManager.instance.StartLevelUp();
 
@@ -105,23 +101,31 @@ public class PlayerLevel : NetworkBehaviour
     /// <summary>
     /// 清空经验值
     /// </summary>
+    [ServerCallback]
     void ExpClear()
     {
         experience = 0;
     }
 
     //============UI部分==================
-    void UpdateExpBar()//经验值UI显示
+    void InitExpBar()//大经验槽，大经验值槽数值，迷你经验槽三者初始化
     {
-        expBar.fillAmount = (float)experience / experienceCap;
+        if (isLocalPlayer) //大经验槽相关只是显示本地玩家的
+        {
+            expBar.fillAmount = (float)experience / experienceCap;
+            expText.text = experience.ToString() + " / " + experienceCap.ToString();
+        }
         minExpBar.fillAmount = (float)experience / experienceCap;
-        expText.text = experience.ToString() + " / " + experienceCap.ToString();
     }
-
-    void UpdateLevelText()//等级UI显示
+    void UpdateExpBar(int oldExperience, int newExperience)//大经验槽，大经验值槽数值，迷你经验槽三者跟随exp变化改变
     {
-        levelText.text = level.ToString();
+        if(isLocalPlayer)
+        {
+            Debug.Log(experienceCap);
+            expBar.fillAmount = (float)experience / experienceCap;
+            expText.text = experience.ToString() + " / " + experienceCap.ToString();
+        }
+        minExpBar.fillAmount = (float)experience / experienceCap;
     }
-
 
 }

@@ -6,14 +6,18 @@ using UnityEngine.UI;
 public class PlayerHpBarUI : MonoBehaviour
 {
     private Image hpBar;
-    // Start is called before the first frame update
-    void Start()
+
+    void Awake()
     {
-        hpBar = gameObject.GetComponent<Image>();
+        hpBar = GetComponent<Image>();
     }
 
-    public void UpdateHpBar(int playerHp,int playerMaxHp)
+    public void UpdateHpBar(int playerHp, int playerMaxHp)
     {
-        hpBar.fillAmount = (float)playerHp / playerMaxHp;
+        if (hpBar != null)
+        {
+            hpBar.fillAmount = (float)playerHp / playerMaxHp;
+
+        }
     }
 }
