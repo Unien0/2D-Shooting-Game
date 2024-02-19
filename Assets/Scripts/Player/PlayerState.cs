@@ -51,8 +51,8 @@ public class PlayerState : NetworkBehaviour
 
     [SyncVar]
     public int playerId;//玩家id
-    [SyncVar]
-    public float currentFraction;//玩家当前分数
+    [SyncVar(hook = nameof(AddExpToRank))]
+    public int currentFraction;//玩家当前分数
 
     public bool isDead; 
     public bool highestPoint;//玩家是否是分数最高的
@@ -256,9 +256,15 @@ public class PlayerState : NetworkBehaviour
         GameManager.Instance.isPlayerRespawn = true;
     }
 
-    void OnGUI()
+    //void OnGUI()
+    //{
+    //    GUI.Box(new Rect(40f, 50f + (playerId * 50f), 110f, 25f), $"P{playerId}: {currentFraction:0000000}");
+    //}
+
+    void AddExpToRank(int oldValue,int newValue)
     {
-        GUI.Box(new Rect(40f, 50f + (playerId * 50f), 110f, 25f), $"P{playerId}: {currentFraction:0000000}");
+        string playerName = "P" + playerId.ToString();
+        RankManager.Instance.AddScore(playerName, currentFraction);
     }
 }
 

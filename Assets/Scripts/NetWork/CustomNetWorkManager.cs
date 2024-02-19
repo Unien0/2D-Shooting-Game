@@ -15,6 +15,8 @@ public class CustomNetWorkManager : NetworkManager
         playerNames[conn.connectionId] = nextPlayerId;
 
         conn.identity.GetComponent<PlayerState>().playerId = nextPlayerId;
+        string playerName = "P" + nextPlayerId.ToString();
+        RankManager.Instance.InitRank(playerName);//每加入一个玩家，点亮一个rank
 
     }
 
