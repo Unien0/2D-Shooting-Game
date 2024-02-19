@@ -50,6 +50,8 @@ public class PlayerState : NetworkBehaviour
     #endregion
 
     [SyncVar]
+    public int playerId;//玩家id
+    [SyncVar]
     public float currentFraction;//玩家当前分数
 
     public bool isDead; 
@@ -70,7 +72,7 @@ public class PlayerState : NetworkBehaviour
     Transform playerTransform;
     DevilController devilController;
     public PlayerHpBarUI hpBarUI;
-
+    
     private void Awake()
     {
         EventCenter.AddListener<bool>(EventType.Demonization, BecomingDevil);
@@ -253,4 +255,10 @@ public class PlayerState : NetworkBehaviour
     {
         GameManager.Instance.isPlayerRespawn = true;
     }
+
+    void OnGUI()
+    {
+        GUI.Box(new Rect(40f, 50f + (playerId * 50f), 110f, 25f), $"P{playerId}: {currentFraction:0000000}");
+    }
 }
+
