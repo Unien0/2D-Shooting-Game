@@ -12,8 +12,8 @@ public class GameManager : Singleton<GameManager>//设置为单例
     public bool isPlayerRespawn = false;
 
     //游戏时间进程
-    [ReadOnly]
-    public float gameTime;
+    [ReadOnly][SyncVar]
+    public double gameTime;
     //什么时候出现魔王
     public float isDevilTime1;
     public float endDevilTime1;
@@ -31,7 +31,10 @@ public class GameManager : Singleton<GameManager>//设置为单例
     // Start is called before the first frame update
     void Start()
     {
-        
+        if(isServer)
+        {
+            gameTime = 0;
+        }
     }
 
     // Update is called once per frame
@@ -44,7 +47,10 @@ public class GameManager : Singleton<GameManager>//设置为单例
             FindObjectOfType<PlayerState>().isDead = false;
         }
 
-        gameTime += Time.deltaTime;
+        if(isServer)
+        {
+            gameTime += Time.deltaTime;
+        }
         DevilTime();
         if (gameTime >= deadTime)
         {

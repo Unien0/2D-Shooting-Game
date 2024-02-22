@@ -28,6 +28,7 @@ public class EnemyState : NetworkBehaviour
     EnemyPool parentPool;
     Animator anim;
 
+    public Transform parentTransform;
     void Awake()
     {
         //Assign the vaiables

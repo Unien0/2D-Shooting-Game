@@ -8,7 +8,7 @@ using TMPro;
 public class SceneTimeController : MonoBehaviour
 {
     private TMP_Text timeText;
-    private float sceneStartTime;
+    private double sceneStartTime;
 
     void Start()
     {
@@ -20,7 +20,7 @@ public class SceneTimeController : MonoBehaviour
     void Update()
     {
         //增加时间
-        sceneStartTime += Time.deltaTime;
+        sceneStartTime = GameManager.Instance.gameTime;
         // 更新UI Text的文本内容，显示经过的时间
         if (timeText != null)
         {

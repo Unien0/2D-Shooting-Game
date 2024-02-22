@@ -18,6 +18,18 @@ public class CustomNetWorkManager : NetworkManager
         string playerName = "P" + nextPlayerId.ToString();
         RankManager.Instance.InitRank(playerName);//每加入一个玩家，点亮一个rank
 
+        ResetOldEnemyParent();
+    }
+
+    void ResetOldEnemyParent()
+    {
+        GameObject[] enemies = GameObject.FindGameObjectsWithTag("Enemy");
+        int i = 0;
+        foreach(GameObject enemy in enemies)
+        {
+            enemy.transform.SetParent(enemy.GetComponent<EnemyState>().parentTransform);
+            Debug.Log("初始化时确实修改了" + i++);
+        }
     }
 
     //[TargetRpc]

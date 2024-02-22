@@ -114,6 +114,8 @@ public class EnemySpawner : NetworkBehaviour
         }
         waves[currentWaveCount].waveQuota = currentWaveQuota;
 
+
+
     }
 
     void SpawnEnemies()
@@ -150,9 +152,16 @@ public class EnemySpawner : NetworkBehaviour
         //只在服务器上生成敌人，然后广播到各客户端
         if(isServer)
         {
-            var temp = Instantiate(enemyGroup.enemyPrefab, spawnPosition + this.transform.position, Quaternion.identity);
+            var temp = Instantiate(enemyGroup.enemyPrefab, spawnPosition + transform.position, Quaternion.identity);
+            temp.GetComponent<EnemyState>().parentTransform = this.transform;
             NetworkServer.Spawn(temp);
-            temp.transform.parent = this.transform;
+            SetEnemyParentCRPC(temp,this.gameObject);
         }
+    }
+
+    [ClientRpc]
+    void SetEnemyParentCRPC(GameObject go,GameObject parent)
+    {
+        go.transform.SetParent(parent.transform);
     }
 }

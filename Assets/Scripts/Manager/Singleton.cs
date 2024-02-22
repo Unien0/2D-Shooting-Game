@@ -1,8 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Mirror;
 
-public class Singleton<T> : MonoBehaviour where T : Singleton<T>
+public class Singleton<T> : NetworkBehaviour where T : Singleton<T>
     //シングルトンの共有スクリプト、使い方例：public class GameManager : Singleton<GameManager>
 {
     private static T instance;
