@@ -70,6 +70,13 @@ public class SniperBulletController : NetworkBehaviour
     private float cameraSize;
     private float cameraChangedSize;
     private bool cameraChanged;
+    public GameObject aiming1;
+    public GameObject aiming2;
+    public Image aimingRange1;//两个显示瞄准的UI
+    public Image aimingRange2;
+    public float shrinkageRate;
+    public float deflectionRange = 10f;//偏转角度
+    private float currentDeflection;
 
     //1.14孟：现行版本，因无法同时兼容对象池的正常使用，因此暂时将对象池化的子弹改为传统的生成·销毁方法
     public GameObject bulletPrefab;
@@ -96,6 +103,10 @@ public class SniperBulletController : NetworkBehaviour
         devilController = GetComponentInParent<DevilController>();
         virtualCamera = FindObjectOfType<CinemachineVirtualCamera>();
         myCamera = FindObjectOfType<Camera>();
+
+        aimingRange1.fillAmount = 0.25f;
+        aimingRange2.fillAmount = 0.25f;
+        currentDeflection = deflectionRange;
     }
 
     void Update()
@@ -152,12 +163,16 @@ public class SniperBulletController : NetworkBehaviour
         // 实例化子弹并设置位置和旋转
         if (!devilController.demonization)
         {
-            GameObject bullet = Instantiate(bulletPrefab, firePos.position, transform.rotation);
+            float spreadAngle = Random.Range(-currentDeflection, currentDeflection);
+            Quaternion rotationWithSpread = Quaternion.Euler(0, 0, spreadAngle);
+            GameObject bullet = Instantiate(bulletPrefab, firePos.position, transform.rotation * rotationWithSpread);
                NetworkServer.Spawn(bullet);
         }
         else
         {
-            GameObject bullet = Instantiate(bulletPrefab, firePos.position, transform.rotation);
+            float spreadAngle = Random.Range(-currentDeflection, currentDeflection);
+            Quaternion rotationWithSpread = Quaternion.Euler(0, 0, spreadAngle);
+            GameObject bullet = Instantiate(bulletPrefab, firePos.position, transform.rotation * rotationWithSpread);
             NetworkServer.Spawn(bullet);
         }
 
@@ -169,8 +184,26 @@ public class SniperBulletController : NetworkBehaviour
     /// </summary>
     void BulletMouseSync()
     {
-        //按下鼠标左键，射击
+        //按下鼠标左键,瞄准
         if (Input.GetMouseButton(0))
+        {
+            aiming1.SetActive(true);
+            aiming2.SetActive(true);
+            if (aimingRange1.fillAmount > 0.1f)
+            {
+                aimingRange1.fillAmount -= Time.deltaTime * shrinkageRate;
+            }
+            if (aimingRange2.fillAmount > 0.1f)
+            {
+                aimingRange2.fillAmount -= Time.deltaTime * shrinkageRate;
+            }
+            if (currentDeflection >= 0.01f)
+            {
+                currentDeflection -= Time.deltaTime * shrinkageRate;
+            }
+
+        }
+        if (Input.GetMouseButtonUp(0))//松开后射击
         {
             bulletTime += Time.deltaTime;
 
@@ -186,6 +219,11 @@ public class SniperBulletController : NetworkBehaviour
                 //Color targetColor = new Color(1, 1, 1, 0f);
                 //bulletBarDown.DOColor(targetColor, 1f);
             }
+            aimingRange1.fillAmount = 0.25f;
+            aimingRange2.fillAmount = 0.25f;
+            aiming1.SetActive(false);
+            aiming2.SetActive(false);
+            currentDeflection = deflectionRange;
         }
     }
     /// <summary>
