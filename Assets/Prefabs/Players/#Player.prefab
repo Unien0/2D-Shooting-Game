@@ -903,7 +903,7 @@ MonoBehaviour:
   currentReplyVolume: 0
   currentReplyTime: 0
   scaleChangeSpeed: 1
-  playerId: 0
+  playerId: 100
   currentFraction: 0
   isDead: 0
   highestPoint: 0

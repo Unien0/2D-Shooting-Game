@@ -3,299 +3,300 @@ using UnityEngine;
 using Mirror;
 using TMPro;
 
-public class PlayerState : NetworkBehaviour
-{
-    [Header("SO获取")]
-    public PlayerData_SO playerData;
-    public DevilData_SO devilData;
-
-    [SerializeField]
-    private int bulletDmg = 10;
-
-    #region SO数据获取
-    /// <summary>
-    /// TODO:后期更新获取数据的方式
-    /// </summary>
-    //获取血量相关
-    public int playerHP//当前血量
+    public class PlayerState : NetworkBehaviour
     {
-        get { if (playerData != null) return playerData.playerHP; else return 0; }
-        set { playerData.playerHP = value; }
-    }
-    public int playerReplyVolume//回复量
-    {
-        get { if (playerData != null) return playerData.playerReplyVolume; else return 0; }
-    }
-    public float playerReplyTime//回复启动所需时间
-    {
-        get { if (playerData != null) return playerData.playerReplyTime; else return 0; }
-    }
-    #endregion
-    #region 当前变量
-    [ReadOnly]
-    public int currentMaxHp;
-    [SyncVar(hook = nameof(OnChangeHpUI))]
-    public int currentHp;
-    [ReadOnly]
-    public int currentReplyVolume;
-    [ReadOnly]
-    public float currentReplyTime;
-    float replytime;
-    #endregion
-    #region 魔王变量
-    //体积变大
-    private Vector3 initialScale = new Vector3(1.0f,1.0f,1.0f);
-    private Vector3 targetScale;
-    public float scaleChangeSpeed = 1.0f;
-    #endregion
+        [Header("SO获取")]
+        public PlayerData_SO playerData;
+        public DevilData_SO devilData;
 
-    [SyncVar]
-    public int playerId;//玩家id
-    [SyncVar(hook = nameof(AddExpToRank))]
-    public int currentFraction;//玩家当前分数
+        [SerializeField]
+        private int bulletDmg = 10;
 
-    public bool isDead; 
-    public bool highestPoint;//玩家是否是分数最高的
-
-    [Header("I-Frames")]
-    public float invincibilityDuration;//无敌时间
-    float invincibilityTimer;//无敌倒计时
-    bool isInvincible;//是否无敌
-
-    [Header("死亡处理相关")]
-    public float rebirthTime;//重生时间（可变动
-    float resurrectionTimer;//复活计时器
-    public TMP_Text rebirthTimeDisplay;//重生时间显示
-    
-    [Header("组件获取")]
-    SpriteRenderer spriteRenderer;
-    Transform playerTransform;
-    DevilController devilController;
-    public PlayerHpBarUI hpBarUI;
-    
-    private void Awake()
-    {
-        EventCenter.AddListener<bool>(EventType.Demonization, BecomingDevil);
-    }
-
-    private void OnDestroy()
-    {
-        EventCenter.RemoveListener<bool>(EventType.Demonization, BecomingDevil);
-    }
-
-    void Start()
-    {
-        //初始化各项玩家的Parameter，从SO中读取初值
-        currentMaxHp = playerData.playerMaxHP;
-        //血量重置
-        currentHp = playerData.playerHP;
-
-        currentReplyVolume = playerData.playerReplyVolume;
-        currentReplyTime = playerData.playerReplyTime;
-        isDead = playerData.isDead;
-
-        //组件获取
-        spriteRenderer = GetComponent<SpriteRenderer>();
-        playerTransform = GetComponent<Transform>();
-        devilController = GetComponent<DevilController>();
-
-        targetScale = initialScale * 2.0f;
-    }
-
-    void Update()
-    {
-        if(isServer)
+        #region SO数据获取
+        /// <summary>
+        /// TODO:后期更新获取数据的方式
+        /// </summary>
+        //获取血量相关
+        public int playerHP//当前血量
         {
-            Reply();
+            get { if (playerData != null) return playerData.playerHP; else return 0; }
+            set { playerData.playerHP = value; }
         }
-    }
-
-    /// <summary>
-    /// 恢复血量（呼吸回血）
-    /// TODO:呼吸回血应该也是一个网络方法
-    /// </summary>
-    void Reply()
-    {
-        if (currentHp < currentMaxHp)
+        public int playerReplyVolume//回复量
         {
-            replytime += Time.deltaTime;
-            if (replytime >= currentReplyTime)
+            get { if (playerData != null) return playerData.playerReplyVolume; else return 0; }
+        }
+        public float playerReplyTime//回复启动所需时间
+        {
+            get { if (playerData != null) return playerData.playerReplyTime; else return 0; }
+        }
+        #endregion
+        #region 当前变量
+        [ReadOnly]
+        public int currentMaxHp;
+        [SyncVar(hook = nameof(OnChangeHpUI))]
+        public int currentHp;
+        [ReadOnly]
+        public int currentReplyVolume;
+        [ReadOnly]
+        public float currentReplyTime;
+        float replytime;
+        #endregion
+        #region 魔王变量
+        //体积变大
+        private Vector3 initialScale = new Vector3(1.0f, 1.0f, 1.0f);
+        private Vector3 targetScale;
+        public float scaleChangeSpeed = 1.0f;
+        #endregion
+
+        [SyncVar]
+        public int playerId;//玩家id
+        [SyncVar(hook = nameof(AddExpToRank))]
+        public int currentFraction;//玩家当前分数
+
+        public bool isDead;
+        public bool highestPoint;//玩家是否是分数最高的
+
+        [Header("I-Frames")]
+        public float invincibilityDuration;//无敌时间
+        float invincibilityTimer;//无敌倒计时
+        bool isInvincible;//是否无敌
+
+        [Header("死亡处理相关")]
+        public float rebirthTime;//重生时间（可变动
+        float resurrectionTimer;//复活计时器
+        public TMP_Text rebirthTimeDisplay;//重生时间显示
+
+        [Header("组件获取")]
+        SpriteRenderer spriteRenderer;
+        Transform playerTransform;
+        DevilController devilController;
+        public PlayerHpBarUI hpBarUI;
+
+        private void Awake()
+        {
+            EventCenter.AddListener<bool>(EventType.Demonization, BecomingDevil);
+        }
+
+        private void OnDestroy()
+        {
+            EventCenter.RemoveListener<bool>(EventType.Demonization, BecomingDevil);
+        }
+
+        void Start()
+        {
+            //初始化各项玩家的Parameter，从SO中读取初值
+            currentMaxHp = playerData.playerMaxHP;
+            //血量重置
+            currentHp = playerData.playerHP;
+
+            currentReplyVolume = playerData.playerReplyVolume;
+            currentReplyTime = playerData.playerReplyTime;
+            isDead = playerData.isDead;
+
+            //组件获取
+            spriteRenderer = GetComponent<SpriteRenderer>();
+            playerTransform = GetComponent<Transform>();
+            devilController = GetComponent<DevilController>();
+
+            targetScale = initialScale * 2.0f;
+        }
+
+        void Update()
+        {
+            if (isServer)
             {
-                currentHp += currentReplyVolume;
+                Reply();
             }
         }
-        else
-        {
-            replytime = 0;
-        }
-    }
 
-    /// <summary>
-    /// 玩家死亡的本地做法，实现网络方法后暂时注释掉
-    /// </summary>
-    void Die()
-    {
-        if (isDead)
+        /// <summary>
+        /// 恢复血量（呼吸回血）
+        /// TODO:呼吸回血应该也是一个网络方法
+        /// </summary>
+        void Reply()
         {
-            //玩家透明化，并且将其无法移动
-            spriteRenderer.color = new Color(1, 1, 1, 0);
-            //进行转移与经验值清空处理
-            //跳转至：PlayerMovement、PlayerLevel
-            EventCenter.Broadcast(EventType.isDead);
-            resurrectionTimer += Time.deltaTime;
-            if (resurrectionTimer >= rebirthTime)
+            if (currentHp < currentMaxHp)
             {
-                //复原
-                spriteRenderer.color = new Color(1, 1, 1, 1);
-                //重生后处理
-                isDead = false;
-                resurrectionTimer = 0f;
-            }
-        }
-    }
-
-    /// <summary>
-    /// 获取分数（关联到根据分数来修改是否是魔王）
-    /// </summary>
-    /// <param name="amount"></param>
-    public void GetPoint(int amount)
-    {
-        currentFraction += amount;
-    }
-
-
-    /// <summary>
-    /// 玩家变成魔王
-    /// </summary>
-    private void BecomingDevil(bool demonization)
-    {
-        int svaeMaxHP = currentMaxHp;
-        
-        if (demonization)
-        {
-            StartCoroutine(ScaleOverTime(targetScale));
-            currentMaxHp += devilData.devilMaxHp;//血量加成
-            currentHp = currentMaxHp;//血量回复到最大
-
-            if (currentMaxHp >= svaeMaxHP)
-            {
-                //在devilData.maxHPLossFrequency时间后调用减少最大血量的方法，每隔一段时间自动触发
-                InvokeRepeating("DecreaseHealth", 0f, devilData.maxHPLossFrequency);
+                replytime += Time.deltaTime;
+                if (replytime >= currentReplyTime)
+                {
+                    currentHp += currentReplyVolume;
+                }
             }
             else
             {
-                devilController.demonization = false;//如果最高血量小于原本的一定值时，退出魔王状态
-                EventCenter.Broadcast<bool>(EventType.Demonization, devilController.demonization);
+                replytime = 0;
             }
         }
-        else
+
+        /// <summary>
+        /// 玩家死亡的本地做法，实现网络方法后暂时注释掉
+        /// </summary>
+        void Die()
         {
-            StartCoroutine(ScaleOverTime(initialScale));
-            currentMaxHp = svaeMaxHP;//还原血量
+            if (isDead)
+            {
+                //玩家透明化，并且将其无法移动
+                spriteRenderer.color = new Color(1, 1, 1, 0);
+                //进行转移与经验值清空处理
+                //跳转至：PlayerMovement、PlayerLevel
+                EventCenter.Broadcast(EventType.isDead);
+                resurrectionTimer += Time.deltaTime;
+                if (resurrectionTimer >= rebirthTime)
+                {
+                    //复原
+                    spriteRenderer.color = new Color(1, 1, 1, 1);
+                    //重生后处理
+                    isDead = false;
+                    resurrectionTimer = 0f;
+                }
+            }
         }
-    }
 
-    void DecreaseHealth()
-    {
-        // 逐渐减少最大血量
-        currentMaxHp -= devilData.maxHPlossCount;
-    }
-
-    private IEnumerator ScaleOverTime(Vector3 target)
-    {
-        float startTime = Time.time;
-
-        while (Time.time - startTime < 1.0f)
+        /// <summary>
+        /// 获取分数（关联到根据分数来修改是否是魔王）
+        /// </summary>
+        /// <param name="amount"></param>
+        public void GetPoint(int amount)
         {
-            transform.localScale = Vector3.Lerp(transform.localScale, target, (Time.time - startTime) * scaleChangeSpeed);
-            yield return null;
+            currentFraction += amount;
         }
 
-        // 确保最终缩放值准确
-        transform.localScale = target;
-    }
 
-    [ServerCallback]
-    private void OnTriggerEnter2D(Collider2D other) //只在服务器上执行玩家收到伤害相关
-    {
-        //if(other.CompareTag("Bullet"))   //玩家和子弹碰撞受到伤害
+        /// <summary>
+        /// 玩家变成魔王
+        /// </summary>
+        private void BecomingDevil(bool demonization)
+        {
+            int svaeMaxHP = currentMaxHp;
+
+            if (demonization)
+            {
+                StartCoroutine(ScaleOverTime(targetScale));
+                currentMaxHp += devilData.devilMaxHp;//血量加成
+                currentHp = currentMaxHp;//血量回复到最大
+
+                if (currentMaxHp >= svaeMaxHP)
+                {
+                    //在devilData.maxHPLossFrequency时间后调用减少最大血量的方法，每隔一段时间自动触发
+                    InvokeRepeating("DecreaseHealth", 0f, devilData.maxHPLossFrequency);
+                }
+                else
+                {
+                    devilController.demonization = false;//如果最高血量小于原本的一定值时，退出魔王状态
+                    EventCenter.Broadcast<bool>(EventType.Demonization, devilController.demonization);
+                }
+            }
+            else
+            {
+                StartCoroutine(ScaleOverTime(initialScale));
+                currentMaxHp = svaeMaxHP;//还原血量
+            }
+        }
+
+        void DecreaseHealth()
+        {
+            // 逐渐减少最大血量
+            currentMaxHp -= devilData.maxHPlossCount;
+        }
+
+        private IEnumerator ScaleOverTime(Vector3 target)
+        {
+            float startTime = Time.time;
+
+            while (Time.time - startTime < 1.0f)
+            {
+                transform.localScale = Vector3.Lerp(transform.localScale, target, (Time.time - startTime) * scaleChangeSpeed);
+                yield return null;
+            }
+
+            // 确保最终缩放值准确
+            transform.localScale = target;
+        }
+
+        [ServerCallback]
+        private void OnTriggerEnter2D(Collider2D other) //只在服务器上执行玩家收到伤害相关
+        {
+            //if(other.CompareTag("Bullet"))   //玩家和子弹碰撞受到伤害
+            //{
+            //    Debug.Log("玩家确实读到了子弹的碰撞信息。");
+            //    //令所有客户端的该角色同步受到伤害
+            //    if(currentHp > 0)
+            //    {
+            //        currentHp -= bulletDmg;
+            //    }
+            //    else
+            //    {
+            //        isDead = true;
+            //        StartCoroutine(IEPlayerDied(0f,0.05f));
+            //    }
+            //}
+            if (other.CompareTag("Enemy"))
+            {
+                // 检查玩家是否已经死亡
+                if (!isDead)
+                {
+                    // 令所有客户端的该角色同步受到伤害
+                    StartCoroutine(DamageOverTime(5)); // 每次受到5点伤害
+                }
+            }
+        }
+
+        private IEnumerator DamageOverTime(int damageAmount)
+        {
+            while (currentHp > 0)
+            {
+                // 受到伤害
+                currentHp -= damageAmount;
+
+                // 如果玩家死亡，处理死亡逻辑
+                if (currentHp <= 0)
+                {
+                    isDead = true;
+                    StartCoroutine(IEPlayerDied(0f, 0.05f));
+                    break;
+                }
+
+                // 等待0.5秒后再次造成伤害
+                yield return new WaitForSeconds(0.5f);
+            }
+        }
+
+
+        void OnChangeHpUI(int oldValue, int newValue)
+        {
+            if (currentHp >= 0)
+            {
+                hpBarUI.UpdateHpBar(currentHp, currentMaxHp);
+            }
+        }
+
+        IEnumerator IEPlayerDied(float respawnDelay, float delay)
+        {
+            yield return new WaitForSeconds(respawnDelay);
+            NetworkIdentity networkIdentity = GetComponent<NetworkIdentity>();
+            RespawnCheckOn(networkIdentity.connectionToClient);
+            yield return new WaitForSeconds(delay);
+            NetworkServer.Destroy(gameObject);
+        }
+
+        [TargetRpc]
+        void RespawnCheckOn(NetworkConnection connection)
+        {
+            GameManager.Instance.isPlayerRespawn = true;
+        }
+
+        //void OnGUI()
         //{
-        //    Debug.Log("玩家确实读到了子弹的碰撞信息。");
-        //    //令所有客户端的该角色同步受到伤害
-        //    if(currentHp > 0)
-        //    {
-        //        currentHp -= bulletDmg;
-        //    }
-        //    else
-        //    {
-        //        isDead = true;
-        //        StartCoroutine(IEPlayerDied(0f,0.05f));
-        //    }
+        //    GUI.Box(new Rect(40f, 50f + (playerId * 50f), 110f, 25f), $"P{playerId}: {currentFraction:0000000}");
         //}
-        if (other.CompareTag("Enemy")) 
+
+        void AddExpToRank(int oldValue, int newValue)
         {
-            // 检查玩家是否已经死亡
-            if (!isDead)
-            {
-                // 令所有客户端的该角色同步受到伤害
-                StartCoroutine(DamageOverTime(5)); // 每次受到5点伤害
-            }
+            string playerName = "P" + playerId.ToString();
+            RankManager.Instance.AddScore(playerName, currentFraction);
         }
     }
 
-    private IEnumerator DamageOverTime(int damageAmount)
-    {
-        while (currentHp > 0)
-        {
-            // 受到伤害
-            currentHp -= damageAmount;
-
-            // 如果玩家死亡，处理死亡逻辑
-            if (currentHp <= 0)
-            {
-                isDead = true;
-                StartCoroutine(IEPlayerDied(0f, 0.05f));
-                break;
-            }
-
-            // 等待0.5秒后再次造成伤害
-            yield return new WaitForSeconds(0.5f);
-        }
-    }
-
-
-    void OnChangeHpUI(int oldValue,int newValue)
-    {
-        if(currentHp >= 0)
-        {
-            hpBarUI.UpdateHpBar(currentHp, currentMaxHp);
-        }
-    }
-
-    IEnumerator IEPlayerDied(float respawnDelay, float delay)
-    {
-        yield return new WaitForSeconds(respawnDelay);
-        NetworkIdentity networkIdentity = GetComponent<NetworkIdentity>();
-        RespawnCheckOn(networkIdentity.connectionToClient);
-        yield return new WaitForSeconds(delay);
-        NetworkServer.Destroy(gameObject);
-    }
-
-    [TargetRpc]
-    void RespawnCheckOn(NetworkConnection connection )
-    {
-        GameManager.Instance.isPlayerRespawn = true;
-    }
-
-    //void OnGUI()
-    //{
-    //    GUI.Box(new Rect(40f, 50f + (playerId * 50f), 110f, 25f), $"P{playerId}: {currentFraction:0000000}");
-    //}
-
-    void AddExpToRank(int oldValue,int newValue)
-    {
-        string playerName = "P" + playerId.ToString();
-        RankManager.Instance.AddScore(playerName, currentFraction);
-    }
-}
 

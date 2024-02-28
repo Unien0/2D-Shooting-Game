@@ -6,6 +6,12 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
+    path: Assets/Scenes/MirrorRoomOffline.unity
+    guid: 1b0b50335cad1704fb8cd2861a41b30b
+  - enabled: 1
     path: Assets/Scenes/InGame.unity
     guid: 7cf233b18ac2e7041b52c1e46a67351a
+  - enabled: 1
+    path: Assets/Scenes/MirrorRoomOnline.unity
+    guid: 57c504eadd9425541b728d24a2c66a86
   m_configObjects: {}
