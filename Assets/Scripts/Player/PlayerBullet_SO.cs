@@ -1,4 +1,4 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -31,9 +31,4 @@ public class PlayerBullet_SO : ScriptableObject
     public int linerBulletPenetrationCount;//穿透次数
     [Header("_存在时间")]
     public float linerBulletExistenceTime;
-
-
-    [Header("追踪子弹")]
-    [Header("_速度")]
-    public float trackingBulletSpeed;//基础
 }

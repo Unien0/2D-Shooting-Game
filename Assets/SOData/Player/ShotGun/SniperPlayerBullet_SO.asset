@@ -12,14 +12,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 114ed8ac87c4a724aae3a158e6583bf0, type: 3}
   m_Name: SniperPlayerBullet_SO
   m_EditorClassIdentifier: 
-  playerBulletDamage: 2
+  playerBulletDamage: 7
   bulletDamageMultipler: 1
-  bulletCoolDownTime: 0.85
-  bulletExistenceTime: 0
+  bulletCoolDownTime: 0.8
+  bulletExistenceTime: 0.8
   magazineBulletCount: 8
-  bulletFillingTime: 1
+  bulletFillingTime: 1.5
   bulletLoadingStartTime: 2
-  linerBulletSpeed: 2
+  linerBulletSpeed: 2.5
   linerBulletPenetrationCount: 1
-  linerBulletExistenceTime: 0.3
-  trackingBulletSpeed: 0
+  linerBulletExistenceTime: 0.8

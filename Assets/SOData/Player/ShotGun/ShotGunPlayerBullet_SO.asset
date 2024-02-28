@@ -15,11 +15,10 @@ MonoBehaviour:
   playerBulletDamage: 2
   bulletDamageMultipler: 1
   bulletCoolDownTime: 0.85
-  bulletExistenceTime: 0
+  bulletExistenceTime: 0.3
   magazineBulletCount: 8
   bulletFillingTime: 1
   bulletLoadingStartTime: 2
   linerBulletSpeed: 2
   linerBulletPenetrationCount: 1
   linerBulletExistenceTime: 0.3
-  trackingBulletSpeed: 0
