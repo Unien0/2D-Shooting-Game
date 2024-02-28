@@ -129,18 +129,16 @@ public class BulletController : NetworkBehaviour
     void Init()
     {
         // 实例化子弹并设置位置和旋转
-        if (!devilController.demonization)
+        if (true)
         {
             GameObject bullet = Instantiate(bulletPrefab, firePos.position, transform.rotation);
             NetworkServer.Spawn(bullet);
         }
-        else
-        {
-            GameObject bullet = Instantiate(devilBulletPrefab, firePos.position, transform.rotation);
-            NetworkServer.Spawn(bullet);
-        }
-        
-        
+        //else
+        //{
+        //    GameObject bullet = Instantiate(devilBulletPrefab, firePos.position, transform.rotation);
+        //    NetworkServer.Spawn(bullet);
+        //}
     }
     /// <summary>
     /// 鼠标射击模式

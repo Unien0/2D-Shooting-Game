@@ -11,13 +11,14 @@ using TMPro;
 
         [SerializeField]
         private int bulletDmg = 10;
+        private int enemyDmg = 3;
 
-        #region SO数据获取
-        /// <summary>
-        /// TODO:后期更新获取数据的方式
-        /// </summary>
-        //获取血量相关
-        public int playerHP//当前血量
+    #region SO数据获取
+    /// <summary>
+    /// TODO:后期更新获取数据的方式
+    /// </summary>
+    //获取血量相关
+    public int playerHP//当前血量
         {
             get { if (playerData != null) return playerData.playerHP; else return 0; }
             set { playerData.playerHP = value; }
@@ -218,51 +219,36 @@ using TMPro;
         [ServerCallback]
         private void OnTriggerEnter2D(Collider2D other) //只在服务器上执行玩家收到伤害相关
         {
-            //if(other.CompareTag("Bullet"))   //玩家和子弹碰撞受到伤害
-            //{
-            //    Debug.Log("玩家确实读到了子弹的碰撞信息。");
-            //    //令所有客户端的该角色同步受到伤害
-            //    if(currentHp > 0)
-            //    {
-            //        currentHp -= bulletDmg;
-            //    }
-            //    else
-            //    {
-            //        isDead = true;
-            //        StartCoroutine(IEPlayerDied(0f,0.05f));
-            //    }
-            //}
-            if (other.CompareTag("Enemy"))
+            if(other.CompareTag("Bullet"))   //玩家和子弹碰撞受到伤害
             {
-                // 检查玩家是否已经死亡
-                if (!isDead)
+                Debug.Log("玩家确实读到了子弹的碰撞信息。");
+                //令所有客户端的该角色同步受到伤害
+                if(currentHp > 0)
                 {
-                    // 令所有客户端的该角色同步受到伤害
-                    StartCoroutine(DamageOverTime(5)); // 每次受到5点伤害
+                    currentHp -= bulletDmg;
+                }
+                else
+                {
+                    isDead = true;
+                    StartCoroutine(IEPlayerDied(0f,0.05f));
                 }
             }
-        }
 
-        private IEnumerator DamageOverTime(int damageAmount)
-        {
-            while (currentHp > 0)
+            if (other.CompareTag("Enemy"))
             {
-                // 受到伤害
-                currentHp -= damageAmount;
-
-                // 如果玩家死亡，处理死亡逻辑
-                if (currentHp <= 0)
+                Debug.Log("玩家确实受到了敌人的碰撞信息。");
+                 // 检查玩家是否已经死亡
+                if (currentHp > 0)
+                {
+                    currentHp -= enemyDmg;
+                }
+                else
                 {
                     isDead = true;
                     StartCoroutine(IEPlayerDied(0f, 0.05f));
-                    break;
                 }
-
-                // 等待0.5秒后再次造成伤害
-                yield return new WaitForSeconds(0.5f);
-            }
+             }
         }
-
 
         void OnChangeHpUI(int oldValue, int newValue)
         {
@@ -294,7 +280,7 @@ using TMPro;
 
         void AddExpToRank(int oldValue, int newValue)
         {
-            string playerName = "P" + playerId.ToString();
+            string playerName = "P" + (100 + playerId).ToString();
             RankManager.Instance.AddScore(playerName, currentFraction);
         }
     }

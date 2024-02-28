@@ -40,13 +40,14 @@ public class GameManager : Singleton<GameManager>//设置为单例
     // Update is called once per frame
     void Update()
     {
-        if(Input.GetKeyDown(KeyCode.R) && isPlayerRespawn)
+        
+        if (Input.GetKeyDown(KeyCode.R) && isPlayerRespawn)
         {
             NetworkClient.AddPlayer();
             isPlayerRespawn = false;
             FindObjectOfType<PlayerState>().isDead = false;
         }
-
+ 
         if(isServer)
         {
             gameTime += Time.deltaTime;
