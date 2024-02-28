@@ -19,7 +19,8 @@ MonoBehaviour:
   enemyIntroduction: 
   enemyHp: 10
   enemySpeed: 1
-  enemyDamage: 0
+  enemyDamage: 1
+  enemyPoint: 0
   isDead: 0
   moveable: 0
   controllable: 0

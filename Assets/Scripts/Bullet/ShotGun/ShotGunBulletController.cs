@@ -291,9 +291,9 @@ public class ShotGunBulletController : NetworkBehaviour
             bulletLoadingDisplay.fillAmount = fillAmount;
 
             fillingTime += Time.deltaTime;
-            if (fillingTime >= bulletFillingTime)
+            if (fillingTime >= bulletFillingTime && currentMagazineBulletCount< currentMaxMagazineBulletCount)
             {
-                currentMagazineBulletCount = currentMaxMagazineBulletCount;
+                currentMagazineBulletCount += 1;
                 fillingTime = 0;
                 isFillingTime = false;
                 isLoadBullets = false;

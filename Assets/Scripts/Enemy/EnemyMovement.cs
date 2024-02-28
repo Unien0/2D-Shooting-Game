@@ -1,4 +1,4 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -11,16 +11,13 @@ public class EnemyMovement : MonoBehaviour
         get { if (enemyData != null) return enemyData.enemySpeed; else return 0; }
     }
     private Transform player;
+    private CircleCollider2D circleCollider2D;
+
     // Start is called before the first frame update
     void Start()
     {
         player = GameObject.FindGameObjectWithTag("Player").transform;//获取玩家位置
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        EnemyMove();
+        circleCollider2D = GetComponent<CircleCollider2D>();
     }
 
     /// <summary>
@@ -33,5 +30,13 @@ public class EnemyMovement : MonoBehaviour
         direction.Normalize();//斜角标准化
         transform.Translate(direction * enmeySpeed * Time.deltaTime);
 
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.CompareTag("Player"))
+        {
+            EnemyMove();
+        }
     }
 }

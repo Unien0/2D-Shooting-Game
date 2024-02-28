@@ -232,7 +232,38 @@ public class PlayerState : NetworkBehaviour
                 StartCoroutine(IEPlayerDied(0f,0.05f));
             }
         }
+        if (other.CompareTag("Enemy")) 
+        {
+            // 检查玩家是否已经死亡
+            if (!isDead)
+            {
+                // 令所有客户端的该角色同步受到伤害
+                StartCoroutine(DamageOverTime(5)); // 每次受到5点伤害
+            }
+        }
     }
+
+    private IEnumerator DamageOverTime(int damageAmount)
+    {
+        while (currentHp > 0)
+        {
+            // 受到伤害
+            currentHp -= damageAmount;
+
+            // 如果玩家死亡，处理死亡逻辑
+            if (currentHp <= 0)
+            {
+                isDead = true;
+                StartCoroutine(IEPlayerDied(0f, 0.05f));
+                break;
+            }
+
+            // 等待0.5秒后再次造成伤害
+            yield return new WaitForSeconds(0.5f);
+        }
+    }
+
+
     void OnChangeHpUI(int oldValue,int newValue)
     {
         if(currentHp >= 0)
