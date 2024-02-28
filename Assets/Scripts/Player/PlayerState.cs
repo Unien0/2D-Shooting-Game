@@ -218,20 +218,20 @@ public class PlayerState : NetworkBehaviour
     [ServerCallback]
     private void OnTriggerEnter2D(Collider2D other) //只在服务器上执行玩家收到伤害相关
     {
-        if(other.CompareTag("Bullet"))   //玩家和子弹碰撞受到伤害
-        {
-            Debug.Log("玩家确实读到了子弹的碰撞信息。");
-            //令所有客户端的该角色同步受到伤害
-            if(currentHp > 0)
-            {
-                currentHp -= bulletDmg;
-            }
-            else
-            {
-                isDead = true;
-                StartCoroutine(IEPlayerDied(0f,0.05f));
-            }
-        }
+        //if(other.CompareTag("Bullet"))   //玩家和子弹碰撞受到伤害
+        //{
+        //    Debug.Log("玩家确实读到了子弹的碰撞信息。");
+        //    //令所有客户端的该角色同步受到伤害
+        //    if(currentHp > 0)
+        //    {
+        //        currentHp -= bulletDmg;
+        //    }
+        //    else
+        //    {
+        //        isDead = true;
+        //        StartCoroutine(IEPlayerDied(0f,0.05f));
+        //    }
+        //}
         if (other.CompareTag("Enemy")) 
         {
             // 检查玩家是否已经死亡

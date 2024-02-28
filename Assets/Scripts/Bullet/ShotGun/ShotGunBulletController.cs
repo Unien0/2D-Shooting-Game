@@ -132,7 +132,7 @@ public class ShotGunBulletController : NetworkBehaviour
         {
             for (int i = 0; i < firePosArr.Length; i++)
             {
-                GameObject bullet = Instantiate(bulletPrefab, firePosArr[i].position, transform.rotation);
+                GameObject bullet = Instantiate(bulletPrefab, firePosArr[i].position, firePosArr[i].rotation);
                 NetworkServer.Spawn(bullet);
             }
             
@@ -141,7 +141,7 @@ public class ShotGunBulletController : NetworkBehaviour
         {
             for (int i = 0; i < firePosArr.Length; i++)
             {
-                GameObject bullet = Instantiate(devilBulletPrefab, firePosArr[i].position, transform.rotation);
+                GameObject bullet = Instantiate(devilBulletPrefab, firePosArr[i].position, firePosArr[i].rotation);
                 NetworkServer.Spawn(bullet);
             }
             

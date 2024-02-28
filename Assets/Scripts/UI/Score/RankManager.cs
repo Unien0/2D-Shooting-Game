@@ -32,7 +32,7 @@ public class RankManager : NetworkBehaviour
     }
 
     [ClientRpc]
-    public void InitRank(string playerId) //新玩家加入进来时自动初期化一个排名
+    public void InitRank(string playerId) //新玩家加葋E词弊远跗诨桓雠琶丒
     {
         rankList[number].GetComponent<TextMeshProUGUI>().text = playerId;
         number++;
@@ -85,7 +85,7 @@ public class RankManager : NetworkBehaviour
                 }
                 return;
             default:
-                Debug.Log("出现序列之外的排名");
+                //Debug.Log("出现序列之外的排脕E);
                 return;
         }
     }
