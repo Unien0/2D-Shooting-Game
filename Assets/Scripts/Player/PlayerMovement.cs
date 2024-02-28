@@ -17,7 +17,7 @@ public class PlayerMovement : NetworkBehaviour
     private SpriteRenderer sr;
     private PlayerState playerState;
     private Transform playerTransform;
-
+    private Animator animator;
     //1.30：进入草丛隐藏UI试做
     public Canvas playerUICanvas;
 
@@ -38,6 +38,7 @@ public class PlayerMovement : NetworkBehaviour
         rigidbody = GetComponent<Rigidbody2D>();
         sr = GetComponent<SpriteRenderer>();
         playerState = GetComponent<PlayerState>();
+        animator = GetComponent<Animator>();
     }
 
     void Update()
@@ -63,6 +64,14 @@ public class PlayerMovement : NetworkBehaviour
 
             //rigidbody.MovePosition(rigidbody.position + movement.normalized * MoveSpeed * Time.fixedDeltaTime);
             rigidbody.velocity = movement.normalized * currentMoveSpeed;
+        }
+        if (Input.GetAxisRaw("Horizontal") != 0f || Input.GetAxisRaw("Vertical") != 0f)
+        {
+            animator.SetBool("walk", true);
+        }
+        else if(Input.GetAxisRaw("Horizontal") == 0f && Input.GetAxisRaw("Vertical") == 0f)
+        {
+            animator.SetBool("walk", false);
         }
     }
 

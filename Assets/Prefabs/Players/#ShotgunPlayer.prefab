@@ -934,6 +934,7 @@ MonoBehaviour:
   currentReplyVolume: 0
   currentReplyTime: 0
   scaleChangeSpeed: 1
+  playerId: 0
   currentFraction: 0
   isDead: 0
   highestPoint: 0
@@ -1075,7 +1076,7 @@ Animator:
   m_GameObject: {fileID: 2843107405343368551}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 7092077299f9f8146a5df0c5ba1442a4, type: 2}
+  m_Controller: {fileID: 9100000, guid: f4675cf4215d92c4da8b0e1fa4624d85, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
