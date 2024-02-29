@@ -14,6 +14,7 @@ TagManager:
   - minExpBar
   - ExpText
   - Gem
+  - HpRecovery
   layers:
   - Default
   - TransparentFX

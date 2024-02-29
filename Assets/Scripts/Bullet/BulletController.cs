@@ -65,6 +65,8 @@ public class BulletController : NetworkBehaviour
     public GameObject bulletPrefab;
     public GameObject devilBulletPrefab;
 
+    private bool isDead = false;
+
     private void Awake()
     {
         EventCenter.AddListener<bool>(EventType.Demonization, BecomingDevil);
@@ -93,8 +95,16 @@ public class BulletController : NetworkBehaviour
 
     void Update()
     {
+        isDead = GetComponentInParent<PlayerState>().isDead;
+
         if (!isLocalPlayer)
         {
+            return;
+        }
+        if(isDead)
+        {
+            bulletCountDisplay.enabled = false;
+            bulletCountIcon.enabled = false;
             return;
         }
         ChangeRotation();
@@ -150,6 +160,7 @@ public class BulletController : NetworkBehaviour
         //按下鼠标左键，射击
         if (Input.GetMouseButton(0) && !isLoadBullets)
         {
+            fillingTimeCD = 0;  //只要进入射击状态，就会打断脱战自动装填的CD,以及装填进度
             fillingTime = 0;
             bulletTime += Time.deltaTime;
 
@@ -161,6 +172,19 @@ public class BulletController : NetworkBehaviour
 
             }
         }
+        //不按左键，视为脱战状态，如果此时子弹数少于弹匣容量，经过一段时间后自动装填
+        else if (currentMagazineBulletCount < currentMaxMagazineBulletCount)
+        {
+            //计时器，如果fillingTimeCD 大于等于填装启动时间，则进入填装状态，此时如果发射子弹，则计时归0
+            fillingTimeCD += Time.deltaTime;
+            if (fillingTimeCD >= bulletLoadingStartTime)
+            {
+                //由于不是强制填装状态，所以玩家可以随时退出填装
+                isFillingTime = true;
+                LoadBullets();
+            }
+        }
+
         if (currentMagazineBulletCount >= currentMaxMagazineBulletCount)
         {
             fillingTimeCD = 0;

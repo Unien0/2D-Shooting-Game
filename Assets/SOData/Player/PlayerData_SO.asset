@@ -19,7 +19,7 @@ MonoBehaviour:
   playerMaxHP: 100
   playerHP: 100
   playerReplyTime: 3
-  playerReplyVolume: 2
+  playerReplyVolume: 1
   playerLucky: 0
   playerBaseSpeed: 5
   playerCurrentSpeed: 5

@@ -284,6 +284,7 @@ MonoBehaviour:
   - {fileID: 4457837258222553567, guid: 593c1feb7ddf4a441974efc52c0b8a3c, type: 3}
   - {fileID: 3872798576202859669, guid: fa985802f7d7dc7429b0c0bb472181cd, type: 3}
   - {fileID: 704962269006442585, guid: cb2d664d5d139c14d8e71608b855f646, type: 3}
+  - {fileID: 2368373050726164607, guid: 06468022d322edd41af9b1a42b51e0bc, type: 3}
   exceptionsDisconnect: 1
   snapshotSettings:
     bufferTimeMultiplier: 2
@@ -307,6 +308,7 @@ MonoBehaviour:
   _allPlayersReady: 0
   roomSlots: []
   clientIndex: 0
+  showBackRoomBtm: 0
 --- !u!4 &1772943021
 Transform:
   m_ObjectHideFlags: 0

@@ -57,14 +57,11 @@ public class PlayerMovement : NetworkBehaviour
     {
         if (!isLocalPlayer) return;
 
-        if (!isDead)//玩家死亡后无法移动
-        {
-            movement.x = Input.GetAxisRaw("Horizontal");
-            movement.y = Input.GetAxisRaw("Vertical");
+        movement.x = Input.GetAxisRaw("Horizontal");
+        movement.y = Input.GetAxisRaw("Vertical");
 
-            //rigidbody.MovePosition(rigidbody.position + movement.normalized * MoveSpeed * Time.fixedDeltaTime);
-            rigidbody.velocity = movement.normalized * currentMoveSpeed;
-        }
+        //rigidbody.MovePosition(rigidbody.position + movement.normalized * MoveSpeed * Time.fixedDeltaTime);
+        rigidbody.velocity = movement.normalized * currentMoveSpeed;
         if (Input.GetAxisRaw("Horizontal") != 0f || Input.GetAxisRaw("Vertical") != 0f)
         {
             animator.SetBool("walk", true);
@@ -126,15 +123,6 @@ public class PlayerMovement : NetworkBehaviour
     [Command]
     void CmdFlip(float angle)
     {
-        if (angle > 90f || angle < -90f)
-        {
-            sr.flipX = true;
-        }
-        else
-        {
-            sr.flipX = false;
-        }
-
         CRpcFlip(angle);
     }
 

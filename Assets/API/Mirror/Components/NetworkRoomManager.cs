@@ -668,14 +668,6 @@ namespace Mirror
             if (!showRoomGUI)
                 return;
 
-            if (NetworkServer.active && Utils.IsSceneActive(GameplayScene))
-            {
-                GUILayout.BeginArea(new Rect(Screen.width - 150f, 10f, 140f, 30f));
-                if (GUILayout.Button("¥ë©`¥à¤Ø‘ø¤ë"))
-                    ServerChangeScene(RoomScene);
-                GUILayout.EndArea();
-            }
-
             if (Utils.IsSceneActive(RoomScene))
                 GUI.Box(new Rect(10f, 180f, 520f, 150f), "PLAYERS");
         }
