@@ -74,6 +74,7 @@ using TMPro;
         DevilController devilController;
         public PlayerHpBarUI hpBarUI;
 
+        public TMP_Text pNmaeUI;
         private void Awake()
         {
             EventCenter.AddListener<bool>(EventType.Demonization, BecomingDevil);
@@ -101,7 +102,9 @@ using TMPro;
             devilController = GetComponent<DevilController>();
 
             targetScale = initialScale * 2.0f;
-        }
+
+            pNmaeUI.text = "P" + (1 + playerId).ToString();
+    }
 
         void Update()
         {
@@ -280,7 +283,7 @@ using TMPro;
 
         void AddExpToRank(int oldValue, int newValue)
         {
-            string playerName = "P" + (100 + playerId).ToString();
+            string playerName = "P" + (1 + playerId).ToString();
             RankManager.Instance.AddScore(playerName, currentFraction);
         }
     }

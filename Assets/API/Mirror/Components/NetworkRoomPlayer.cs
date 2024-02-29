@@ -151,14 +151,14 @@ namespace Mirror
         {
             GUILayout.BeginArea(new Rect(20f + (index * 100), 200f, 90f, 130f));
 
-            GUILayout.Label($"Player [{index + 1}]");
+            GUILayout.Label($"　  P {index + 1}");
 
             if (readyToBegin)
-                GUILayout.Label("Ready");
+                GUILayout.Label("　準備完了");
             else
-                GUILayout.Label("Not Ready");
+                GUILayout.Label("　準備中");
 
-            if (((isServer && index > 0) || isServerOnly) && GUILayout.Button("REMOVE"))
+            if (((isServer && index > 0) || isServerOnly) && GUILayout.Button("追い出す"))
             {
                 // This button only shows on the Host for all players other than the Host
                 // Host and Players can't remove themselves (stop the client instead)
@@ -177,12 +177,12 @@ namespace Mirror
 
                 if (readyToBegin)
                 {
-                    if (GUILayout.Button("Cancel"))
+                    if (GUILayout.Button("キャンセル"))
                         CmdChangeReadyState(false);
                 }
                 else
                 {
-                    if (GUILayout.Button("Ready"))
+                    if (GUILayout.Button("準備"))
                         CmdChangeReadyState(true);
                 }
 
