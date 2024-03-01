@@ -23,7 +23,7 @@ public class CustomNetworkRoomManager : NetworkRoomManagerExt
         if (NetworkServer.active && Utils.IsSceneActive(GameplayScene) && showBackRoomBtm)
         {
             GUILayout.BeginArea(new Rect((Screen.width / 2) - 75f, 750f, 150f, 100f));
-            if (GUILayout.Button("•Î©`•‡§ÿë¯§Î"))
+            if (GUILayout.Button("ÉãÅ[ÉÄÇ…ñﬂÇÈ"))
             {
                 ServerChangeScene(RoomScene);
                 showBackRoomBtm = false;

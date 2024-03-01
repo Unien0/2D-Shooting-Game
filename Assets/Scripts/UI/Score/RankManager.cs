@@ -45,13 +45,13 @@ public class RankManager : NetworkBehaviour
     private void Update()
     {
         runTime = GameManager.Instance.gameTime;
-        //ÔÚ·şÎñÆ÷ÉÏ£¬Ã¿Ãë¼ì²âÍæ¼ÒÊıÁ¿
+        //ÔÚ·şÎñÆ÷ÉÏ£¬Ã¿ÃEEâÍæ¼ÒÊıÁ¿
         if (isServer && runTime >= 5)
         {
             players = FindObjectsOfType<PlayerDiedCheck>();
             Debug.Log("Ä¿Ç°Íæ¼ÒÊıÁ¿£º" + players.Length);
 
-            //µ±Íæ¼Ò½öÊ£Ò»ÈËÊ±£¬¼´ÓÎÏ·½áÊø
+            //µ±Íæ¼Ò½öÊ£Ò»ÈËÊ±£¬¼´ÓÎÏ·½áÊE
             if (players.Length == 1)
             {
                 //ÕÒµ½ÄÇ½öÊ£µÄÍæ¼Ò£¬ÏÔÊ¾ÔÚUIÉÏ
