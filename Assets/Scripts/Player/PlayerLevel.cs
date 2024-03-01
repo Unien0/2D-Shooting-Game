@@ -92,8 +92,8 @@ public class PlayerLevel : NetworkBehaviour
             }
             experienceCap += experienceCapIncrease;
             experience -= formerCap;
-            GetComponent<PlayerState>().currentMaxHp += 15;
-            GetComponent<PlayerState>().currentHp += 15;
+            GetComponent<PlayerState>().currentMaxHp += 30;
+            GetComponent<PlayerState>().currentHp += 30;
 
             //游戏状态调整（暂时没做）
             //GameManager.instance.StartLevelUp();

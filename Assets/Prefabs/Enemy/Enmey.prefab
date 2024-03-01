@@ -18,6 +18,7 @@ GameObject:
   - component: {fileID: 1905514311}
   - component: {fileID: -8590703571356386237}
   - component: {fileID: 171609614620134766}
+  - component: {fileID: 1344808085165539878}
   m_Layer: 8
   m_Name: Enmey
   m_TagString: Enemy
@@ -81,8 +82,8 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 876185047
   m_SortingLayer: 4
-  m_SortingOrder: 0
-  m_Sprite: {fileID: 21300356, guid: 512a3a5212bdfc048b89d9ef214b8cee, type: 3}
+  m_SortingOrder: 1
+  m_Sprite: {fileID: 21300354, guid: 512a3a5212bdfc048b89d9ef214b8cee, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -127,7 +128,7 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: -0.05}
+  m_Offset: {x: 0.01213181, y: -0.38702476}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -138,7 +139,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1.05, y: 0.95}
+  m_Size: {x: 1.3945432, y: 0.47976467}
   m_EdgeRadius: 0
 --- !u!114 &941279739348309506
 MonoBehaviour:
@@ -259,9 +260,30 @@ CircleCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: -0.05}
+  m_Offset: {x: 0, y: -0.059491426}
   serializedVersion: 2
-  m_Radius: 0.4
+  m_Radius: 0.2905086
+--- !u!95 &1344808085165539878
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 941279739348309509}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: e168b0696414fbc4f9f828d5c0448c01, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &7677544092638234228
 GameObject:
   m_ObjectHideFlags: 0
@@ -332,11 +354,11 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: 876185047
+  m_SortingLayer: 4
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 9c2929382c3e75c4b808c3ae4a9a03f7, type: 3}
-  m_Color: {r: 1, g: 0.00000016291936, b: 0, a: 1}
+  m_Color: {r: 1, g: 0.19398192, b: 0.044025064, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0

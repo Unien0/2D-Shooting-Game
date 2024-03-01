@@ -19,7 +19,6 @@ MonoBehaviour:
   magazineBulletCount: 30
   bulletFillingTime: 2
   bulletLoadingStartTime: 2
-  linerBulletSpeed: 2
+  linerBulletSpeed: 3
   linerBulletPenetrationCount: 1
   linerBulletExistenceTime: 0.7
-  trackingBulletSpeed: 0

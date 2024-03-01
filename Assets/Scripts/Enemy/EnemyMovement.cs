@@ -16,7 +16,7 @@ public class EnemyMovement : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        player = GameObject.FindGameObjectWithTag("Player").transform;//获取玩家位置
+        //player = GameObject.FindGameObjectWithTag("Player").transform;//获取玩家位置
         circleCollider2D = GetComponent<CircleCollider2D>();
     }
 
@@ -24,19 +24,19 @@ public class EnemyMovement : MonoBehaviour
     /// 敌人移动
     /// 可能会使用A算来调整
     /// </summary>
-    void EnemyMove()
-    {
-        Vector2 direction = player.position - transform.position;
-        direction.Normalize();//斜角标准化
-        transform.Translate(direction * enmeySpeed * Time.deltaTime);
+    //void EnemyMove()
+    //{
+    //    Vector2 direction = player.position - transform.position;
+    //    direction.Normalize();//斜角标准化
+    //    transform.Translate(direction * enmeySpeed * Time.deltaTime);
 
-    }
+    //}
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.CompareTag("Player"))
         {
-            EnemyMove();
+            //EnemyMove();
         }
     }
 }

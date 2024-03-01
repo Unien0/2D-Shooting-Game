@@ -40,7 +40,7 @@ namespace Mirror.Discovery
 
         void DrawGUI()
         {
-            GUILayout.BeginArea(new Rect(10, 10, 300, 500));
+            GUILayout.BeginArea(new Rect(30, 35, 450, 500));
             GUILayout.BeginHorizontal();
 
             if (GUILayout.Button("ルーム検索"))
@@ -84,7 +84,7 @@ namespace Mirror.Discovery
 
         void StopButtons()
         {
-            GUILayout.BeginArea(new Rect(10, 40, 100, 25));
+            GUILayout.BeginArea(new Rect(30, 35, 100, 30));
 
             // stop host if host mode
             if (NetworkServer.active && NetworkClient.isConnected)

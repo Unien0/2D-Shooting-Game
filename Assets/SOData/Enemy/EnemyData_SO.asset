@@ -17,7 +17,7 @@ MonoBehaviour:
   enemyIcon: {fileID: 0}
   enemyOnWorldSprite: {fileID: 0}
   enemyIntroduction: 
-  enemyHp: 10
+  enemyHp: 20
   enemySpeed: 1
   enemyDamage: 1
   enemyPoint: 0

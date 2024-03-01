@@ -45,7 +45,7 @@ public class RankManager : NetworkBehaviour
     private void Update()
     {
         runTime = GameManager.Instance.gameTime;
-        //ÔÚ·þÎñÆ÷ÉÏ£¬Ã¿ÃEEâÍæ¼ÒÊýÁ¿
+        //ÔÚ·þÎñÆ÷ÉÏ£¬Ã¿ÃEEâÍæ¼ÒÊýÁ?
         if (isServer && runTime >= 5)
         {
             players = FindObjectsOfType<PlayerDiedCheck>();

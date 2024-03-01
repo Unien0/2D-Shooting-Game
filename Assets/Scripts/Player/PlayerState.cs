@@ -114,6 +114,7 @@ public class PlayerState : NetworkBehaviour
         if (isServer)
         {
             Reply();
+            onChangeHpUICRPC();
         }
     }
 
@@ -293,6 +294,12 @@ public class PlayerState : NetworkBehaviour
     }
 
     void OnChangeHpUI(int oldValue, int newValue)
+    {
+        onChangeHpUICRPC();
+    }
+
+    [ClientRpc]
+    void onChangeHpUICRPC()
     {
         if (currentHp >= 0)
         {

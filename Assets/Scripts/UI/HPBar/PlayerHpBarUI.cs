@@ -6,10 +6,14 @@ using UnityEngine.UI;
 public class PlayerHpBarUI : MonoBehaviour
 {
     private Image hpBar;
-
     void Awake()
     {
         hpBar = GetComponent<Image>();
+    }
+
+    private void Start()
+    {
+        hpBar.fillAmount = 1;
     }
 
     public void UpdateHpBar(int playerHp, int playerMaxHp)
